@@ -1,0 +1,21 @@
+.classeTeste{
+    color: red;
+}
+
+.documentIsLink{
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.documentIsLink:hover{
+    color: blue;
+}
+
+.frameMain{
+    border: solid 1px red;
+    width: 100%;
+}
+
+.frameMain div{
+    width: 100%;
+}

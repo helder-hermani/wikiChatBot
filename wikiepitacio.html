@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WikiEpitácio - Conhecimento Colaborativo - Ag. 0904 - Epitácio Pessoa/PB</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/wikiContent.css">
+    <link rel="stylesheet" href="css/wikieditorcss.css">
+    <link rel="stylesheet" href="css/maincss.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+</head>
+<body>
+    <menu class="menu-top-tools">
+        <img src="assets/icons/home-solid.svg" class="menu-tools-icons">
+        <img src="assets/icons/laptop-house-solid.svg" class="menu-tools-icons">
+        <img src="assets/icons/whatsapp-brands.svg" class="menu-tools-icons">
+        <img src="assets/icons/user-edit-solid.svg" class="menu-tools-icons">
+        <img src="assets/icons/calendar-alt-regular.svg" class="menu-tools-icons">
+    </menu>
+
+    <main>
+        <div>
+            <menu class="main-menu">
+                <img src="assets/icons/link-solid.svg" class="menu-tools-icons">
+                <img src="assets/icons/tools-solid.svg" class="menu-tools-icons">
+                <img src="assets/icons/file-pdf-solid.svg" class="menu-tools-icons">
+                <img src="assets/icons/headset-solid.svg" class="menu-tools-icons">
+                <img src="assets/icons/book-reader-solid.svg" class="menu-tools-icons">
+            </menu> 
+        </div>
+        <section>
+            <div class="main-content-screen">
+            </div>
+            <div class="main-content-menu">
+                <div class="main-content-menu-botton">
+                    <img src="assets/icons/book-open-solid.svg" class="menu-tools-icons menu-icons-medium">
+                    <p>Adicionar Nota Wiki</p>
+                </div>
+                <div class="main-content-menu-botton">
+                    <img src="assets/icons/file-alt-regular.svg" class="menu-tools-icons menu-icons-medium">
+                    <p>Informar Arquivos</p>
+                </div>
+                <div class="main-content-menu-botton">
+                    <img src="assets/icons/phone-volume-solid.svg" class="menu-tools-icons menu-icons-medium">
+                    <p>Informar Arquivos</p>
+                </div>
+                <div class="main-content-menu-botton">
+                    <img src="assets/icons/link-solid.svg" class="menu-tools-icons menu-icons-medium">
+                    <p>Incluir Link no Menu</p>
+                </div>
+            </div>
+        </section>
+        <aside></aside>
+    </main>
+
+    <footer>
+
+    </footer>
+
+    <div id="div-editor">
+        <div class="sample-toolbar">
+            <a href="javascript:void(0)" onclick="format('bold')"><span class="fa fa-bold fa-fw"></span></a>
+            <a href="javascript:void(0)" onclick="format('italic')"><span class="fa fa-italic fa-fw"></span></a>
+            <a href="javascript:void(0)" onclick="format('insertunorderedlist')"><span class="fa fa-list fa-fw"></span></a>
+            <a href="javascript:void(0)" onclick="setUrl()"><span class="fa fa-link fa-fw"></span></a>
+            <span><input id="txtFormatUrl" placeholder="url" class="form-control"></span>
+        </div>
+    
+        <div class="editor" id="sampleeditor">
+        </div>
+        
+        <button id="botao">Ver Conteúdo</button>
+    </div>
+
+    <script src="/js/preload.js"></script>
+    <script src="/js/conteudowiki.js"></script>
+    <script src="/js/wikieditor.js"></script>
+    <script src="/js/functionsApp.js"></script>
+    <script src="/js/mainscript.js"></script>
+</body>
+</html>

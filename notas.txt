@@ -1,0 +1,65 @@
+*** Links
+	- Atendimento
+		- Estoque Cartões
+		- Adesão SMS Conta
+		- Adesão SMS FGTS
+		- Emissão de segunda via de boletos
+		- Portal Habitação
+	- FIES
+		- Novo SIFES Caixa
+		- SIFES Antigo
+		- SIFESWeb - Estudante
+		- Planilha de Repasse
+	- Auxílio Emergencial
+		- Login
+		- Consulta Auxílio - Caixa
+		- Consulta Auxílio - DataPrev
+		- Depositos.Caixa
+		- Siclon
+- Ferramentas
+	- Exclusão lançamento futuro habitação
+	- Estorno prestação Habitação
+	- Formulário alteração cadastral CaixaTem
+	- Gerenciador Interaxa
+	- Pesquisa calendário social
+
+
+*** Arquivos
+*** Banco de Chamados
+
+*** WikiEpitácio
+=====================================================
+
+
+a frase pode conter:
+	- Uma hashtag
+	- O nome de um produto
+	- O nome de um cliente/empreendimento
+	- Um procedimento específico
+	- uma pergunta complexa
+
+	Exemmplos:
+	#pedradoreino
+	fies
+	pedra do reino
+	pausa habitacional
+	quais os procedimentos para encerramento do fies?
+
+Indice
+Ativo
+Segmento
+Produto
+Titulo
+Keywords
+Descricao
+Conteudo
+Normativos
+Chamados
+DataCriacao
+DataAlteracao
+
+=======================================
+
+Algoritmo:
+	1. Identificar o conteúdo da pergunta
+		É hashtag?

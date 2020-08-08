@@ -1,0 +1,144 @@
+@font-face {
+    font-family: "Roboto";
+    src: url("../assets/fonts/Roboto-Regular.ttf");
+  }
+
+body{
+    background-image: url(../assets/backgrounds/background-blue.jpg);
+    background-size: cover;
+    position: relative;
+    padding: 0;
+}
+
+.menu-top-tools{
+    width: 20vw;
+    height: 70px;
+    background: rgba(196, 196, 196, 0.6);
+    border-radius: 15px;
+    transform: translateY(-50%);
+    position: relative;
+    padding: .5% 2%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+
+.menu-tools-icons{
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-icons-medium{
+    width: 50px;
+    height: 50px
+}
+
+main{
+    display: flex;
+    margin: 0;
+    padding: 0;
+    height: 85vh;
+    transform: translateY(-2%);
+    /* border: solid 1px black; */
+}
+
+main div{
+    width: 5%;
+    height: auto;
+    /* border: solid 1px red; */
+    padding: 0;
+    margin:0;
+}
+
+main section{
+    width: 60%;
+    /* border: solid 1px green; */
+    height: auto;
+    margin-left: auto;
+}
+
+main aside{
+    width: 30%;
+    /* border: solid 1px yellow; */
+    height: 80vh;
+    margin-left: auto;
+}
+
+footer{
+    border: solid 1px orange;
+    height: 15px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    /* transform: translateY(60%); */
+    /* width: 99%; */
+}
+
+.main-menu{
+    width: 82px;
+    height: 50vh;
+    transform: translateX(-45%);
+    background: rgba(255, 163, 24, 0.7);
+    /* border: 1px solid #FFA318; */
+    box-sizing: border-box;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.main-content-screen{
+    height: 85%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    border-radius: 15px;
+    padding: 2%;
+    position: relative;
+}
+
+.main-content-menu{
+    height: 15%;
+    width: 65%;
+    /* border: solid 1px black; */
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.main-content-menu-botton{
+    height: 90%;
+    width: 135px;
+    background: rgba(196, 196, 196, 0.3);
+    border: 1px solid #FFA318;
+    box-sizing: border-box;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    align-items: center;
+    /* margin: 0 1%; */
+}
+
+.main-content-menu-botton p{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: .7em;
+    line-height: 21px;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+#div-editor{
+    /* display: none; */
+    height: 1000px;
+}
