@@ -12,16 +12,18 @@
 </head>
 <body>
     <menu class="menu-top-tools">
-        <img src="assets/icons/home-solid.svg" class="menu-tools-icons">
+        <!-- <img src="assets/icons/home-solid.svg" class="menu-tools-icons">
         <img src="assets/icons/laptop-house-solid.svg" class="menu-tools-icons">
         <img src="assets/icons/whatsapp-brands.svg" class="menu-tools-icons">
         <img src="assets/icons/user-edit-solid.svg" class="menu-tools-icons">
-        <img src="assets/icons/calendar-alt-regular.svg" class="menu-tools-icons">
+        <img src="assets/icons/calendar-alt-regular.svg" class="menu-tools-icons"> -->
+        <p>Ferramentas Comuns</p>
     </menu>
 
     <main>
         <div>
             <menu class="main-menu">
+                <img src="assets/icons/home-solid.svg" class="menu-tools-icons">
                 <img src="assets/icons/link-solid.svg" class="menu-tools-icons">
                 <img src="assets/icons/tools-solid.svg" class="menu-tools-icons">
                 <img src="assets/icons/file-pdf-solid.svg" class="menu-tools-icons">
@@ -34,24 +36,32 @@
             </div>
             <div class="main-content-menu">
                 <div class="main-content-menu-botton">
-                    <img src="assets/icons/book-open-solid.svg" class="menu-tools-icons menu-icons-medium">
-                    <p>Adicionar Nota Wiki</p>
+                    <img src="assets/icons/book-open-solid.svg" class="menu-tools-icons">
+                    <!-- <p>Adicionar Nota Wiki</p> -->
                 </div>
                 <div class="main-content-menu-botton">
-                    <img src="assets/icons/file-alt-regular.svg" class="menu-tools-icons menu-icons-medium">
-                    <p>Informar Arquivos</p>
+                    <img src="assets/icons/file-alt-regular.svg" class="menu-tools-icons">
+                    <!-- <p>Informar Arquivos</p> -->
                 </div>
                 <div class="main-content-menu-botton">
-                    <img src="assets/icons/phone-volume-solid.svg" class="menu-tools-icons menu-icons-medium">
-                    <p>Informar Arquivos</p>
+                    <img src="assets/icons/phone-volume-solid.svg" class="menu-tools-icons">
+                    <!-- <p>Informar Arquivos</p> -->
                 </div>
                 <div class="main-content-menu-botton">
-                    <img src="assets/icons/link-solid.svg" class="menu-tools-icons menu-icons-medium">
-                    <p>Incluir Link no Menu</p>
+                    <img src="assets/icons/link-solid.svg" class="menu-tools-icons">
+                    <!-- <p>Incluir Link no Menu</p> -->
                 </div>
             </div>
         </section>
-        <aside></aside>
+        <aside>
+            <div class="aside-chatbot-dialog" id="aside-chatbot-dialog">
+                <p>...</p>
+            </div>
+            <div class="aside-chatbot-prompt">
+                <div><textarea id="textChatbotPrompt" placeholder="Digite aqui sua mensagem..."></textarea></div>
+                <div><img src="/assets/img/icon-help-me.png"></div>
+            </div>
+        </aside>
     </main>
 
     <footer>
@@ -74,8 +84,11 @@
     </div>
 
     <script src="/js/preload.js"></script>
+    <script src="/js/generalFunctions.js"></script>
     <script src="/js/conteudowiki.js"></script>
     <script src="/js/wikieditor.js"></script>
+    <script src="/js/chatbotInterface.js"></script>
+    <script src="/js/chatbotObject.js"></script>
     <script src="/js/functionsApp.js"></script>
     <script src="/js/mainscript.js"></script>
 </body>

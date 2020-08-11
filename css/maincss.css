@@ -12,21 +12,29 @@ body{
 
 .menu-top-tools{
     width: 20vw;
-    height: 70px;
+    height: 50px;
     background: rgba(196, 196, 196, 0.6);
     border-radius: 15px;
-    transform: translateY(-50%);
+    transform: translateY(-45%);
     position: relative;
-    padding: .5% 2%;
+    padding: 0 2%;
     margin: 0 auto;
+    margin-bottom: 1%;
     display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
+}
+
+.menu-top-tools p{
+    font-family: Roboto;
+    font-size: 1em;
+    margin: 0 auto;
+    margin-top: auto;
+    margin-bottom: 2%;
+    font-weight: bold;
 }
 
 .menu-tools-icons{
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     padding: 0;
     margin: 0;
 }
@@ -54,16 +62,18 @@ main div{
 }
 
 main section{
-    width: 60%;
+    width: 65%;
     /* border: solid 1px green; */
     height: auto;
-    margin-left: auto;
+    /* margin-left: auto; */
 }
 
 main aside{
-    width: 30%;
-    /* border: solid 1px yellow; */
-    height: 80vh;
+    width: 29%;
+    border: solid 1px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 0;
+    height: auto;
     margin-left: auto;
 }
 
@@ -96,14 +106,14 @@ footer{
     background: rgba(255, 255, 255, 0.6);
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
-    border-radius: 15px;
+    border-radius: 5px;
     padding: 2%;
     position: relative;
 }
 
 .main-content-menu{
     height: 15%;
-    width: 65%;
+    width: 40%;
     /* border: solid 1px black; */
     display: flex;
     justify-content: space-evenly;
@@ -112,12 +122,12 @@ footer{
 }
 
 .main-content-menu-botton{
-    height: 90%;
-    width: 135px;
+    height: 50%;
+    width: 80px;
     background: rgba(196, 196, 196, 0.3);
     border: 1px solid #FFA318;
     box-sizing: border-box;
-    border-radius: 10px;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -136,9 +146,56 @@ footer{
     margin: 0;
 }
 
+.aside-chatbot-dialog{
+    height: 80%;
+    width: auto;
+    overflow: scroll;
+    padding: 3%;
+    margin-left: 2%;
+    font-family: Roboto;
+    /* border: solid 1px rgba(0, 0, 0, 0.2); */
+}
+
+.aside-chatbot-prompt{
+    height: 13%;
+    width: auto;
+    margin-left: 2%;
+    /* border: solid 1px red; */
+    /* padding: 1%; */
+    display: flex;
+}
+
+
+.aside-chatbot-prompt div:nth-child(1){
+    width: 80%;
+    /* border: solid 1px green; */
+    height: auto;
+}
+
+.aside-chatbot-prompt div:nth-child(1) textarea{
+    width: 100%;
+    height: 95%;
+    resize: none;
+    border: none;
+    /* border: solid 1px rgba(0, 0, 0, 0.2); */
+    outline: none;
+}
+
+.aside-chatbot-prompt div:nth-child(2){
+    width: 20%;
+    height: auto;
+    /* border: solid 1px orange; */
+    padding: 0;
+}
+
+.aside-chatbot-prompt div:nth-child(2) img{
+    width: 100%;
+    height: 100%;
+}
+
 
 
 #div-editor{
-    /* display: none; */
+    display: none;
     height: 1000px;
 }
