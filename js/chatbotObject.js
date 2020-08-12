@@ -27,12 +27,20 @@ var botBehaviour = [
         "index":0,
         "description":"Objeto com interações de cumprimento",
         "nameBehaviour":"cumprimento",
-        "userRequest":["oi", "ola", "boa noite", "bom dia", "boa tarde", "tudo bem?", "como voce esta?", "e ai?", "eae?", "eai?", "blz?", "beleza?", "tranquilo?"],
+        "userRequest":["oi", "ola", "boa noite", "bom dia", "boa tarde"],
         "botResponses":["Olá, " +currentShift + "! Que bom ter você aqui. Em quê posso ajudar?", "Oi, " + currentShift + "! Que bom você confiar em mim! O que desejas saber?"],
         "action" : ""
     },
     {
         "index":1,
+        "description":"Objeto com interações de cumprimento",
+        "nameBehaviour":"cumprimento",
+        "userRequest":["tudo bem?", "como voce esta?", "e ai?", "eae?", "eai?", "blz?", "beleza?", "tranquilo?"],
+        "botResponses":["Aqui tudo ótimo! Obrigado por ter me chamado.", "Tudo bem comigo. Espero que eu possa ser útil", "Tudo bem, obrigado por perguntar. Se precisar de algo, é só falar."],
+        "action" : ""
+    },
+    {
+        "index":2,
         "description":"Objeto com interações de despedida",
         "nameBehaviour":"despedida",
         "userRequest":["tchau", "xau", "xauxixa", "xuazinho", "tchauzinho", "bye", "byebye", "bye bye", "te mais", "ate mais", "ate logo", "te logo", "ate a proxima", "te a proxima", "adeus", "fica com deus"],
@@ -40,7 +48,7 @@ var botBehaviour = [
         "action" : ""
     },
     {
-        "index":2,
+        "index":3,
         "description":"Objeto com interações de agradecimento",
         "nameBehaviour":"agradecimento",
         "userRequest":["grato", "grata", "agradecido", "agradecida", "gratidao", "obrigado", "muito obrigado"],
@@ -65,12 +73,19 @@ var botCommands = [
         "index":1,
         "description":"comando",
         "nameBehaviour":"PesquisaGoogle",
-        "userRequest":["pesquise no google", "pesquisar no google", "pesquise", "pesquisar"],
+        "userRequest":["pesquise no google", "pesquisar no google", "googleit", "consulte no google", "consultar no google", "consulta no google"],
         "botResponses":"success",
         "action" : function(msgQuery){
+            var quote = getQuoteInStr(msgQuery);
+            if (quote==null){
+                $chatBotDialog.innerHTML += BOTLABEL +"Desculpa, mas o que gostaria de pesquisar? Certifique-se de colocar os termos da pesquisa entre aspas.";
+                $chatBotDialog.scroll(0,scrollPos)
+            }else{
+                window.open("http://www.google.com.br/search?q="+quote,"blank")
+                $chatBotDialog.innerHTML += BOTLABEL + "Ok. Você deve ter percebido que abri a consulta em outra janela.";
+                $chatBotDialog.scroll(0,scrollPos)
+            }
             
-            window.open("http://www.google.com.br/search?q=","blank")
-            $chatBotDialog.innerHTML="";
         }
     }
 ];
@@ -104,54 +119,58 @@ var botDemands = [
 // =========================================================================================================
 
 function hasCommand(msgReq){
-    var i;
+    var isValidRequest;
 
-    for (i=0;i<=botCommands.length-1;i++){
-        var isValidRequest = botCommands[i].userRequest.some(function(el){
-            return el == msgReq;
-        });
+    isValidRequest=searchValuesInMsg(botCommands,"userRequest",msgReq);  //procura se pelo menos um elemento da propriedade userRequest do objeto botComands pode ser encontrado na mensagem do usuário
 
-        if(isValidRequest){
-            botCommands[i].action();
-            return true;
-        };
-    }
+    if(isValidRequest[0]){
+        isValidRequest[1].action(msgReq);
+        // botCommands[isValidRequest[1]].action(msgReq);
+        return true;
+    };
 }
 
 function hasGreetings(msgReq){ //Verifica se há cumprimento e retorna uma das respostas programadas em Response
-    var elementsInspect = selectEntityInObj(botBehaviour,"nameBehaviour","cumprimento");   //SEMPRE retorna 1 OBJETO
-    var botAnswer = getBotResponse(msgReq,elementsInspect);
+    var isValidRequest;
 
-    if ( botAnswer != null){
-        return botAnswer;
+    isValidRequest = searchValuesInMsg(botBehaviour,"userRequest",msgReq, "nameBehaviour", "cumprimento");
+
+    if(isValidRequest[0]==true){
+        return getBotResponse(isValidRequest[1]);
     }else{
         return false;
     }
-
 }
+
 function hasFarewell(msgReq){ //Verifica se há cumprimento e retorna uma das respostas programadas em Response
-    var elementsInspect = selectEntityInObj(botBehaviour,"nameBehaviour","despedida");   //SEMPRE retorna 1 OBJETO
-    var botAnswer = getBotResponse(msgReq,elementsInspect);
+    var isValidRequest;
 
-    if ( botAnswer != null){
-        return botAnswer;
+    debugger;
+    isValidRequest = searchValuesInMsg(botBehaviour,"userRequest",msgReq,"nameBehaviour","despedida");
+
+    if(isValidRequest[0]==true){
+        return getBotResponse(isValidRequest[1]);
     }else{
         return false;
     }
 }
 
 
-function getBotResponse(msgReq, entity){
-    var isValidRequest = entity.userRequest.some(function(el, i){
-        return el == msgReq;
-    });
-
-    if (isValidRequest){
-        return getRandomItem(entity.botResponses);
-    } else {
-        return null;
-    }
+function getBotResponse(entity){
+    return getRandomItem(entity.botResponses);
 }
+
+// function getBotResponse(msgReq, entity){
+//     var isValidRequest = entity.userRequest.some(function(el, i){
+//         return el == msgReq;
+//     });
+
+//     if (isValidRequest){
+//         return getRandomItem(entity.botResponses);
+//     } else {
+//         return null;
+//     }
+// }
 
 
 

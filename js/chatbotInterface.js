@@ -35,6 +35,7 @@ function activateBot(msgSent){
     var i;
     var botRequest="";
     var responseBot="";
+    botResponseSuccess=false;
 
     if (hasCommand(msgSent)==true){return};
 
@@ -63,10 +64,12 @@ function activateBot(msgSent){
                 $chatBotDialog.innerHTML += BOTLABEL + "Calma, campeão! Você tá indo rápido demais. Daqui a uns dias eu chegarei lá!";
             }
         }
-        $chatBotDialog.scroll(0,scrollPos);
     }
 
     if (botResponseSuccess==false){$chatBotDialog.innerHTML += BOTLABEL + "Desculpa, não entendi.";}
+
+    debugger;
+    $chatBotDialog.scroll(0,scrollPos);
 }
 
 function searchContentBot(request){
