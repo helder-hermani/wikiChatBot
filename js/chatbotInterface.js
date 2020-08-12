@@ -52,7 +52,12 @@ function activateBot(msgSent){
                     botResponseSuccess=true;
                     $chatBotDialog.innerHTML += BOTLABEL + responseBot;
                 }
-                responseBot = hasFarewell(msgSent); //Verifica se encontrou cumprimento. Se true, obtém uma das mensagens de resposta
+                responseBot = hasFarewell(msgSent); //Verifica se encontrou despedida. Se true, obtém uma das mensagens de resposta
+                if (responseBot){
+                    botResponseSuccess=true;
+                    $chatBotDialog.innerHTML += BOTLABEL + responseBot;
+                }
+                responseBot = hasThanks(msgSent); //Verifica se encontrou agradecimento. Se true, obtém uma das mensagens de resposta
                 if (responseBot){
                     botResponseSuccess=true;
                     $chatBotDialog.innerHTML += BOTLABEL + responseBot;

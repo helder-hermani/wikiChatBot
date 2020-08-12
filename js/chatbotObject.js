@@ -76,18 +76,56 @@ var botCommands = [
         "userRequest":["pesquise no google", "pesquisar no google", "googleit", "consulte no google", "consultar no google", "consulta no google"],
         "botResponses":"success",
         "action" : function(msgQuery){
-            var quote = getQuoteInStr(msgQuery);
-            if (quote==null){
-                $chatBotDialog.innerHTML += BOTLABEL +"Desculpa, mas o que gostaria de pesquisar? Certifique-se de colocar os termos da pesquisa entre aspas.";
-                $chatBotDialog.scroll(0,scrollPos)
-            }else{
-                window.open("http://www.google.com.br/search?q="+quote,"blank")
-                $chatBotDialog.innerHTML += BOTLABEL + "Ok. Você deve ter percebido que abri a consulta em outra janela.";
-                $chatBotDialog.scroll(0,scrollPos)
-            }
-            
+                        var quote = getQuoteInStr(msgQuery);
+                        if (quote==null){
+                            $chatBotDialog.innerHTML += BOTLABEL +"Desculpa, mas o que gostaria de pesquisar? Certifique-se de colocar os termos da pesquisa entre aspas.";
+                            $chatBotDialog.scroll(0,scrollPos)
+                        }else{
+                            window.open("http://www.google.com.br/search?q="+quote,"blank")
+                            $chatBotDialog.innerHTML += BOTLABEL + "Ok. Você deve ter percebido que abri a consulta em outra janela.";
+                            $chatBotDialog.scroll(0,scrollPos)
+                        }
+                    }
+    },
+    {
+        "index":2,
+        "description":"comando",
+        "nameBehaviour":"PesquisaYoutube",
+        "userRequest":["toque no youtube", "abra no youtube", "consulte no youtube", "ouvir", "tocar", "youtube", "play no youtube", "tocar no youtube", "procure no youtube", "veja no youtube"],
+        "botResponses":"success",
+        "action" : function(msgQuery){
+                        var quote = getQuoteInStr(msgQuery);
+                        if (quote==null){
+                            $chatBotDialog.innerHTML += BOTLABEL +"Desculpa, mas o que gostaria de tocar? Certifique-se de colocar o nome da banda ou música entre aspas.";
+                            $chatBotDialog.scroll(0,scrollPos)
+                        }else{
+                            quote.replace(" ","+");
+                            window.open("https://www.youtube.com/results?search_query="+quote,"blank")
+                            $chatBotDialog.innerHTML += BOTLABEL + "Ok. Você deve ter percebido que abri o youtube em outra janela.";
+                            $chatBotDialog.scroll(0,scrollPos)
+                        }
+                    }
+        },
+    {
+        "index":3,
+        "description":"comando",
+        "nameBehaviour":"TocarJazz no Youtube",
+        "userRequest":["playlist jazz"],
+        "botResponses":"success",
+        "action" : function(msgQuery){
+                        // var quote = getQuoteInStr(msgQuery);
+                        // if (quote==null){
+                        //     $chatBotDialog.innerHTML += BOTLABEL +"Desculpa, mas o que gostaria de tocar? Certifique-se de colocar o nome da banda ou música entre aspas.";
+                        //     $chatBotDialog.scroll(0,scrollPos)
+                        // }else{
+                        //     quote.replace(" ","+");
+                        // debugger;
+                            window.open("https://www.youtube.com/watch?v=_sI_Ps7JSEk","blank")
+                            $chatBotDialog.innerHTML += BOTLABEL + "Ok. Você deve ter percebido que abri o youtube em outra janela. Espero que tenha gostado!";
+                            $chatBotDialog.scroll(0,scrollPos)
+                        // }
+                    }
         }
-    }
 ];
 
 //------------------------------------
@@ -124,6 +162,7 @@ function hasCommand(msgReq){
     isValidRequest=searchValuesInMsg(botCommands,"userRequest",msgReq);  //procura se pelo menos um elemento da propriedade userRequest do objeto botComands pode ser encontrado na mensagem do usuário
 
     if(isValidRequest[0]){
+        debugger;
         isValidRequest[1].action(msgReq);
         // botCommands[isValidRequest[1]].action(msgReq);
         return true;
@@ -147,6 +186,19 @@ function hasFarewell(msgReq){ //Verifica se há cumprimento e retorna uma das re
 
     debugger;
     isValidRequest = searchValuesInMsg(botBehaviour,"userRequest",msgReq,"nameBehaviour","despedida");
+
+    if(isValidRequest[0]==true){
+        return getBotResponse(isValidRequest[1]);
+    }else{
+        return false;
+    }
+}
+
+function hasThanks(msgReq){ //Verifica se há cumprimento e retorna uma das respostas programadas em Response
+    var isValidRequest;
+
+    debugger;
+    isValidRequest = searchValuesInMsg(botBehaviour,"userRequest",msgReq,"nameBehaviour","agradecimento");
 
     if(isValidRequest[0]==true){
         return getBotResponse(isValidRequest[1]);
