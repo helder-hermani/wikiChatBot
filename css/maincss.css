@@ -62,7 +62,7 @@ main div{
 }
 
 main section{
-    width: 65%;
+    width: 64%;
     /* border: solid 1px green; */
     height: auto;
     /* margin-left: auto; */
@@ -70,11 +70,10 @@ main section{
 
 main aside{
     width: 29%;
-    border: solid 1px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    padding: 0;
     height: auto;
     margin-left: auto;
+    margin-right: 1%;
+    /* border: solid 1px red; */
 }
 
 footer{
@@ -145,55 +144,6 @@ footer{
     padding: 0;
     margin: 0;
 }
-
-.aside-chatbot-dialog{
-    height: 80%;
-    width: auto;
-    overflow: scroll;
-    padding: 3%;
-    margin-left: 2%;
-    font-family: Roboto;
-    /* border: solid 1px rgba(0, 0, 0, 0.2); */
-}
-
-.aside-chatbot-prompt{
-    height: 13%;
-    width: auto;
-    margin-left: 2%;
-    /* border: solid 1px red; */
-    /* padding: 1%; */
-    display: flex;
-}
-
-
-.aside-chatbot-prompt div:nth-child(1){
-    width: 80%;
-    /* border: solid 1px green; */
-    height: auto;
-}
-
-.aside-chatbot-prompt div:nth-child(1) textarea{
-    width: 100%;
-    height: 95%;
-    resize: none;
-    border: none;
-    /* border: solid 1px rgba(0, 0, 0, 0.2); */
-    outline: none;
-}
-
-.aside-chatbot-prompt div:nth-child(2){
-    width: 20%;
-    height: auto;
-    /* border: solid 1px orange; */
-    padding: 0;
-}
-
-.aside-chatbot-prompt div:nth-child(2) img{
-    width: 100%;
-    height: 100%;
-}
-
-
 
 #div-editor{
     display: none;

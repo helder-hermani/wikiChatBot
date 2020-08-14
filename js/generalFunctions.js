@@ -1,3 +1,6 @@
+//NENHUMA FUNÇÃO DEVE FAZER REFERÊNCIA DIRETA A OBJETOS DA INTERFACE
+//TODOS OS PARÂMETROS DEVEM SER RECEBIDOS DE OUTRAS CHAMADAS, A PARTIR DA INTERFACE
+
 function sanitizeMsg(request){
     var formatedStr = request.toLowerCase();
 
@@ -106,7 +109,7 @@ function getQuoteInStr(str){
     
 }
 
-function searchValuesInMsg(objeto, keySearchEntity, userMsg, onlyIfKey, onlyIfKeyValue){
+function searchValuesInMsg(userMsg, objeto, keySearchEntity, onlyIfKey, onlyIfKeyValue, returnOnlyFirst){
     var i=0;
     var n=0;
     var x=0;
@@ -129,7 +132,10 @@ function searchValuesInMsg(objeto, keySearchEntity, userMsg, onlyIfKey, onlyIfKe
         return [false,-1];
     }
 
-    if (filterArray.length>0){objeto=filterArray};
+    if (filterArray.length>0){
+        objeto=filterArray
+        filterArray=[];
+    };
     i=0;
     n=0;
     //-----------------------------------------------------------------------
@@ -146,7 +152,9 @@ function searchValuesInMsg(objeto, keySearchEntity, userMsg, onlyIfKey, onlyIfKe
                    for(x=0;x<=propertiesOfObject[n][1].length-1;x++){
                         if(userMsg.indexOf(propertiesOfObject[n][1][x])>=0){
                             foundKey=true;
-                            return [true,objeto[i]];
+                            // return [true,objeto[i]];
+                            filterArray.push(objeto[i]);
+                            if(returnOnlyFirst==true){break;}
                         }
                    }
                }
@@ -154,7 +162,10 @@ function searchValuesInMsg(objeto, keySearchEntity, userMsg, onlyIfKey, onlyIfKe
         }
     }
 
-    if(foundKey==false){
-        return [false,-1];
-    }
+    return [foundKey, filterArray]; //retorna 2 parâmetros:
+                                    //o primeiro booleano indica se encontrou elemento
+                                    //o segundo um array de objetos, contendo todos os objetos onde as condições foram satsfeitas
+    // if(foundKey==false){
+    //     return [false,-1];
+    // }
 }
