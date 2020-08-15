@@ -70,9 +70,11 @@ var botCommands = [
         "index":0,
         "description":"comando",
         "nameBehaviour":"LimpaTela",
-        "instructions" : "Digite: limpe a tela.",
+        "instructions" : "Digite: <i>limpe a tela</i>.",
+        "sample" : "limpe a tela",
         "userRequest":["limpe a tela", "limpar tela", "cls", "clear", "limpar a tela"],
         "botResponses":"success",
+        "enabled" : true,
         "action" : function(){
             $chatBotDialog.innerHTML="";
         }
@@ -81,9 +83,11 @@ var botCommands = [
         "index":1,
         "description":"comando",
         "nameBehaviour":"PesquisaGoogle",
-        "instructions" : "Digite: pesquise no google \"termo da busca\" . Observação: use as aspas. Exemplo: pesquise no google \"Helder Hermani\".",
+        "instructions" : "Digite: <i>pesquise no google \"termo da busca\"</i> . Observação: use as aspas.",
+        "sample" : "pesquise no google \"Helder Hermani\".",
         "userRequest":["pesquise no google", "pesquisar no google", "googleit", "consulte no google", "consultar no google", "consulta no google"],
         "botResponses":"success",
+        "enabled" : true,
         "action" : function(msgQuery){
                         var quote = getQuoteInStr(msgQuery);
                         if (quote==null){
@@ -100,9 +104,11 @@ var botCommands = [
         "index":2,
         "description":"comando",
         "nameBehaviour":"PesquisaYoutube",
-        "instructions" : "Digite: toque no youtube \"nome da banda ou música\". Exemplo: Exemplo: toque no youtube \"Pink Floyd\"",
-        "userRequest":["toque no youtube", "abra no youtube", "consulte no youtube", "youtube", "play no youtube", "tocar no youtube", "procure no youtube", "veja no youtube"],
+        "instructions" : "Digite: <i>youtube \"nome da banda ou música\"</i>.  Observação: use as aspas.",
+        "sample":"youtube \"Pink Floyd\"",
+        "userRequest":["youtube", "abra no youtube", "consulte no youtube", "toque no youtube", "play no youtube", "tocar no youtube", "procure no youtube", "veja no youtube"],
         "botResponses":"success",
+        "enabled" : true,
         "action" : function(msgQuery){
                         var quote = getQuoteInStr(msgQuery);
                         if (quote==null){
@@ -120,9 +126,11 @@ var botCommands = [
         "index":3,
         "description":"comando",
         "nameBehaviour":"Tocar Playlist no Youtube",
-        "instructions" : "Digite: playlist \"estilo musical\". Exemplo: Exemplo: playlist \"rock\"",
+        "instructions" : "Digite: <i>playlist \"estilo musical\"</i>.  Observação: use as aspas.",
+        "sample": "playlist \"rock\"",
         "userRequest":["playlist"],
         "botResponses":"success",
+        "enabled" : true,
         "action" : function(msgQuery){
                         var quote = getQuoteInStr(msgQuery);
                         var linkMusicAddress=""
@@ -141,6 +149,41 @@ var botCommands = [
         }
     }
 ];
+
+// ================================IMPLEMENTAÇÃO DOS COMANDOS NA TELA DE AJUDA=================================
+buildHelpScreen();
+function buildHelpScreen(){
+    var i=0;
+    var n=0;
+    var auxStr="";
+    var commandLine=[];
+    var divCommandsContainer = document.createElement("div");
+
+    divCommandsContainer.classList.add("containerHelp");
+    
+
+    for(i=0;i<=botCommands.length-1;i++){
+        auxStr="";
+        commandLine[i]=document.createElement("p");
+        commandLine[i].innerHTML = "<b>" + botCommands[i].userRequest[0] + "</b> : " + botCommands[i].instructions + " <u>Use também:</u><br>";
+        debugger;
+        for (n=0;n<=botCommands[i].userRequest.length-2;n++){
+            auxStr += botCommands[i].userRequest[n+1] + ", ";
+        }
+
+        var sample = document.createElement("spam");
+        sample.classList.add("commandsSample");
+        sample.innerHTML = "Exemplo: " + botCommands[i].sample;
+
+        commandLine[i].innerHTML += auxStr;
+
+        commandLine[i].appendChild(sample);
+
+        divCommandsContainer.appendChild(commandLine[i]);
+    }
+
+    $frameHelp.appendChild(divCommandsContainer);
+}
 
 //------------------------------------
 //SEMPRE QUE FOR ALTERADO O STATUS PARA AWAIT, É NECESSÁRIO MUDAR A VARIÁVEL DE ESTADO E PASSAR QUAL A TAREFA, ATRAVÉS DA CHAVE "NAMEACTION"
@@ -173,7 +216,7 @@ var botDemands = [
 function hasCommand(msgReq){
     var isValidRequest;
 
-    isValidRequest=searchValuesInMsg(msgReq, botCommands,"userRequest");  //procura se pelo menos um elemento da propriedade userRequest do objeto botComands pode ser encontrado na mensagem do usuário
+    isValidRequest=searchValuesInMsg(msgReq, botCommands,"userRequest", "enabled", true);  //procura se pelo menos um elemento da propriedade userRequest do objeto botComands pode ser encontrado na mensagem do usuário
 
     if(isValidRequest[0]){
         isValidRequest[1][0].action(msgReq);
