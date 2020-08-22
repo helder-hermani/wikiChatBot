@@ -288,7 +288,56 @@
     height: 100%;
 }
 
+/* Formatação d atabela de resultados */
+.tableShowResult, .tableShowResult tr, .tableShowResult td, .tableShowResult thead, .tableShowResult tfoot{
+    border: solid 1px black;
+    width: 95%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+.tableShowResult thead, .tableShowResult tfoot{
+    text-align: center;
+}
 
+.tableShowResult thead{
+    color: blue;
+    cursor: pointer;
+}
+
+.tableShowResult thead:hover{
+    color: orange;
+}
+
+.tblResultMainLine{
+    text-align: justify;
+}
+
+.tableShowResult th{
+    width: 100%;
+}
+
+.tableShowResult td p, td{
+    padding: 0;
+    margin: 0;
+}
+
+
+
+/* FORMATAÇÃO DA CAIXA DE DIALOG (BOTALEBL) */
+.div-botLabel{
+    border: solid 1px rgba(0,0,0,.2);
+    width:75%;
+    height: auto;
+    margin: 3% auto 0 0;
+    border-radius: 10px;
+    padding: 1% 2%;
+}
+
+.resultOnClick{
+    width: 100%;
+    height: auto;
+    border: solid 1px rgba(0, 0, 0, 0.2);
+}
 
 @media screen and (max-width: 800px){
     .chatbot-avatar-changeArrow{

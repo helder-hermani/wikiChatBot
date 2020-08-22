@@ -1,3 +1,11 @@
+//NÍVEIS DE BUSCA
+// 1º Por hashatg: lê o campo hashtags e procura no texto digitado
+// 2º Varre todo o elemento e procura se a chave Key está contida literalmente no texto digitado
+// 3º Agrupa conjunto de 3 palavras no texto digitado e procura na chave Body do elemento
+// 4º Pasa o dicionário no  conjunto de 3 palavras do texto digitado e procura na chave Body do elemento
+// 5º Reordena o conjunto de três palavras e procura na chave Body do elemento
+// 6º Passa o dicionário no conjunto reaordenaso de três palavras e procura na chave Body do elemento
+
 //STATUS
 var botStatus = new Map();
 botStatus.set("idle",1);
@@ -139,7 +147,6 @@ var botCommands = [
                             $chatBotDialog.innerHTML += BOTLABEL +"Desculpa, mas o que estilo de música gostaria de ouvir? Certifique-se de colocar o nome do estilo entre aspas.";
                             $chatBotDialog.scroll(0,scrollPos)
                         }else{
-                            debugger;
                             if (quote=="jazz"){linkMusicAddress=getRandomItem(memMusicStyles.jazz)};
                             if (quote=="rock"){linkMusicAddress=getRandomItem(memMusicStyles.rock)};
                             window.open(linkMusicAddress,"blank");
@@ -166,7 +173,6 @@ function buildHelpScreen(){
         auxStr="";
         commandLine[i]=document.createElement("p");
         commandLine[i].innerHTML = "<b>" + botCommands[i].userRequest[0] + "</b> : " + botCommands[i].instructions + " <u>Use também:</u><br>";
-        debugger;
         for (n=0;n<=botCommands[i].userRequest.length-2;n++){
             auxStr += botCommands[i].userRequest[n+1] + ", ";
         }
@@ -212,11 +218,40 @@ var botDemands = [
 // =========================================================================================================
 // ================================================ MÉTODOS ================================================
 // =========================================================================================================
+//Retorna uma string como resultado --> elemento 0 a string de resposta, elemento 1 a qtd de itens encontrados
+function searchByHashatg(msgReq){   //Retona uma string com 2 elementos. O primeiro, string com resposta, o segundo um array de tabelas, se tiver encontrado mais de 1 resultado
+    var isValidRequest;
+    var i = 0;
+    var botAnswer=""; //"<p>Consegui encontrar o(s) seguintes(s) resultado(s):<p>";
+    var tableResult;
+    var setOfTablesResult=[];
+
+    isValidRequest = searchValuesInMsg(msgReq,wikiContents, "Hashtags", "Active", true, true);
+
+    if (isValidRequest[0]==true){
+        
+        
+        if (isValidRequest[1].length==1){
+            botAnswer = "<p>Ok, encontrei o seguinte resultado:</p>" + buildAnswerResult(isValidRequest[1][0]);
+        }else{
+            
+            for (i=0; i<=isValidRequest[1].length-1;i++){
+                tableResult = buildTableResult("wikiContents", isValidRequest[1][i].Index, isValidRequest[1][i].Title, isValidRequest[1][i].Description, isValidRequest[1][i].DateUpload);
+                setOfTablesResult.push(tableResult);
+            }
+            botAnswer += "<p>Consegui encontrar o(s) seguintes(s) resultado(s):<p>";
+        }
+        return [botAnswer, setOfTablesResult];
+        // return [botAnswer, isValidRequest[1].length];
+    }else{
+        return ["Desculpe-me, não consegui encontrar nenhuma hashtag relacionada.", 0];
+    }
+}
 
 function hasCommand(msgReq){
     var isValidRequest;
 
-    isValidRequest=searchValuesInMsg(msgReq, botCommands,"userRequest", "enabled", true);  //procura se pelo menos um elemento da propriedade userRequest do objeto botComands pode ser encontrado na mensagem do usuário
+    isValidRequest= searchValuesInMsg(msgReq, botCommands,"userRequest", "enabled", true);  //procura se pelo menos um elemento da propriedade userRequest do objeto botComands pode ser encontrado na mensagem do usuário
 
     if(isValidRequest[0]){
         isValidRequest[1][0].action(msgReq);
@@ -284,6 +319,7 @@ function hasThanks(msgReq){ //Verifica se há cumprimento e retorna uma das resp
 }
 
 
+
 function getBotResponse(entity){
     return getRandomItem(entity.botResponses);
 }
@@ -294,4 +330,35 @@ function toggleBotSex(botAnswer){
     }else{
         return botAnswer.replace("$$$@@@","a");
     }
+}
+
+
+// CONSTRUINDO UMA RESPOSTA ENCONTRADA NO BANCO
+function buildAnswerResult(itemObjeto){
+    var answer= "";
+    var links = "";
+    var hashtags="";
+    var i;
+
+    for (i=0;i<=itemObjeto.Link.length-1;i++){
+        links += "<a href='" + itemObjeto.Link[i] + "' target='_blank'>" + itemObjeto.Link[i] + "</a><br>";
+    }
+
+    for (i=0;i<=itemObjeto.Hashtags.length-1;i++){
+        hashtags += itemObjeto.Hashtags[i] + " ";
+    }
+    
+    answer = "<p style='font-weight: bold;'>" + itemObjeto.Title + "</p>";
+    answer += "<p><i>" + itemObjeto.Description + "</i></p>";
+    answer += "<p>" + itemObjeto.Body + "</p>";
+    answer += "<hr style='border: solid 1px black; width: 50%; margins: 0 auto'></br>"
+    answer += "Categoria: " + itemObjeto.Category + "</br>";
+    answer += "Segmento: " + itemObjeto.Segment + "</br>";
+    answer += "Hashtags: " + hashtags + "</br>";
+    answer += "Links: " + links + "</br>";
+    answer += "Data inclusão: " + itemObjeto.DateUpload + "</br>";
+
+    return answer;
+
+
 }

@@ -49,7 +49,7 @@ function sanitizeMsg(request){
 }
 
 function isHashTag(str){
-    return str.indexOf("#") == 0;
+    return str.indexOf(  "#") == 0;
 }
 
 function counterWords(str){
@@ -138,7 +138,7 @@ function searchValuesInMsg(userMsg, objeto, keySearchEntity, onlyIfKey, onlyIfKe
     };
     i=0;
     n=0;
-    //-----------------------------------------------------------------------
+    
 
 
     for(i=0;i<=objeto.length-1;i++){
@@ -162,10 +162,75 @@ function searchValuesInMsg(userMsg, objeto, keySearchEntity, onlyIfKey, onlyIfKe
         }
     }
 
-    return [foundKey, filterArray]; //retorna 2 parâmetros:
-                                    //o primeiro booleano indica se encontrou elemento
-                                    //o segundo um array de objetos, contendo todos os objetos onde as condições foram satsfeitas
-    // if(foundKey==false){
-    //     return [false,-1];
-    // }
+    return [foundKey, filterArray]; 
+    //retorna 2 parâmetros:
+    //o primeiro booleano indica se encontrou elemento
+    //o segundo um array de objetos, contendo todos os objetos onde as condições foram satsfeitas
+}
+
+function buildTableResult(linkObjName, linkObjIndex, headCont, mainCont, footCont){    //constroi tabela. Retorna o elemento tabela
+// function buildTableResult(headCont, mainCont, footCont){    //constroi tabela. Retorna um OBJETO tabela
+    var tblTable = document.createElement("table");
+    var createdItemId;
+    var $createdItem;
+    var tblHead = document.createElement("thead");
+    var tblHeadTd = document.createElement("td");
+    var tblRow1 = document.createElement("tr");
+    var tblRow1Td = document.createElement("td");
+    var tblRow2 = document.createElement("tr");
+    var tblRow2Td = document.createElement("td");
+
+    var pHead = document.createElement("p");
+    var pRow1 = document.createElement("p");
+    var pRow2 = document.createElement("p");
+
+    pHead.innerHTML=headCont;
+    pRow1.innerHTML=mainCont;
+    pRow2.innerHTML=footCont;
+
+    pHead.classList.add("title-tabelResult");
+    pHead.id=linkObjIndex;
+
+    tblRow2Td.appendChild(pRow2);
+    tblRow2.appendChild(tblRow2Td);
+
+    tblRow1Td.appendChild(pRow1);
+    tblRow1.appendChild(tblRow1Td);
+
+    tblHeadTd.appendChild(pHead);
+    tblHead.appendChild(tblHeadTd);
+
+    tblTable.appendChild(tblHead);
+    tblTable.appendChild(tblRow1);
+    tblTable.appendChild(tblRow2);
+
+    tblTable.classList.add("tableShowResult");
+
+
+    return tblTable;
+
+    // createdItemId = linkObjIndex;
+
+    // tblTable = "<table class='tableShowResult'>"+
+    //                 "<thead>"+
+    //                     "<td>"+
+    //                         "<p id='" + createdItemId + "' class='itemTableResul'>" + headCont + "</p>"+
+    //                     "</td>"+
+    //                 "</thead>"+
+    //                 "<tr class='tblResultMainLine'>"+
+    //                     "<td>"+ 
+    //                         "<p>" + mainCont + "<p>"+
+    //                     "</td>"+
+    //                 "</tr>"+
+    //                 "<tfoot>"+
+    //                     "<td>"+
+    //                         "<p>" + footCont + "</p>"+
+    //                     "</td>"+
+    //                 "</tfoot>"+
+    //             "</table>"
+    
+    
+    
+    // return tblTable;
+
 }

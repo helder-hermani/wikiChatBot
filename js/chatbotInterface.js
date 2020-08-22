@@ -14,12 +14,14 @@ var $chatbotSettingsHelpIcon = document.querySelectorAll(".chatbot-icon-botSetti
 var $iconHelp = document.querySelector("#iconHelp");
 var $frameHelp = document.querySelector("#frame-help");
 
+var $itemResult=[];
+
 var scrollPos = 100000;
 var msgSent = "";
 var prevMsg = "";
 var botResponseSuccess = false;
 const USERLABEL = "<div style='border: solid 1px rgba(0,0,0,.2); width:75%; height: auto; margin: 3% 0 0 auto;border-radius: 10px; padding: 1% 2%;'><p style='font-weight: bold; color: #FF720C; margin: 0; padding:0;'>Você:</p>";
-const BOTLABEL = "<div style='border: solid 1px rgba(0,0,0,.2); width:75%; height: auto; margin: 3% auto 0 0;border-radius: 10px; padding: 1% 2%;'><p style='font-weight: bold; color: #040242; margin: 3% 0 0 0; padding:0;'>Helper:</p>";
+const BOTLABEL = "<div class='div-botLabel'><p style='font-weight: bold; color: #040242; margin: 3% 0 0 0; padding:0;'>Helper:</p>";
 const COMMANDINSTRUCTIONS = "<p>Digite uma pergunta ou um assunto que deseja saber. Utilize frases objetivas, contendo as palavras principais sobre o assunto de interesse. Exemplo: encerramento FIES.</p>"+
                             "<p>Pesquise também por hashtag. Exemplo: #encerramentofies</p>"+
                             "<p>Caso deseje, utilize também algum comando, para executar uma determinada ação. Lista de comandos:<p>";
@@ -219,7 +221,6 @@ function buildBot(indexBot){
     $chatBotFrameChangeAvatar.classList.remove("frame-float-show");
 
     for (x=0;x<=$chatbotSettingsHelpIcon.length-1;x++){
-        debugger;
         $chatbotSettingsHelpIcon[x].style.fill=botAtendentes[indexBot].fontcolor;
         $chatbotSettingsHelpIcon[x].style.opacity=botAtendentes[indexBot].opacity;
     }
@@ -237,14 +238,17 @@ function closeAllFloatingFrames(){
 // ================================IMPLEMENTAÇÃO DE INTERAÇÃO=================================
 
 $chatBotPrompt.addEventListener("keyup", function(evt){
-    msgSent = $chatBotPrompt.value;
-    msgSent = msgSent.slice(0, msgSent.length-1);   //retira o caracter "enter"
+    // msgSent = $chatBotPrompt.value;
+    // msgSent = msgSent.slice(0, msgSent.length-1);   //retira o caracter "enter"
+    // msgSent = msgSent.replace(String.fromCharCode(13), "");   
     // alert(evt.keyCode);
     if(evt.keyCode==38){
         $chatBotPrompt.value=prevMsg;
     }
 
     if(evt.keyCode==13){
+        msgSent = $chatBotPrompt.value;
+        msgSent = msgSent.replace("\n", "");
         botResponseSuccess=false;
         $chatBotDialog.innerHTML += USERLABEL + msgSent +"</div>";
         $chatBotDialog.scroll(0,scrollPos);
@@ -261,14 +265,31 @@ function activateBot(msgSent){
     var responseBot="";
     botResponseSuccess=false;
 
+    
     if (hasCommand(msgSent)==true){return};
 
     if(botCurrentStatus == botStatus.get("idle")){
         
         if (isHashTag(msgSent)){
             //fluxo de hashstag
+            debugger;
+            responseBot=searchByHashatg(msgSent);
             botResponseSuccess=true;
-            $chatBotDialog.innerHTML += BOTLABEL + "Ei, você digitou uma hashtag! Espere uns dias que estarei capacitado a te atender.";
+
+            
+
+            if(responseBot[1].length<=1){
+                $chatBotDialog.innerHTML += BOTLABEL + responseBot[0]; "Quantidade:  " + responseBot[1].length + "</div>";
+            }else if (responseBot[1].length>1 && responseBot[1].length<=10){
+                $chatBotDialog.innerHTML += BOTLABEL + "<p>Encontei algumas informações que podem responder a sua questão. São elas:</p></div>"
+                appendTableResultToBotLabel(responseBot[1]);
+            }else if (responseBot[1].length>10){
+                $chatBotDialog.innerHTML += BOTLABEL + "<p>Encontrei mais de 10 resultados. Segue os 10 registros mais recentes. Para um resultado mais preciso, por favor me façã uma questão mais específica.</p></div>";
+            }else{
+                $chatBotDialog.innerHTML += BOTLABEL + "<p>Desculpa, não encontrei nenhum assunto com esse marcador</p></div>";
+            }
+            debugger;
+            // if (responseBot[1].length>1){appendTableResultToBotLabel(responseBot[1])};
         }else{
             if (counterWords(msgSent) <= 3){
                 responseBot = hasGreetings(msgSent); //Verifica se encontrou cumprimento. Se true, obtém uma das mensagens de resposta
@@ -297,11 +318,38 @@ function activateBot(msgSent){
 
     if (botResponseSuccess==false){$chatBotDialog.innerHTML += BOTLABEL + "Desculpa, não entendi.";}
 
-    debugger;
     $chatBotDialog.scroll(0,scrollPos);
 }
 
 function searchContentBot(request){
     var eachWord = request.split(" ");
-    debugger;
+}
+
+
+//APENSANDO A TABELA DE RESULTADOS À UMA CAIXA DE DIÁLOGO DO BOT (CLASS DIV-BOTLABEL)
+function appendTableResultToBotLabel(tablesToAppend){
+    var i = 0;
+    var $divBotLabel = document.querySelectorAll(".div-botLabel");
+
+    var resultOnClick;
+
+    for (i=0;i<=tablesToAppend.length-1;i++){
+        $divBotLabel[$divBotLabel.length-1].appendChild(tablesToAppend[i]);
+        $divBotLabel[$divBotLabel.length-1].innerHTML += "<hr>";
+    }
+
+    //Adicionando eventos aos titulos
+    $titles = document.querySelectorAll(".title-tabelResult");
+
+    for(i=0;i<=$titles.length-1;i++){
+        $titles[i].addEventListener("click",function(evt){
+            debugger;
+            resultOnClick=document.createElement("div");
+            resultOnClick.classList.add("resultOnClick");
+            resultOnClick.innerHTML=buildAnswerResult(wikiContents[parseInt(evt.currentTarget.id)]) + "<hr>";
+            // resultOnClick.innerHTML=wikiContents[parseInt(evt.currentTarget.id)].Body + "<hr>";
+            $divBotLabel[$divBotLabel.length-1].appendChild(resultOnClick);
+            $chatBotDialog.scroll(0,scrollPos);
+        })
+    }
 }
