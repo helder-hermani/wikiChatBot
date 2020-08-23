@@ -1,0 +1,14 @@
+como saber até que mês o financiamento habitacional está pausado?
+
+como saber as prestações pagas pelo fiador no empreendimento pedra do reino?
+
+para saber se tudo está funcionando?
+
+como fazer pausa do fies pelo covid19?
+
+Primeiro nível:
+busca por conjunto de 4 palavras = valor 100
+busca por conjunto de 3 palavras = valor 50
+busca por conjunto de 2 palavras = valor 20
+
+formatarItemScore

@@ -9,7 +9,7 @@
 //STATUS
 var botStatus = new Map();
 botStatus.set("idle",1);
-botStatus.set("wait",2);
+botStatus.set("await",2);
 
 //NÍVEIS DE CONSULTA
 var levelBotSearch = new Map();
@@ -68,6 +68,14 @@ var botBehaviour = [
         "nameBehaviour":"agradecimento",
         "userRequest":["grato", "grata", "agradecido", "agradecida", "gratidao", "obrigado", "muito obrigado"],
         "botResponses":["De nada, conte sempre comigo!"],
+        "action" : ""
+    },
+    {
+        "index":4,
+        "description":"Objeto com interações de erro na compreensão",
+        "nameBehaviour":"erro na compreensão",
+        "userRequest":["voce nao entendeu", "entendeu errado", "nao foi isso que quis dizer", "nao foi isso que eu quis dizer", "nao foi isso o que eu quis dizer", "nao era isso que eu queria", "nao era isso o que eu queria", "me expressei errado", "me expressei mal", "mal entendido", "esta equivocado", "me equivoquei", "voce esta enganado", "nao atendeu ao que eu queria", "nao atendeu ao que eu procurava", "nao era o que eu procurava", "nao e o que me interessa"],
+        "botResponses":["Desculpe-me. Talvez eu não tenha entendido muito bem. Por favor, tente fazer a pergunta novamente, utilizando palavras mais significativas."],
         "action" : ""
     }
 
@@ -219,32 +227,30 @@ var botDemands = [
 // ================================================ MÉTODOS ================================================
 // =========================================================================================================
 //Retorna uma string como resultado --> elemento 0 a string de resposta, elemento 1 a qtd de itens encontrados
-function searchByHashatg(msgReq){   //Retona uma string com 2 elementos. O primeiro, string com resposta, o segundo um array de tabelas, se tiver encontrado mais de 1 resultado
+function searchByHashatg(msgReq){   //Retona uma array com 2 elementos. O primeiro, string com resposta, o segundo um array de tabelas, se tiver encontrado mais de 1 resultado
     var isValidRequest;
     var i = 0;
     var botAnswer=""; //"<p>Consegui encontrar o(s) seguintes(s) resultado(s):<p>";
     var tableResult;
     var setOfTablesResult=[];
 
-    isValidRequest = searchValuesInMsg(msgReq,wikiContents, "Hashtags", "Active", true, true);
+    isValidRequest = searchValuesInMsg(msgReq,robotDBWiki, "Hashtags", "Active", true, true);
+    // isValidRequest = searchValuesInMsg(msgReq,wikiContents, "Hashtags", "Active", true, true);
 
-    if (isValidRequest[0]==true){
-        
-        
+    if (isValidRequest[0]==true){    
         if (isValidRequest[1].length==1){
             botAnswer = "<p>Ok, encontrei o seguinte resultado:</p>" + buildAnswerResult(isValidRequest[1][0]);
-        }else{
-            
+        }else{        
             for (i=0; i<=isValidRequest[1].length-1;i++){
-                tableResult = buildTableResult("wikiContents", isValidRequest[1][i].Index, isValidRequest[1][i].Title, isValidRequest[1][i].Description, isValidRequest[1][i].DateUpload);
+                tableResult = buildTableResult("wikiContents", isValidRequest[1][i].Index, isValidRequest[1][i].Title, isValidRequest[1][i].Description, "Inclusão: " + isValidRequest[1][i].DateUpload);
                 setOfTablesResult.push(tableResult);
             }
-            botAnswer += "<p>Consegui encontrar o(s) seguintes(s) resultado(s):<p>";
+            botAnswer += "<p>Consegui encontrar o(s) seguintes(s) resultado(s):</p>";
         }
         return [botAnswer, setOfTablesResult];
         // return [botAnswer, isValidRequest[1].length];
     }else{
-        return ["Desculpe-me, não consegui encontrar nenhuma hashtag relacionada.", 0];
+        return ["Desculpe-me, não consegui encontrar nenhum assunto com esse marcador.", 0];
     }
 }
 
@@ -310,7 +316,6 @@ function hasThanks(msgReq){ //Verifica se há cumprimento e retorna uma das resp
         for(i=0;i<=isValidRequest[1].length-1;i++){
             processBotResponse += BOTLABEL + toggleBotSex(getBotResponse(isValidRequest[1][i]));
         }
-        // return getBotResponse(isValidRequest[1]);
     }else{
         return false;
     }
@@ -318,7 +323,61 @@ function hasThanks(msgReq){ //Verifica se há cumprimento e retorna uma das resp
     return processBotResponse;
 }
 
+function hasMissUnderstand(msgReq){ //Verifica se há cumprimento e retorna uma das respostas programadas em Response
+    var isValidRequest;
+    var i=0;
+    var processBotResponse="";
 
+    debugger;
+
+    isValidRequest = searchValuesInMsg(msgReq, botBehaviour,"userRequest", "nameBehaviour", "erro na compreensão", true);
+
+    if(isValidRequest[0]==true){
+        for(i=0;i<=isValidRequest[1].length-1;i++){
+            processBotResponse += BOTLABEL + toggleBotSex(getBotResponse(isValidRequest[1][i]));
+        }
+    }else{
+        return false;
+    }
+
+    return processBotResponse;
+}
+
+function startSearching(msgReq){    //retorna um array. Elemento 0 = quantidade itens econtrados / Elemento 1 = resposta (se qtd elementos <=1)
+                                                                                                //Ou conjunto de tabelas, se qtd resultado entre 2 e 5
+    var processBotResponse = [];
+    var tableResult="";
+    var setOfTablesResult=[];
+    var i=0;
+    var iLimitReturnItens=0;
+    var resultSearch = searchContentFromMsg(msgReq, robotDBWiki); //receberá um array contendo cada elemento encontrado e seu score proporcional
+    
+    processBotResponse[0]= resultSearch.length;
+
+    debugger;
+
+    // tableResult = buildTableResult("wikiContents", isValidRequest[1][i].Index, isValidRequest[1][i].Title, isValidRequest[1][i].Description, isValidRequest[1][i].DateUpload);
+    
+    if (resultSearch.length<=0){ //Se não encontrou nenhum elemento
+        processBotResponse[1]="Desculpa, não consegui encontrar nada a respeito. Tente ser um pouco mais preciso ou mencionar palavras mais relevantes sobre o assunto que deseja tratar. Talvez em uma busca por hashtag eu consiga encontrar algo mais exato. Verifique também se minha especialidade está adequada ao assunto em questão."
+    } else if (resultSearch.length==1){ //Se encontrou apenas 1 elemento
+        processBotResponse[1]= "Certo, creio que encontrei algo relacionado. A única coisa que consegui identificar com base na sua mensagem foi essa: ";
+        processBotResponse[1]+=buildAnswerResult(resultSearch[0][1]);
+    } else if (resultSearch.length>1){ //se encontrou mais de dois itens
+        resultSearch.length<=5 ? iLimitReturnItens=resultSearch.length-1 : iLimitReturnItens=4;
+        for (i=iLimitReturnItens; i>=0;i--){ //Monta o conjunto de tabelas, em ordem crescente de significância (maior score proporcional para o menor)
+            tableResult = buildTableResult("wikiContents", resultSearch[i][1].Index, resultSearch[i][1].Title, resultSearch[i][1].Description, "Inclusão: " + resultSearch[i][1].DateUpload);
+            setOfTablesResult.push(tableResult);
+        }
+        processBotResponse[1]=setOfTablesResult;
+    }
+
+    
+    
+    //se encontrou mais de 5 elementos
+
+    return processBotResponse;
+}
 
 function getBotResponse(entity){
     return getRandomItem(entity.botResponses);

@@ -1,6 +1,12 @@
 //NENHUMA FUNÇÃO DEVE FAZER REFERÊNCIA DIRETA A OBJETOS DA INTERFACE
 //TODOS OS PARÂMETROS DEVEM SER RECEBIDOS DE OUTRAS CHAMADAS, A PARTIR DA INTERFACE
 
+generateId = function getRandomNumbers() {
+    var array = new Uint32Array(1);
+    window.crypto.getRandomValues(array);
+    return array[0];
+}
+
 function sanitizeMsg(request){
     var formatedStr = request.toLowerCase();
 
@@ -36,7 +42,55 @@ function sanitizeMsg(request){
     formatedStr = formatedStr.replace("+","");
     formatedStr = formatedStr.replace("=","");
     formatedStr = formatedStr.replace("á","a");
+    formatedStr = formatedStr.replace("ã","a");
     formatedStr = formatedStr.replace("à","a");
+    formatedStr = formatedStr.replace("õ","o");
+    formatedStr = formatedStr.replace("ô","o");
+    formatedStr = formatedStr.replace("ç","c");
+    formatedStr = formatedStr.replace("í","i");
+    formatedStr = formatedStr.replace("é","e");
+    formatedStr = formatedStr.replace("è","e");
+    formatedStr = formatedStr.replace("ê","e");
+    formatedStr = formatedStr.replace("ú","u");
+    return formatedStr;
+}
+
+function sanitizeMsgFull(request){
+    var formatedStr = request.toLowerCase();
+    formatedStr = formatedStr.replace(",","");
+    formatedStr = formatedStr.replace("?","");
+    formatedStr = formatedStr.replace("#","");
+    formatedStr = formatedStr.replace("*","");
+    formatedStr = formatedStr.replace("\"","");
+    formatedStr = formatedStr.replace("!","");
+    formatedStr = formatedStr.replace(".","");
+    formatedStr = formatedStr.replace(";","");
+    formatedStr = formatedStr.replace("\\","");
+    formatedStr = formatedStr.replace("|","");
+    formatedStr = formatedStr.replace(":","");
+    formatedStr = formatedStr.replace("~","");
+    formatedStr = formatedStr.replace("^","");
+    formatedStr = formatedStr.replace("]","");
+    formatedStr = formatedStr.replace("}","");
+    formatedStr = formatedStr.replace("[","");
+    formatedStr = formatedStr.replace("{","");
+    formatedStr = formatedStr.replace("´","");
+    formatedStr = formatedStr.replace("`","");
+    formatedStr = formatedStr.replace("''","");
+    formatedStr = formatedStr.replace("@","");
+    formatedStr = formatedStr.replace("$","");
+    formatedStr = formatedStr.replace("%","");
+    formatedStr = formatedStr.replace("¨","");
+    formatedStr = formatedStr.replace("&","");
+    formatedStr = formatedStr.replace("(","");
+    formatedStr = formatedStr.replace(")","");
+    formatedStr = formatedStr.replace("-","");
+    formatedStr = formatedStr.replace("_","");
+    formatedStr = formatedStr.replace("+","");
+    formatedStr = formatedStr.replace("=","");
+    formatedStr = formatedStr.replace("á","a");
+    formatedStr = formatedStr.replace("à","a");
+    formatedStr = formatedStr.replace("ã","a");
     formatedStr = formatedStr.replace("õ","o");
     formatedStr = formatedStr.replace("ô","o");
     formatedStr = formatedStr.replace("ç","c");
@@ -117,6 +171,8 @@ function searchValuesInMsg(userMsg, objeto, keySearchEntity, onlyIfKey, onlyIfKe
     var foundKey=false;
     var filterArray=[];
 
+    userMsg=sanitizeMsg(userMsg);
+
     //Filtra o objeto se quiser redimensionar apenas para algum critério
     if (onlyIfKey!=null && onlyIfKeyValue!=null){
         for(i=0;i<=objeto.length-1;i++){
@@ -150,7 +206,7 @@ function searchValuesInMsg(userMsg, objeto, keySearchEntity, onlyIfKey, onlyIfKe
                    if(userMsg.indexOf(propertiesOfObject[n][1])>=0){return true};
                }else if(typeof (propertiesOfObject[n][1]) == "object") {
                    for(x=0;x<=propertiesOfObject[n][1].length-1;x++){
-                        if(userMsg.indexOf(propertiesOfObject[n][1][x])>=0){
+                        if(userMsg.indexOf(sanitizeMsg(propertiesOfObject[n][1][x]))>=0){
                             foundKey=true;
                             // return [true,objeto[i]];
                             filterArray.push(objeto[i]);
@@ -208,29 +264,83 @@ function buildTableResult(linkObjName, linkObjIndex, headCont, mainCont, footCon
 
 
     return tblTable;
+}
 
-    // createdItemId = linkObjIndex;
+function searchContentFromMsg(userMsg, objeto){ //Varre o objeto procurando conjunto de palavras contidas no userMsg
+    var slidedMsg = userMsg.split(" ");
+    var i=0;
+    var n=0;
+    var x=0;
+    var y=0;
+    var yCurrent = 0;
+    var iMaxGrouper = 4;
+    var iMinGrouper = 2;
+    var groupWords="";
+    var itemScore=0;
+    var arrayResult=[];
+    var sanitizedObjElement="";
+    var maxScore=0;
+    const MACTHVALUE = 25;
 
-    // tblTable = "<table class='tableShowResult'>"+
-    //                 "<thead>"+
-    //                     "<td>"+
-    //                         "<p id='" + createdItemId + "' class='itemTableResul'>" + headCont + "</p>"+
-    //                     "</td>"+
-    //                 "</thead>"+
-    //                 "<tr class='tblResultMainLine'>"+
-    //                     "<td>"+ 
-    //                         "<p>" + mainCont + "<p>"+
-    //                     "</td>"+
-    //                 "</tr>"+
-    //                 "<tfoot>"+
-    //                     "<td>"+
-    //                         "<p>" + footCont + "</p>"+
-    //                     "</td>"+
-    //                 "</tfoot>"+
-    //             "</table>"
-    
-    
-    
-    // return tblTable;
+    debugger;
 
+    for (i=0;i<=objeto.length-1;i++){   //seleciona o objeto
+        itemScore=0;
+        for(n=iMaxGrouper;n>=iMinGrouper;n--){  //analisa por agrupamento (de 4, 3 e 2 palavras - limites Grouper)
+            for(x=0;x<=slidedMsg.length-n;x++){ //formar palavras de acordo com o tamanho do agrupamento
+                yCurrent=x+n;
+                groupWords="";
+                for(y=x;y<=yCurrent-1;y++){
+                    groupWords += slidedMsg[y] + " ";
+                }
+                groupWords=groupWords.trim();
+                //Processar a busca no elemento (título, na descriçãp e no corpo)
+                sanitizedObjElement=sanitizeMsgFull(objeto[i].Title);
+                if(sanitizedObjElement.indexOf(groupWords)>=0){itemScore+=MACTHVALUE*n};
+                sanitizedObjElement=sanitizeMsgFull(objeto[i].Description);
+                if(sanitizedObjElement.indexOf(groupWords)>=0){itemScore+=MACTHVALUE*n};
+                sanitizedObjElement=sanitizeMsgFull(objeto[i].Body);
+                if(sanitizedObjElement.indexOf(groupWords)>=0){itemScore+=MACTHVALUE*n};
+            }
+        }
+        if (itemScore>0){arrayResult.push([formatarItemScore(itemScore,6), objeto[i]])};
+        // if (itemScore>0){arrayResult.push([objeto[i], formatarItemScore(itemScore,6)])};
+    }
+
+    if (arrayResult.length>0){
+        arrayResult=arrayResult.sort();
+
+        maxScore=parseInt(arrayResult[arrayResult.length-1][0]);
+
+        //Altera o elemento score para percentual sobre o maior score encontrado
+        for(i=0;i<=arrayResult.length-1;i++){
+            n =parseInt(arrayResult[i][0])/maxScore;
+            arrayResult[i][0] = n;
+        }
+    }
+
+    arrayResult = arrayResult.filter(function(el){
+        return el[0]>=0.5;
+    })
+
+    return arrayResult;
+
+    //se nenhum resultado, busca no catálogo
+}
+
+function formatarItemScore(score, stringSize){
+    var i =0;
+    var qtdNewChar = 0;
+    var result ="";
+
+    strScore = score.toString();
+    qtdNewChar = stringSize - strScore.length;
+
+    for(i=1;i<=qtdNewChar;i++){
+        result += "0";
+    }
+
+    result+=strScore;
+
+    return result;
 }
