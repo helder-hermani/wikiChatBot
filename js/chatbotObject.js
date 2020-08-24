@@ -92,7 +92,9 @@ var botCommands = [
         "botResponses":"success",
         "enabled" : true,
         "action" : function(){
-            $chatBotDialog.innerHTML="";
+            $chatBotDialog.innerHTML="<div style='border: solid 1px rgba(0,0,0,.2); width:75%; height: auto; margin: 3% auto 0 0;border-radius: 10px; padding: 1% 2%;'><p style='font-weight: bold; color: #040242; margin: 3% 0 0 0; padding:0;'>Helper:</p>Olá, em que possoa ajudar? Caso deseje um suporte mais especializado, selecione o atendente clicando no avatar.</div>" +
+                                        "<div id='spinner-container'><div class='lds-ellipsis lds-ellipsis-hide'><div></div><div></div><div></div><div></div></div></div>";
+            toggleSpinner();
         }
     },
     {
@@ -242,7 +244,7 @@ function searchByHashatg(msgReq){   //Retona uma array com 2 elementos. O primei
             botAnswer = "<p>Ok, encontrei o seguinte resultado:</p>" + buildAnswerResult(isValidRequest[1][0]);
         }else{        
             for (i=0; i<=isValidRequest[1].length-1;i++){
-                tableResult = buildTableResult("wikiContents", isValidRequest[1][i].Index, isValidRequest[1][i].Title, isValidRequest[1][i].Description, "Inclusão: " + isValidRequest[1][i].DateUpload);
+                tableResult = buildTableResult("wikiContents", isValidRequest[1][i].Index, isValidRequest[1][i].Title, isValidRequest[1][i].Description, "Inc: " + isValidRequest[1][i].DateUpload + " | ID: " + isValidRequest[1][i].Id);
                 setOfTablesResult.push(tableResult);
             }
             botAnswer += "<p>Consegui encontrar o(s) seguintes(s) resultado(s):</p>";
@@ -355,8 +357,6 @@ function startSearching(msgReq){    //retorna um array. Elemento 0 = quantidade 
     processBotResponse[0]= resultSearch.length;
 
     debugger;
-
-    // tableResult = buildTableResult("wikiContents", isValidRequest[1][i].Index, isValidRequest[1][i].Title, isValidRequest[1][i].Description, isValidRequest[1][i].DateUpload);
     
     if (resultSearch.length<=0){ //Se não encontrou nenhum elemento
         processBotResponse[1]="Desculpa, não consegui encontrar nada a respeito. Tente ser um pouco mais preciso ou mencionar palavras mais relevantes sobre o assunto que deseja tratar. Talvez em uma busca por hashtag eu consiga encontrar algo mais exato. Verifique também se minha especialidade está adequada ao assunto em questão."
@@ -366,7 +366,7 @@ function startSearching(msgReq){    //retorna um array. Elemento 0 = quantidade 
     } else if (resultSearch.length>1){ //se encontrou mais de dois itens
         resultSearch.length<=5 ? iLimitReturnItens=resultSearch.length-1 : iLimitReturnItens=4;
         for (i=iLimitReturnItens; i>=0;i--){ //Monta o conjunto de tabelas, em ordem crescente de significância (maior score proporcional para o menor)
-            tableResult = buildTableResult("wikiContents", resultSearch[i][1].Index, resultSearch[i][1].Title, resultSearch[i][1].Description, "Inclusão: " + resultSearch[i][1].DateUpload);
+            tableResult = buildTableResult("wikiContents", resultSearch[i][1].Index, resultSearch[i][1].Title, resultSearch[i][1].Description, "Inc: " + resultSearch[i][1].DateUpload + " | ID: " + resultSearch[i][1].Id);
             setOfTablesResult.push(tableResult);
         }
         processBotResponse[1]=setOfTablesResult;
@@ -416,6 +416,7 @@ function buildAnswerResult(itemObjeto){
     answer += "Hashtags: " + hashtags + "</br>";
     answer += "Links: " + links + "</br>";
     answer += "Data inclusão: " + itemObjeto.DateUpload + "</br>";
+    answer += "ID: " + itemObjeto.Id + "</br>";
 
     return answer;
 

@@ -1,6 +1,10 @@
 // ================================INICIALIZADORES DE INTERFACE=================================
 var botSex = "m";
 var botNameSection = "Helper";
+var $spinner = document.querySelector(".lds-ellipsis");
+var $spinnerContainer = document.querySelector("#spinner-container");
+// var $spinner = document.querySelector(".loader");
+// var $spinner = document.querySelector(".spinner-answer");
 var $chatBotDialog = document.querySelector("#chatbot-dialog");
 var $chatBotPrompt = document.querySelector("#textChatbotPrompt");
 var $chatBotAvatar = document.querySelector(".chatbot-header-avatar");
@@ -16,6 +20,7 @@ var $iconHelp = document.querySelector("#iconHelp");
 var $frameHelp = document.querySelector("#frame-help");
 
 var $itemResult=[];
+var readytoAnswer=false;    //em implementação
 
 var robotDBWiki = wikiContents;   //Base a ser pesquisada. ALterar ao alterar o atendente, conforme a propriedade Segment. Inicializa como toda a base.
 
@@ -23,6 +28,7 @@ var scrollPos = 100000;
 var msgSent = "";
 var prevMsg = "";
 var botResponseSuccess = false;
+const TIMELAGRESPONSE = 800;
 const USERLABEL = "<div style='border: solid 1px rgba(0,0,0,.2); width:75%; height: auto; margin: 3% 0 0 auto;border-radius: 10px; padding: 1% 2%;'><p style='font-weight: bold; color: #FF720C; margin: 0; padding:0;'>Você:</p>";
 var BOTLABEL = "<div class='div-botLabel'><p style='font-weight: bold; color: #040242; margin: 3% 0 0 0; padding:0;'>" + botNameSection +":</p>";
 const COMMANDINSTRUCTIONS = "<p>Digite uma pergunta ou um assunto que deseja saber. Utilize frases objetivas, contendo as palavras principais sobre o assunto de interesse. Exemplo: encerramento FIES.</p>"+
@@ -184,37 +190,29 @@ function initAtendentes(){
 }
 
 // ================================CRIAÇÃO A JANELA (FRAME) DE AJUDA/HELP=================================
-const closeLink = document.createElement("p");
-closeLink.innerText="Fechar";
-closeLink.classList.add("fecharHelpFrame");
-closeLink.addEventListener("click", closeAllFloatingFrames);
+// const closeLink = document.createElement("p");
+// closeLink.innerText="Fechar";
+// closeLink.classList.add("fecharHelpFrame");
+// closeLink.addEventListener("click", closeAllFloatingFrames);
 
 const textBody = document.createElement("p");
 textBody.innerHTML = COMMANDINSTRUCTIONS;
 
 // $frameHelp.innerHTML = COMMANDINSTRUCTIONS;
 
-$frameHelp.appendChild(closeLink);
+// $frameHelp.appendChild(closeLink);
 $frameHelp.appendChild(textBody);
 
 
 // ================================EVENTOS DE EXIBIÇÃO DAS TELAS ADICIONAIS (AVATAR/HELP/SETTINGS)=================================
 $chatBotAvatar.addEventListener("click", function(){
-    closeAllFloatingFrames();
-    if ($chatBotFrameChangeAvatar.className=="frame-float frame-float-show"){
-        closeAllFloatingFrames();
-    }else{
-        $chatBotFrameChangeAvatar.classList.add("frame-float-show");
-    }
+    closeAllFloatingFrames($chatBotFrameChangeAvatar.id);
+    $chatBotFrameChangeAvatar.classList.toggle("frame-float-show");
 })
 
 $iconHelp.addEventListener("click", function(){
-    closeAllFloatingFrames();
-    if ($frameHelp.className=="frame-float frame-help frame-float-show"){
-        closeAllFloatingFrames();
-    }else{
-        $frameHelp.classList.add("frame-float-show");
-    }
+    closeAllFloatingFrames($frameHelp.id);
+    $frameHelp.classList.toggle("frame-float-show");
 })
 
 $chatBotDialog.addEventListener("mouseover", function(){
@@ -257,13 +255,21 @@ function buildBot(indexBot){
     }
 }
 
-function closeAllFloatingFrames(){
+function closeAllFloatingFrames(exception){
     var i=0;
     var $allFloatFrames = document.querySelectorAll(".frame-float");
 
     for(i=0;i<=$allFloatFrames.length-1;i++){
-        $allFloatFrames[i].classList.remove("frame-float-show");
+        if ($allFloatFrames[i].id != exception){$allFloatFrames[i].classList.remove("frame-float-show")};
     }
+}
+
+function toggleSpinner(){
+    $spinnerContainer = document.querySelector("#spinner-container");
+    $spinner = document.querySelector(".lds-ellipsis");
+    debugger;
+    $spinnerContainer.style.top = ($chatBotDialog.scrollHeight + 50) + "px";
+    $spinner.classList.toggle("lds-ellipsis-hide");
 }
 
 // =============================================================================================================================================
@@ -283,7 +289,11 @@ $chatBotPrompt.addEventListener("keyup", function(evt){
         $chatBotPrompt.value=prevMsg;
     }
 
+    
+
     if(evt.keyCode==13){
+        toggleSpinner();
+        readytoAnswer=false;
         msgSent = $chatBotPrompt.value;
         msgSent = msgSent.replace("\n", "");
         botResponseSuccess=false;
@@ -291,7 +301,10 @@ $chatBotPrompt.addEventListener("keyup", function(evt){
         $chatBotDialog.scroll(0,scrollPos);
         $chatBotPrompt.value="";
         prevMsg=msgSent;
-        activateBot(sanitizeMsg(msgSent));
+
+        window.setTimeout(function(){
+            activateBot(sanitizeMsg(msgSent));
+        },TIMELAGRESPONSE);
     }
 });
 
@@ -304,23 +317,31 @@ function activateBot(msgSent){
     botResponseSuccess=false;
 
     
-    if (hasCommand(msgSent)){return};
+    if (hasCommand(msgSent)){
+        toggleSpinner();
+        return;
+    }
 
     if(botCurrentStatus == botStatus.get("idle")){
+        debugger;
         if (isHashTag(msgSent)){
             //fluxo de hashstag
             responseBot=searchByHashatg(msgSent);
             botResponseSuccess=true;
 
             if(responseBot[1].length<=1){
+                toggleSpinner();
                 $chatBotDialog.innerHTML += BOTLABEL + responseBot[0]; //"Quantidade:  " + responseBot[1].length + "</div>";
             }else if (responseBot[1].length>1 && responseBot[1].length<=10){
+                toggleSpinner();
                 $chatBotDialog.innerHTML += BOTLABEL + "<p>Encontei algumas informações que podem responder a sua questão. São elas:</p></div>"
                 appendTableResultToBotLabel(responseBot[1]);
             }else if (responseBot[1].length>10){
+                toggleSpinner();
                 $chatBotDialog.innerHTML += BOTLABEL + "<p>Encontrei mais de 10 resultados e estou exibindo os conteúdos adicionados mais recentemente. Para uma resposta mais precisa, por favor faça uma questão mais específica e objetiva.</p></div>";
                 appendTableResultToBotLabel(responseBot[1]);
             }else{
+                toggleSpinner();
                 $chatBotDialog.innerHTML += BOTLABEL + responseBot[0];
             }
         }else{
@@ -329,21 +350,25 @@ function activateBot(msgSent){
                 responseBot = hasGreetings(msgSent); //Verifica se encontrou cumprimento. Se true, obtém uma das mensagens de resposta
                 if (responseBot){
                     botResponseSuccess=true;
+                    toggleSpinner();
                     $chatBotDialog.innerHTML += responseBot + "</div>";
                 }
                 responseBot = hasThanks(msgSent); //Verifica se encontrou agradecimento. Se true, obtém uma das mensagens de resposta
                 if (responseBot){
                     botResponseSuccess=true;
+                    toggleSpinner();
                     $chatBotDialog.innerHTML += responseBot + "</div>";
                 }
                 responseBot = hasFarewell(msgSent); //Verifica se encontrou despedida. Se true, obtém uma das mensagens de resposta
                 if (responseBot){
                     botResponseSuccess=true;
+                    toggleSpinner();
                     $chatBotDialog.innerHTML += responseBot + "</div>";
                 }
                 responseBot = hasMissUnderstand(msgSent); //Verifica se encontrou despedida. Se true, obtém uma das mensagens de resposta
                 if (responseBot){
                     botResponseSuccess=true;
+                    toggleSpinner();
                     $chatBotDialog.innerHTML += responseBot + "</div>";
                 }
 
@@ -356,9 +381,11 @@ function activateBot(msgSent){
                 responseBot=startSearching(sanitizeMsgFull(msgSent));
                 botResponseSuccess=true;
                 if (responseBot[0]<=1){ //exibe mensagens singulares, vindas como retorno (se for encontrado 0 ou 1 itens)
+                    toggleSpinner();
                     $chatBotDialog.innerHTML += BOTLABEL + responseBot[1] + "</div>";
                 }else{ //exibe itens encontrados, se quantidade maior que 1
                     responseBot[0]<=5 ? strAux = "<p>Encontei algumas informações que podem responder a sua questão. São elas:</p></div>" : strAux = "<p>Encontei muitas informações que podem responder a sua questão. Segue as 5 que considerei mais relevantes:</p></div>"
+                    toggleSpinner();
                     $chatBotDialog.innerHTML += BOTLABEL + strAux;
                     appendTableResultToBotLabel(responseBot[1]);
                 }
@@ -368,9 +395,13 @@ function activateBot(msgSent){
         $chatBotDialog.innerHTML += BOTLABEL + "Estou em estado de espera.</div>"
     }
 
-    if (botResponseSuccess==false){$chatBotDialog.innerHTML += BOTLABEL + "Desculpa, não entendi.</div>";}
+    if (botResponseSuccess==false){
+        toggleSpinner();
+        $chatBotDialog.innerHTML += BOTLABEL + "Desculpa, não entendi.</div>";
+    }
 
     $chatBotDialog.scroll(0,scrollPos);
+    
 }
 
 // =============================================================================================================================================
