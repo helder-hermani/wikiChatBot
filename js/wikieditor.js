@@ -14,10 +14,9 @@ function setUrl() {
     document.getElementById('txtFormatUrl').value = '';
 }
 
-var $btn = document.querySelector("#botao");
+// var $btn = document.querySelector("#botao");
 var $editor = document.getElementById('sampleeditor');
 
-$btn.addEventListener("click", function(){
-    // debugger;
-    console.log($editor.innerHTML);
-})
+// $btn.addEventListener("click", function(){
+//     console.log($editor.innerHTML);
+// })

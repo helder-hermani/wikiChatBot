@@ -1,24 +1,58 @@
+@font-face {
+    font-family: "Roboto";
+    src: url("../assets/fonts/Roboto-Regular.ttf");
+  }
+
+#div-editor{
+    /* display: none; */
+	height: auto;
+	width: 96%;
+	font-family: Roboto;
+	margin: 3% 0;
+}
+
 .editor
-        {
-			border:solid 1px #ccc;
-			padding: 20px;
-			min-height:200px;
-        }
+	{
+		border:solid 1px #ccc;
+		/* padding: 20px; */
+		min-height:200px;
+		padding: 2%;
+		outline: none;
+		font-family: Roboto;
+	}
 
-        .sample-toolbar
-        {
-			border:solid 1px #ddd;
-			background:#f4f4f4;
-			padding: 5px;
-			border-radius:3px;
-        }
+.sample-toolbar
+	{
+		border:solid 1px #ddd;
+		background:#f4f4f4;
+		padding: 2%;
+		border-radius:3px;
+	}
 
-        .sample-toolbar > span
-        {
-			cursor:pointer;
-		}
+/* .sample-toolbar > span
+	{
+		cursor:pointer;
+	}
 
-        .sample-toolbar > span:hover
-        {
-			text-decoration:underline;
-		}
+.sample-toolbar > span:hover
+	{
+		text-decoration:underline;
+	} */
+
+.sample-toolbar img{
+	width: 15px;
+	height: 15px;
+	cursor: pointer;
+	padding: 2%;
+	margin: 0 .5%;
+	border: solid 1px rgba(0, 0, 0, .2);
+	border-radius: 3px;
+}
+
+/* .toolbar-color{
+	width: 5px;
+	height: 15px;
+	cursor: pointer;
+	padding: 0;
+	background-color: black;
+} */

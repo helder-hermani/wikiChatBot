@@ -3,8 +3,7 @@ var botSex = "m";
 var botNameSection = "Helper";
 var $spinner = document.querySelector(".lds-ellipsis");
 var $spinnerContainer = document.querySelector("#spinner-container");
-// var $spinner = document.querySelector(".loader");
-// var $spinner = document.querySelector(".spinner-answer");
+var $chatbotSendMsgIcon = document.querySelector(".chatbot-icon-sendMsg");
 var $chatBotDialog = document.querySelector("#chatbot-dialog");
 var $chatBotPrompt = document.querySelector("#textChatbotPrompt");
 var $chatBotAvatar = document.querySelector(".chatbot-header-avatar");
@@ -18,6 +17,28 @@ var $chatbotSettingsHelpIcon = document.querySelectorAll(".chatbot-icon-botSetti
 
 var $iconHelp = document.querySelector("#iconHelp");
 var $frameHelp = document.querySelector("#frame-help");
+
+var $iconSettings = document.querySelector("#iconSettings");
+var $contentNotFound = document.querySelector("#contentNotFound");
+var $frameSettings = document.querySelector("#frame-settings");
+var $settingsAction = document.querySelector("#settingsAction");
+var $serchIcon = document.querySelector(".icon-content-search");
+var $txtID = document.querySelector("#txtId");
+var $txtIndex = document.querySelector("#txtIndex");
+var $selSegment = document.querySelector("#selSegment");
+var $txtTitle = document.querySelector("#txtTitle");
+var $txtDescription = document.querySelector("#txtDescription");
+var $txtLinks = document.querySelector("#txtLinks");
+var $txtHashtags = document.querySelector("#txtHashtags");
+var $chkActive = document.querySelector("#chkActive");
+var $txtDateUpdate = document.querySelector("#txtDateUpdate");
+var $txtAuthor = document.querySelector("#txtAuthor");
+
+
+var $txtButton = document.querySelector("#btnSalvarContent");
+var $formContent = document.querySelector("#setting-div-form-content");
+var $bodyContent = document.querySelector("#sampleeditor");
+
 
 var $itemResult=[];
 var readytoAnswer=false;    //em implementação
@@ -190,11 +211,6 @@ function initAtendentes(){
 }
 
 // ================================CRIAÇÃO A JANELA (FRAME) DE AJUDA/HELP=================================
-// const closeLink = document.createElement("p");
-// closeLink.innerText="Fechar";
-// closeLink.classList.add("fecharHelpFrame");
-// closeLink.addEventListener("click", closeAllFloatingFrames);
-
 const textBody = document.createElement("p");
 textBody.innerHTML = COMMANDINSTRUCTIONS;
 
@@ -203,6 +219,52 @@ textBody.innerHTML = COMMANDINSTRUCTIONS;
 // $frameHelp.appendChild(closeLink);
 $frameHelp.appendChild(textBody);
 
+
+// ================================FORMULÁRIO DE INCLUSÃO DE CONTEÚDO (BOTÃO SETTINGS)=================================
+
+$settingsAction.addEventListener("change", function(){
+    $serchIcon.classList.remove("icon-content-search-hide");
+    $txtID.classList.add("txtReduced");
+    $contentNotFound.classList.remove("contentNotFound-show");
+    clearAllFormFields();
+    disableAllFormFields();
+
+    if ($settingsAction.value == "empty"){
+        $formContent.classList.remove("setting-div-form-content-show");
+    }else if($settingsAction.value == "addContent"){
+        $formContent.classList.add("setting-div-form-content-show");
+        $serchIcon.classList.add("icon-content-search-hide");
+        $txtID.classList.remove("txtReduced");
+        enableAllFormFields([$txtID, $txtIndex]);
+        $txtID.value=generateId();
+        $txtIndex.value=parseInt(wikiContents[wikiContents.length-1].Index)+1;
+        $selSegment.focus();
+    }else{
+        $formContent.classList.add("setting-div-form-content-show");
+        $txtID.removeAttribute("disabled");
+        $txtID.focus();
+    }
+})
+
+$txtButton.addEventListener("click", function(){
+    alert("apertou o salvar!");
+})
+
+$serchIcon.addEventListener("click", function(){
+    debugger;
+    var selIetmInDB = wikiContents.filter(function(el){
+        return el.Id == $txtID.value;
+    })
+    
+    if (selIetmInDB.length==0){
+        $contentNotFound.innerHTML = "Nenhum conteúdo localizado com a ID " + $txtID.value;
+        $contentNotFound.classList.add("contentNotFound-show");
+    }else{
+        $contentNotFound.classList.remove("contentNotFound-show");
+        $txtID.value = "Achou!";
+    }
+
+})
 
 // ================================EVENTOS DE EXIBIÇÃO DAS TELAS ADICIONAIS (AVATAR/HELP/SETTINGS)=================================
 $chatBotAvatar.addEventListener("click", function(){
@@ -213,6 +275,13 @@ $chatBotAvatar.addEventListener("click", function(){
 $iconHelp.addEventListener("click", function(){
     closeAllFloatingFrames($frameHelp.id);
     $frameHelp.classList.toggle("frame-float-show");
+})
+
+$iconSettings.addEventListener("click", function(){
+    $settingsAction.value="";
+    $formContent.classList.remove("setting-div-form-content-show");
+    closeAllFloatingFrames($frameSettings.id);
+    $frameSettings.classList.toggle("frame-float-show");
 })
 
 $chatBotDialog.addEventListener("mouseover", function(){
@@ -232,6 +301,8 @@ function buildBot(indexBot){
     $chatBotAvatarStatus.children[0].style.color = botAtendentes[indexBot].fontcolor;
     $chatBotFrameChangeAvatar.style.border = "solid 1px " + botAtendentes[indexBot].headColor;
     $chatBotFrameChangeAvatar.classList.remove("frame-float-show");
+    $chatbotSendMsgIcon.style.fill = botAtendentes[indexBot].headColor;
+    // $chatbotSendMsgIcon.style.backgroundColor = botAtendentes[indexBot].headColor;
 
     for (x=0;x<=$chatbotSettingsHelpIcon.length-1;x++){
         $chatbotSettingsHelpIcon[x].style.fill=botAtendentes[indexBot].fontcolor;
@@ -272,6 +343,45 @@ function toggleSpinner(){
     $spinner.classList.toggle("lds-ellipsis-hide");
 }
 
+function clearAllFormFields(exception){
+    var i=0;
+    var $fields = document.querySelectorAll(".txtContent");
+
+    for (i=0;i<=$fields.length-1;i++){
+        $fields[i].value="";
+    }
+}
+
+function disableAllFormFields(exception){
+    var i=0;
+    var $fields = document.querySelectorAll(".txtContent");
+
+    for (i=0;i<=$fields.length-1;i++){
+        $fields[i].setAttribute("disabled", true);
+    }
+}
+
+function enableAllFormFields(exception){
+    debugger;
+    var i=0;
+    var n=0;
+    var isExcep = false;
+    var $fields = document.querySelectorAll(".txtContent");
+
+    for (i=0;i<=$fields.length-1;i++){
+        isExcep=false;
+        for(n=0;n<=exception.length-1;n++){
+            if($fields[i].id == exception[n].id){
+                isExcep=true;
+                break;
+            }else{
+                isExcep=false;
+            }
+        }
+        if (isExcep == false){$fields[i].removeAttribute("disabled")};
+    }
+}
+
 // =============================================================================================================================================
 // =============================================================================================================================================
 // =============================================================================================================================================
@@ -281,33 +391,34 @@ function toggleSpinner(){
 // =============================================================================================================================================
 
 $chatBotPrompt.addEventListener("keyup", function(evt){
-    // msgSent = $chatBotPrompt.value;
-    // msgSent = msgSent.slice(0, msgSent.length-1);   //retira o caracter "enter"
-    // msgSent = msgSent.replace(String.fromCharCode(13), "");   
-    // alert(evt.keyCode);
     if(evt.keyCode==38){
         $chatBotPrompt.value=prevMsg;
     }
 
-    
-
     if(evt.keyCode==13){
-        toggleSpinner();
-        readytoAnswer=false;
-        msgSent = $chatBotPrompt.value;
-        msgSent = msgSent.replace("\n", "");
-        botResponseSuccess=false;
-        $chatBotDialog.innerHTML += USERLABEL + msgSent +"</div>";
-        $chatBotDialog.scroll(0,scrollPos);
-        $chatBotPrompt.value="";
-        prevMsg=msgSent;
-
-        window.setTimeout(function(){
-            activateBot(sanitizeMsg(msgSent));
-        },TIMELAGRESPONSE);
+        startInteraction();
     }
 });
 
+$chatbotSendMsgIcon.addEventListener("click", function(evt){
+        startInteraction();
+});
+
+function startInteraction(){
+    toggleSpinner();
+    readytoAnswer=false;
+    msgSent = $chatBotPrompt.value;
+    msgSent = msgSent.replace("\n", "");
+    botResponseSuccess=false;
+    $chatBotDialog.innerHTML += USERLABEL + msgSent +"</div>";
+    $chatBotDialog.scroll(0,scrollPos);
+    $chatBotPrompt.value="";
+    prevMsg=msgSent;
+
+    window.setTimeout(function(){
+        activateBot(sanitizeMsg(msgSent));
+    },TIMELAGRESPONSE);
+}
 
 function activateBot(msgSent){
     var i;
