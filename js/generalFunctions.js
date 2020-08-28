@@ -344,3 +344,17 @@ function formatarItemScore(score, stringSize){
 
     return result;
 }
+
+function formatDate(dia, mes, ano){
+    if (dia<10){dia = "0" + dia};
+    if (mes<10){mes = "0" + mes};
+    if (ano.length==2){mes = "20" + ano};
+
+    return dia + "/" + mes + "/" + ano;
+}
+
+function formatBodyContent(bodyInput){
+    var bodyOutput = bodyInput.replace("<div>","<p>");
+    bodyOutput = bodyInput.replace("</div>","</p>");
+    return bodyOutput;
+}

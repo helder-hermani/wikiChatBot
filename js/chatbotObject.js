@@ -6,21 +6,8 @@
 // 5º Reordena o conjunto de três palavras e procura na chave Body do elemento
 // 6º Passa o dicionário no conjunto reaordenaso de três palavras e procura na chave Body do elemento
 
-//STATUS
-var botStatus = new Map();
-botStatus.set("idle",1);
-botStatus.set("await",2);
-
-//NÍVEIS DE CONSULTA
-var levelBotSearch = new Map();
-levelBotSearch.set("hashtag","1");
-levelBotSearch.set("entities","2");
-levelBotSearch.set("files","3");
-levelBotSearch.set("chamados","4");
-levelBotSearch.set("body","5");
 
 //INICIALIZADORES
-var botCurrentStatus = botStatus.get("idle");
 var currentyHour = new Date().getHours();
 var botCurrentyWaitedAction = "";
 var currentShift = "";
@@ -167,6 +154,26 @@ var botCommands = [
     }
 ];
 
+//------------------------------------
+//SEMPRE QUE FOR ALTERADO O STATUS PARA AWAIT, É NECESSÁRIO MUDAR A VARIÁVEL DE ESTADO E PASSAR QUAL A TAREFA, ATRAVÉS DA CHAVE "NAMEACTION"
+//------------------------------------
+//LISTA DE AÇÕES QUE PODEM SER ATRIBUÍDAS NO START DO AWAIT (DEMANDS)
+var botDemands = [
+    {
+        "index":0,
+        "nameAction":"searchLevel5",
+        "description": "Espera que o usuário responda se quer fazer pesquisa de nível 5",
+        "botsentRequest": ["Deseja prosseguir na pesquisa mais detalhada?"],
+        "positiveResponses":["sim", "nao", "talvez", "depende", "claro que sim", "agora"],
+        "negativeResponses":["nao", "claro que nao", "absolutamente", "de jeito nenhum"],
+        "unsureResponses": ["talvez", "depende", "quem sabe", "pode ser", "vou ver", "vou pensar", "Vou decidir"],
+        "positiveAction":function (){},
+        "negativeAction":function (){},
+        "unsureAction":function (){},
+        "defaultAction":function(){}
+    }
+];
+
 // ================================IMPLEMENTAÇÃO DOS COMANDOS NA TELA DE AJUDA=================================
 buildHelpScreen();
 function buildHelpScreen(){
@@ -201,27 +208,62 @@ function buildHelpScreen(){
     $frameHelp.appendChild(divCommandsContainer);
 }
 
-//------------------------------------
-//SEMPRE QUE FOR ALTERADO O STATUS PARA AWAIT, É NECESSÁRIO MUDAR A VARIÁVEL DE ESTADO E PASSAR QUAL A TAREFA, ATRAVÉS DA CHAVE "NAMEACTION"
-//------------------------------------
-//LISTA DE AÇÕES QUE PODEM SER ATRIBUÍDAS NO START DO AWAIT (DEMANDS)
-var botDemands = [
-    {
-        "index":0,
-        "nameAction":"searchLevel5",
-        "description": "Espera que o usuário responda se quer fazer pesquisa de nível 5",
-        "botsentRequest": ["Deseja prosseguir na pesquisa mais detalhada?"],
-        "positiveResponses":["sim", "nao", "talvez", "depende", "claro que sim", "agora"],
-        "negativeResponses":["nao", "claro que nao", "absolutamente", "de jeito nenhum"],
-        "unsureResponses": ["talvez", "depende", "quem sabe", "pode ser", "vou ver", "vou pensar", "Vou decidir"],
-        "positiveAction":function (){},
-        "negativeAction":function (){},
-        "unsureAction":function (){},
-        "defaultAction":function(){}
+// ================================VALIDAÇÃO DE CAMPOS PARA INCLUSÃO/ALTERAÇÃO DE CONTEUDO=================================
+function validateReqFields(){
+    var $reqFields = document.querySelectorAll("input[required]");
+    var i=0;
+    var error=false;
+
+    //Validação do select segmento
+    if (error==false){
+        if($selSegment.value.trim()==""){
+            error=true;
+            $selSegment.classList.add("requiredField");
+            $selSegment.focus();
+        }else{
+            error=false;
+            $selSegment.classList.remove("requiredField");
+        }
     }
-];
 
+    //Validação dos campos required
+    if (error==false){
+        for(i=0;i<=$reqFields.length-1;i++){
+            if ($reqFields[i].value.trim()==""){
+                error=true;
+                $reqFields[i].classList.add("requiredField");
+                $reqFields[i].focus();
+                break;
+            }else{
+                error=false;
+                $reqFields[i].classList.remove("requiredField");
+            }
+        }
+    }
 
+    //Validação do editor de conteúdo
+    if (error==false){
+        if($bodyContent.innerHTML.trim()==""){
+            error=true;
+            $bodyContent.classList.add("requiredField");
+            $bodyContent.focus();
+        }else{
+            error=false;
+            $bodyContent.classList.remove("requiredField");
+        }
+    }
+
+    return !error;
+}
+
+// ================================FILE SAVER - SALVAR NOVA BASE DE DADOS (JSON)=================================
+
+function saveJSONDataBase() {
+    // let texto = document.getElementById("texto").value;
+    // let titulo = document.getElementById("titulo").value;
+    let blob = new Blob([$divPreSavedContent.textContent], { type: "text/plain;charset=utf-8" });
+    saveAs(blob, "conteudowiki.js");
+ }
 
 
 

@@ -1,6 +1,14 @@
 // ================================INICIALIZADORES DE INTERFACE=================================
+//STATUS
+var botStatus = new Map();
+botStatus.set("idle","Disponível...");
+botStatus.set("await","Em espera da resposta...");
+botStatus.set("edit","Aguardando exportação da base editada");
+
 var botSex = "m";
 var botNameSection = "Helper";
+// var botCurrentStatus = changeBotStatus("idle");
+var botCurrentStatus = botStatus.get("idle");
 var $spinner = document.querySelector(".lds-ellipsis");
 var $spinnerContainer = document.querySelector("#spinner-container");
 var $chatbotSendMsgIcon = document.querySelector(".chatbot-icon-sendMsg");
@@ -17,9 +25,12 @@ var $chatbotSettingsHelpIcon = document.querySelectorAll(".chatbot-icon-botSetti
 
 var $iconHelp = document.querySelector("#iconHelp");
 var $frameHelp = document.querySelector("#frame-help");
+var $msgScreen = document.querySelector("#msgScreen");
 
 var $iconSettings = document.querySelector("#iconSettings");
+var $iconOkClose = document.querySelector("#iconOkClose");
 var $contentNotFound = document.querySelector("#contentNotFound");
+var $confirmationMsg = document.querySelector("#confirmationMsg");
 var $frameSettings = document.querySelector("#frame-settings");
 var $settingsAction = document.querySelector("#settingsAction");
 var $serchIcon = document.querySelector(".icon-content-search");
@@ -35,9 +46,12 @@ var $txtDateUpdate = document.querySelector("#txtDateUpdate");
 var $txtAuthor = document.querySelector("#txtAuthor");
 
 
-var $txtButton = document.querySelector("#btnSalvarContent");
+var $btnSaveContent = document.querySelector("#btnSalvarContent");
+var $btnExportContent = document.querySelector("#btnExportContent");
 var $formContent = document.querySelector("#setting-div-form-content");
 var $bodyContent = document.querySelector("#sampleeditor");
+
+var $divPreSavedContent = document.querySelector(".div-preSavedContent");
 
 
 var $itemResult=[];
@@ -50,14 +64,15 @@ var msgSent = "";
 var prevMsg = "";
 var botResponseSuccess = false;
 const TIMELAGRESPONSE = 800;
+const DATABASEPATH = "<p style='color: #FF0000;'>C:\\Users\\helde\\Documents\\<br>projetos_dev\\wikiepitacio\\js</p>";
+const MSGINCLUDEDSUCESS = " com sucesso, porém a base de dados <b><u>NÃO</u></b> está atualizada. <p>Após concluir todas as ações desejadas, clique em \"Armazenar Banco\" e siga as instruções para armazenar as alterações de forma definitiva.</p>";
+// const MSGINCLUDEDSUCESS = " com sucesso.<p>Salve o arquivo baixado na pasta:<p>" + DATABASEPATH + "</p> sem fazer qualquer alteração.<p>Se necessário, sobrescreva o arquivo anterior existente, ou salve-o como backup.</p>";
 const USERLABEL = "<div style='border: solid 1px rgba(0,0,0,.2); width:75%; height: auto; margin: 3% 0 0 auto;border-radius: 10px; padding: 1% 2%;'><p style='font-weight: bold; color: #FF720C; margin: 0; padding:0;'>Você:</p>";
 var BOTLABEL = "<div class='div-botLabel'><p style='font-weight: bold; color: #040242; margin: 3% 0 0 0; padding:0;'>" + botNameSection +":</p>";
 const COMMANDINSTRUCTIONS = "<p>Digite uma pergunta ou um assunto que deseja saber. Utilize frases objetivas, contendo as palavras principais sobre o assunto de interesse. Exemplo: encerramento FIES.</p>"+
                             "<p>Pesquise também por hashtag. Exemplo: #encerramentofies</p>"+
                             "<p>Caso deseje, utilize também algum comando, para executar uma determinada ação. Lista de comandos:<p>";
                             
-
-
 
 
 
@@ -210,17 +225,35 @@ function initAtendentes(){
     }
 }
 
+
 // ================================CRIAÇÃO A JANELA (FRAME) DE AJUDA/HELP=================================
 const textBody = document.createElement("p");
 textBody.innerHTML = COMMANDINSTRUCTIONS;
 
-// $frameHelp.innerHTML = COMMANDINSTRUCTIONS;
-
-// $frameHelp.appendChild(closeLink);
 $frameHelp.appendChild(textBody);
 
 
+// ================================IMPLEMENTAÇÃO DAS OPÇÕES DE AÇÃO PARA INCREMENTO/ALTERAÇÃO DE CONTEÚDO=================================
+
+buildSelOption($settingsAction, ROBOTWIKIACTIONS);
+
+
+
+
 // ================================FORMULÁRIO DE INCLUSÃO DE CONTEÚDO (BOTÃO SETTINGS)=================================
+buildSelOption($selSegment, SEGMENTOS);
+
+function buildSelOption(selectElement, CONSTSOURCE){
+    var i=0;
+    debugger;
+
+    for(i=0;i<=CONSTSOURCE.length-1;i++){
+        var $newOption = document.createElement("option");
+        $newOption.textContent=CONSTSOURCE[i].description;
+        $newOption.value=CONSTSOURCE[i].value;
+        selectElement.appendChild($newOption);
+    }
+}
 
 $settingsAction.addEventListener("change", function(){
     $serchIcon.classList.remove("icon-content-search-hide");
@@ -229,42 +262,56 @@ $settingsAction.addEventListener("change", function(){
     clearAllFormFields();
     disableAllFormFields();
 
-    if ($settingsAction.value == "empty"){
-        $formContent.classList.remove("setting-div-form-content-show");
-    }else if($settingsAction.value == "addContent"){
-        $formContent.classList.add("setting-div-form-content-show");
-        $serchIcon.classList.add("icon-content-search-hide");
-        $txtID.classList.remove("txtReduced");
-        enableAllFormFields([$txtID, $txtIndex]);
-        $txtID.value=generateId();
-        $txtIndex.value=parseInt(wikiContents[wikiContents.length-1].Index)+1;
-        $selSegment.focus();
-    }else{
-        $formContent.classList.add("setting-div-form-content-show");
-        $txtID.removeAttribute("disabled");
-        $txtID.focus();
-    }
+    var selectedAction = ROBOTWIKIACTIONS.filter(function(el){
+        return el.value == $settingsAction.value;
+    })
+
+    selectedAction[0].onChange();
 })
 
-$txtButton.addEventListener("click", function(){
-    alert("apertou o salvar!");
+$btnSaveContent.addEventListener("click", function(){
+    var selectedAction = ROBOTWIKIACTIONS.filter(function(el){
+        return el.value == $settingsAction.value;
+    })
+
+    selectedAction[0].onClick();
 })
+
+
+$btnExportContent.addEventListener("click", ()=>{
+    exportDataBase();
+    $confirmationMsg.innerHTML = "Informações exportadas com sucesso.<p>Após o download do arquivo conteudowiki.js, copie-o para a pasta:</p>" + DATABASEPATH + "sem fazer qualquer alteração.<p>Se necessário, sobrescreva o arquivo existente (ou salve-o como backup).</p>";
+    showMsgScreen();
+    // botCurrentStatus = botStatus.get("idle");
+    botCurrentStatus = changeBotStatus("idle");
+})
+
 
 $serchIcon.addEventListener("click", function(){
-    debugger;
-    var selIetmInDB = wikiContents.filter(function(el){
-        return el.Id == $txtID.value;
-    })
-    
-    if (selIetmInDB.length==0){
-        $contentNotFound.innerHTML = "Nenhum conteúdo localizado com a ID " + $txtID.value;
-        $contentNotFound.classList.add("contentNotFound-show");
-    }else{
-        $contentNotFound.classList.remove("contentNotFound-show");
-        $txtID.value = "Achou!";
-    }
-
+    findRegisterWiki();
 })
+
+$txtID.addEventListener("keyup", function(evt){
+    if(evt.keyCode==13){
+        findRegisterWiki();
+    }
+})
+
+
+$iconOkClose.addEventListener("click",()=>{
+    $msgScreen.classList.remove("msgScreen-show");
+    if (botCurrentStatus == botStatus.get("idle")){
+        clickSettingsIcon();
+    }else{
+        clearAllFormFields();
+        debugger;
+        // disableAllFormFields();
+        disableAllFormFields([$btnExportContent]);
+        $frameSettings.scroll(0,0);
+    }
+})
+
+
 
 // ================================EVENTOS DE EXIBIÇÃO DAS TELAS ADICIONAIS (AVATAR/HELP/SETTINGS)=================================
 $chatBotAvatar.addEventListener("click", function(){
@@ -278,10 +325,15 @@ $iconHelp.addEventListener("click", function(){
 })
 
 $iconSettings.addEventListener("click", function(){
-    $settingsAction.value="";
-    $formContent.classList.remove("setting-div-form-content-show");
-    closeAllFloatingFrames($frameSettings.id);
-    $frameSettings.classList.toggle("frame-float-show");
+    if (botCurrentStatus == botStatus.get("edit")){
+        exportDataBase();
+        $confirmationMsg.innerHTML = "As alterações realizadas foram exportadas com sucesso.<p>Após o download do arquivo conteudowiki.js, copie-o para a pasta:</p><p>" + DATABASEPATH + "</p> sem fazer qualquer alteração.<p>Se necessário, sobrescreva o arquivo existente (ou salve-o como backup).</p>";
+        showMsgScreen();
+        botCurrentStatus = changeBotStatus("idle");
+        // botCurrentStatus = botStatus.get("idle");
+    }else if (botCurrentStatus == botStatus.get("idle")){
+        clickSettingsIcon();
+    }
 })
 
 $chatBotDialog.addEventListener("mouseover", function(){
@@ -289,6 +341,16 @@ $chatBotDialog.addEventListener("mouseover", function(){
 })
 
 // ================================FUNCOES ADICIONAIS========================================
+
+function clickSettingsIcon(){
+    $settingsAction.value="";
+    $formContent.classList.remove("setting-div-form-content-show");
+    clearAllFormFields();
+    closeAllFloatingFrames($frameSettings.id);
+    $frameSettings.classList.toggle("frame-float-show");
+    $frameSettings.scroll(0,0);
+}
+
 function buildBot(indexBot){
     var x=0;
 
@@ -349,24 +411,20 @@ function clearAllFormFields(exception){
 
     for (i=0;i<=$fields.length-1;i++){
         $fields[i].value="";
+        $fields[i].classList.remove("requiredField");
     }
+
+    $bodyContent.innerHTML="";
+    $btnSaveContent.innerHTML="Incluir";
 }
 
 function disableAllFormFields(exception){
     var i=0;
-    var $fields = document.querySelectorAll(".txtContent");
-
-    for (i=0;i<=$fields.length-1;i++){
-        $fields[i].setAttribute("disabled", true);
-    }
-}
-
-function enableAllFormFields(exception){
-    debugger;
-    var i=0;
     var n=0;
     var isExcep = false;
     var $fields = document.querySelectorAll(".txtContent");
+
+    if (exception==null){exception=[]};
 
     for (i=0;i<=$fields.length-1;i++){
         isExcep=false;
@@ -378,8 +436,84 @@ function enableAllFormFields(exception){
                 isExcep=false;
             }
         }
-        if (isExcep == false){$fields[i].removeAttribute("disabled")};
+        if (isExcep == false){
+            $fields[i].setAttribute("disabled", true);
+        }else{
+            $fields[i].removeAttribute("disabled");
+        };
     }
+
+}
+
+function enableAllFormFields(exception){
+    debugger;
+    var i=0;
+    var n=0;
+    var isExcep = false;
+    var $fields = document.querySelectorAll(".txtContent");
+
+    if (exception==null){exception=[]};
+
+    for (i=0;i<=$fields.length-1;i++){
+        isExcep=false;
+        for(n=0;n<=exception.length-1;n++){
+            if($fields[i].id == exception[n].id){
+                isExcep=true;
+                break;
+            }else{
+                isExcep=false;
+            }
+        }
+        if (isExcep == false){
+            $fields[i].removeAttribute("disabled");
+        }else{
+            $fields[i].setAttribute("disabled", true);
+        };
+    }
+}
+
+function findRegisterWiki(){
+    var i = 0;
+    var str="";
+    var selItemInDB = wikiContents.filter(function(el){
+        return el.Id == $txtID.value;
+    })
+    
+    if (selItemInDB.length==0){
+        $contentNotFound.innerHTML = "Nenhum conteúdo localizado com a ID " + $txtID.value;
+        $contentNotFound.classList.add("contentNotFound-show");
+    }else{
+        enableAllFormFields([$txtID, $txtIndex]);
+        $contentNotFound.classList.remove("contentNotFound-show");
+        $txtIndex.value = selItemInDB[0].Index;
+        $selSegment.value = selItemInDB[0].Segment;
+        $txtTitle.value = selItemInDB[0].Title;
+        $txtDescription.value = selItemInDB[0].Description;
+        $txtLinks.value = selItemInDB[0].Link.join(" ");
+        $txtHashtags.value = selItemInDB[0].Hashtags.join(" ");
+        $chkActive.checked = selItemInDB[0].Active;
+        $txtDateUpdate.value = selItemInDB[0].DateUpload;
+        $txtAuthor.value = selItemInDB[0].Author;
+        $bodyContent.innerHTML = selItemInDB[0].Body;
+    }
+    $selSegment.focus();
+}
+
+function exportDataBase(){
+    botCurrentStatus = changeBotStatus("idle");
+    // botCurrentStatus = botStatus.get("idle");
+    saveJSONDataBase();
+}
+
+function showMsgScreen(){
+    $confirmationMsg.classList.add("confirmationMsg-show");
+    $msgScreen.classList.add("msgScreen-show");
+}
+
+function changeBotStatus(newStatus){
+    debugger;
+    $chatBotAvatarStatus.innerHTML = botStatus.get(newStatus);
+    return botStatus.get(newStatus);
 }
 
 // =============================================================================================================================================

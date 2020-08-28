@@ -2,6 +2,7 @@ var $iconSettings = document.querySelector("#iconSettings");
 var $frameSettings = document.querySelector("#frame-settings");
 var $settingsAction = document.querySelector("#settingsAction");
 var $serchIcon = document.querySelector(".icon-content-search");
+
 var $txtID = document.querySelector("#txtId");
 var $txtIndex = document.querySelector("#txtIndex");
 var $selSegment = document.querySelector("#selSegment");
