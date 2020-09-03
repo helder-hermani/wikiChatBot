@@ -1,0 +1,1348 @@
+.border{
+    border: solid 0px red;
+    height: auto;
+}
+
+.field{
+	width: 95%;
+	height: 95%;
+	border: none;
+	/* border: solid 0px red; */
+	outline: none;
+	text-align: center;
+	font-size: 1em;
+}
+
+.alignLeft{
+	text-align: left;
+}
+
+.textGuia{
+	text-align: left;
+	font-size: 1em;
+	font-style: italic;
+}
+
+.xl7013563
+	{padding:0px;
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:Arial, sans-serif;
+	text-align:general;
+	white-space:nowrap;}
+.xl7113563
+	{padding:0px;
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:Arial, sans-serif;
+	text-align:general;
+	vertical-align:bottom;
+	border-top:none;
+	border-right:none;
+	border-bottom:none;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl7213563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:Arial, sans-serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:bottom;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:none;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl7313563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:Arial, sans-serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:bottom;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl7413563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:Arial, sans-serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:bottom;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl7513563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:Arial, sans-serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:bottom;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl7613563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:700;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:bottom;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl7713563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"Arial Narrow", sans-serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:bottom;
+	border-top:none;
+	border-right:none;
+	border-bottom:none;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl7813563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"Arial Narrow", sans-serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:bottom;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl7913563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:Arial, sans-serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:bottom;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt dashed black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl8013563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:Arial, sans-serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:"Short Date"; */
+	text-align:center;
+	vertical-align:bottom;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl8113563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:16.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:Arial, sans-serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:center;
+	vertical-align:bottom;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl8213563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:Fixed; */
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:none;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl8313563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:Fixed; */
+	text-align:general;
+	vertical-align:middle;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl8413563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:Fixed; */
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:none;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl8513563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:000; */
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:none;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl8613563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl8713563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:none;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl8813563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:Fixed; */
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:none;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl8913563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:Fixed; */
+	text-align:right;
+	vertical-align:middle;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl9013563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:Fixed; */
+	text-align:right;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:none;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl9113563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:0; */
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:none;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl9213563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:0; */
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:none;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl9313563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:0; */
+	text-align:center;
+	vertical-align:middle;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl9413563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:Fixed; */
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:none;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl9513563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:Fixed; */
+	text-align:center;
+	vertical-align:middle;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl9613563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:Fixed; */
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:none;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl9713563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:Fixed; */
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl9813563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:Fixed; */
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl9913563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:Fixed; */
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl10013563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl10113563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl10213563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl10313563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:Fixed; */
+	text-align:right;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl10413563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:Fixed; */
+	text-align:right;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl10513563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:Fixed; */
+	text-align:right;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl10613563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:0; */
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl10713563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:0; */
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl10813563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:0; */
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl10913563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:Fixed; */
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl11013563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:Fixed; */
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl11113563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:Fixed; */
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl11213563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:none;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl11313563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:none;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl11413563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:"\@"; */
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:none;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl11513563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:center;
+	vertical-align:middle;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl11613563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:none;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl11713563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:.5pt solid black;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl11813563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl11913563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl12013563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl12113563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:none;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl12213563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl12313563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:none;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl12413563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl12513563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl12613563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl12713563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl12813563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl12913563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl13013563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl13113563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:none;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl13213563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:"_\(* \#\,\#\#0\.00_\)\;_\(* \\\(\#\,\#\#0\.00\\\)\;_\(* \0022-\0022??_\)\;_\(\@_\)";*/
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl13313563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:"_\(* \#\,\#\#0\.00_\)\;_\(* \\\(\#\,\#\#0\.00\\\)\;_\(* \0022-\0022??_\)\;_\(\@_\)";*/
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl13413563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:"_\(* \#\,\#\#0\.00_\)\;_\(* \\\(\#\,\#\#0\.00\\\)\;_\(* \0022-\0022??_\)\;_\(\@_\)";*/
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl13513563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:General;*/
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:.5pt solid black;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl13613563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:12.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:"\@"; */
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:.5pt solid black;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl13713563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:"Short Date"; */
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}
+.xl13813563
+	{padding:0px;
+	/* mso-ignore:padding; */
+	color: black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:italic;
+	text-decoration:none;
+	font-family:"Bookman Old Style", serif;
+	/* mso-font-charset:0; */
+	/* mso-number-format:"Short Date"; */
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid black;
+	border-bottom:.5pt solid black;
+	border-left:none;
+	/* mso-background-source:auto; */
+	/* mso-pattern:auto; */
+	white-space:nowrap;}

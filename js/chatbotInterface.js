@@ -5,11 +5,16 @@ botStatus.set("idle","Disponível...");
 botStatus.set("await","Em espera da resposta...");
 botStatus.set("edit","Aguardando exportação da base editada");
 
+var currentAwaitDemandItem;
+var responseBot="";
+const SETALLEATORY = true;
+
 var botSex = "m";
 var botNameSection = "Helper";
 // var botCurrentStatus = changeBotStatus("idle");
 var botCurrentStatus = botStatus.get("idle");
 var $spinner = document.querySelector(".lds-ellipsis");
+var $main = document.querySelector("#main");
 var $spinnerContainer = document.querySelector("#spinner-container");
 var $chatbotSendMsgIcon = document.querySelector(".chatbot-icon-sendMsg");
 var $chatBotDialog = document.querySelector("#chatbot-dialog");
@@ -25,7 +30,14 @@ var $chatbotSettingsHelpIcon = document.querySelectorAll(".chatbot-icon-botSetti
 
 var $iconHelp = document.querySelector("#iconHelp");
 var $frameHelp = document.querySelector("#frame-help");
+
+var $iconTools = document.querySelector("#iconTools");
+var $frameTools = document.querySelector("#frame-tools");
+
+
 var $msgScreen = document.querySelector("#msgScreen");
+
+
 
 var $iconSettings = document.querySelector("#iconSettings");
 var $iconOkClose = document.querySelector("#iconOkClose");
@@ -59,7 +71,7 @@ var readytoAnswer=false;    //em implementação
 
 var robotDBWiki = wikiContents;   //Base a ser pesquisada. ALterar ao alterar o atendente, conforme a propriedade Segment. Inicializa como toda a base.
 
-var scrollPos = 100000;
+var scrollPos = 10000;
 var msgSent = "";
 var prevMsg = "";
 var botResponseSuccess = false;
@@ -75,6 +87,8 @@ const COMMANDINSTRUCTIONS = "<p>Digite uma pergunta ou um assunto que deseja sab
                             
 
 
+clearLocalStorage();
+
 
 // ================================CRIAÇÃO DOS ATENDENTES - FLOATING MENU=================================
 var botAtendentes = [
@@ -86,7 +100,7 @@ var botAtendentes = [
         "borderColor":"#000000",
         "fontcolor": "#FFFFFF",
         "opacity": 0.7,
-        "avatarUrl" : "url(/assets/img/avatar-man-tie.jpg)",
+        "avatarUrl" : "url('assets/img/avatar-man-tie.jpg')",
         "especialidade":"Habitação",
         "genre":"m",
         "segment": "habitação",
@@ -100,7 +114,7 @@ var botAtendentes = [
         "borderColor":"var(--bot-helper02-primary)",
         "fontcolor": "#000000",
         "opacity": 0.7,
-        "avatarUrl" : "url(/assets/img/avatar-woman.png)",
+        "avatarUrl" : "url('assets/img/avatar-woman.png')",
         "especialidade":"Pessoas Física",
         "genre":"f",
         "segment": "PF",
@@ -114,7 +128,7 @@ var botAtendentes = [
         "borderColor":"var(--bot-helper03-primary)",
         "fontcolor": "#FFFFFF",
         "opacity": 0.7,
-        "avatarUrl" : "url(/assets/img/avatar-guy.png)",
+        "avatarUrl" : "url('assets/img/avatar-guy.png')",
         "especialidade":"Pessoa Jurídica",
         "genre":"m",
         "segment": "PJ",
@@ -128,7 +142,7 @@ var botAtendentes = [
         "borderColor":"var(--bot-helper04-primary)",
         "fontcolor": "#FFFFFF",
         "opacity": 0.7,
-        "avatarUrl" : "url(/assets/img/black-woman-avatar.jpg)",
+        "avatarUrl" : "url('assets/img/black-woman-avatar.jpg')",
         "especialidade":"Atendimento/Social",
         "genre":"f",
         "segment": "Social",
@@ -142,7 +156,7 @@ var botAtendentes = [
         "borderColor":"var(--bot-helper05-primary)",
         "fontcolor": "#000000",
         "opacity": 0.7,
-        "avatarUrl" : "url(/assets/img/avatar-robot.jpg)",
+        "avatarUrl" : "url('assets/img/avatar-robot.jpg')",
         "especialidade":"Todos Segmentos",
         "genre":"m",
         "segment": false,
@@ -192,7 +206,8 @@ function initAtendentes(){
         atendimentoNameDivPEsp = document.createElement("p");
         atendimentoNameDivPName.style.fontSize="16px";
         atendimentoNameDivPName.textContent = botAtendentes[i].name;
-        atendimentoNameDivPEsp.textContent = "(" + botAtendentes[i].especialidade +")";
+        atendimentoNameDivPEsp.textContent =  botAtendentes[i].especialidade;
+        // atendimentoNameDivPEsp.textContent = "(" + botAtendentes[i].especialidade +")";
 
         atendimentoNameDiv.appendChild(atendimentoNameDivPName);
         atendimentoNameDiv.appendChild(atendimentoNameDivPEsp);
@@ -245,7 +260,7 @@ buildSelOption($selSegment, SEGMENTOS);
 
 function buildSelOption(selectElement, CONSTSOURCE){
     var i=0;
-    debugger;
+    // debugger;
 
     for(i=0;i<=CONSTSOURCE.length-1;i++){
         var $newOption = document.createElement("option");
@@ -304,7 +319,7 @@ $iconOkClose.addEventListener("click",()=>{
         clickSettingsIcon();
     }else{
         clearAllFormFields();
-        debugger;
+        // debugger;
         // disableAllFormFields();
         disableAllFormFields([$btnExportContent]);
         $frameSettings.scroll(0,0);
@@ -322,6 +337,11 @@ $chatBotAvatar.addEventListener("click", function(){
 $iconHelp.addEventListener("click", function(){
     closeAllFloatingFrames($frameHelp.id);
     $frameHelp.classList.toggle("frame-float-show");
+})
+
+$iconTools.addEventListener("click", function(){
+    closeAllFloatingFrames($frameTools.id);
+    $frameTools.classList.toggle("frame-float-show");
 })
 
 $iconSettings.addEventListener("click", function(){
@@ -355,11 +375,13 @@ function buildBot(indexBot){
     var x=0;
 
     $chatBotAvatarPic.style.backgroundImage = botAtendentes[indexBot].avatarUrl;
+    // $chatBotAvatarPic.classList.add("abc");
     $chatBotHeader.style.backgroundColor = botAtendentes[indexBot].headColor;
     $chatBotHeader.style.border = "solid 1px " + botAtendentes[indexBot].borderColor;
     $chatBotAvatarName.children[0].style.color = botAtendentes[indexBot].fontcolor;
     $chatBotAvatarName.children[1].style.color = botAtendentes[indexBot].fontcolor;
-    $chatBotAvatarName.children[1].textContent = "(" + botAtendentes[indexBot].especialidade +")";
+    $chatBotAvatarName.children[1].textContent = botAtendentes[indexBot].especialidade;
+    // $chatBotAvatarName.children[1].textContent = "(" + botAtendentes[indexBot].especialidade +")";
     $chatBotAvatarStatus.children[0].style.color = botAtendentes[indexBot].fontcolor;
     $chatBotFrameChangeAvatar.style.border = "solid 1px " + botAtendentes[indexBot].headColor;
     $chatBotFrameChangeAvatar.classList.remove("frame-float-show");
@@ -392,6 +414,8 @@ function closeAllFloatingFrames(exception){
     var i=0;
     var $allFloatFrames = document.querySelectorAll(".frame-float");
 
+    debugger;
+
     for(i=0;i<=$allFloatFrames.length-1;i++){
         if ($allFloatFrames[i].id != exception){$allFloatFrames[i].classList.remove("frame-float-show")};
     }
@@ -400,7 +424,7 @@ function closeAllFloatingFrames(exception){
 function toggleSpinner(){
     $spinnerContainer = document.querySelector("#spinner-container");
     $spinner = document.querySelector(".lds-ellipsis");
-    debugger;
+    // debugger;
     $spinnerContainer.style.top = ($chatBotDialog.scrollHeight + 50) + "px";
     $spinner.classList.toggle("lds-ellipsis-hide");
 }
@@ -446,7 +470,7 @@ function disableAllFormFields(exception){
 }
 
 function enableAllFormFields(exception){
-    debugger;
+    // debugger;
     var i=0;
     var n=0;
     var isExcep = false;
@@ -511,9 +535,33 @@ function showMsgScreen(){
 }
 
 function changeBotStatus(newStatus){
-    debugger;
+    // debugger;
     $chatBotAvatarStatus.innerHTML = botStatus.get(newStatus);
     return botStatus.get(newStatus);
+}
+
+function clearLocalStorage(){
+    localStorage.setItem("name", "reportName");
+    localStorage.setItem("description", "descrição do relatório");
+    localStorage.setItem("unidMov","");
+    localStorage.setItem("agConta","");
+    localStorage.setItem("operProd","");
+    localStorage.setItem("conta","");
+    localStorage.setItem("contaDV","");
+    localStorage.setItem("cotrato","");
+    localStorage.setItem("NCPD","");
+    localStorage.setItem("numPrest","");
+    localStorage.setItem("TD","");
+    localStorage.setItem("TDDV","");
+    localStorage.setItem("CL","");
+    localStorage.setItem("CLDV","");
+    localStorage.setItem("TP-SIDEC","");
+    localStorage.setItem("TP-SIACI","");
+    localStorage.setItem("valorQtd","");
+    localStorage.setItem("dataVenc","");
+    localStorage.setItem("titular","");
+    localStorage.setItem("texto","");
+    localStorage.setItem("dataPgto","");
 }
 
 // =============================================================================================================================================
@@ -535,6 +583,7 @@ $chatBotPrompt.addEventListener("keyup", function(evt){
 });
 
 $chatbotSendMsgIcon.addEventListener("click", function(evt){
+    debugger;
         startInteraction();
 });
 
@@ -558,8 +607,11 @@ function activateBot(msgSent){
     var i;
     var strAux="";
     var botRequest="";
-    var responseBot="";
+
     botResponseSuccess=false;
+    responseBot="";
+
+    debugger;
 
     
     if (hasCommand(msgSent)){
@@ -568,7 +620,7 @@ function activateBot(msgSent){
     }
 
     if(botCurrentStatus == botStatus.get("idle")){
-        debugger;
+        // debugger;
         if (isHashTag(msgSent)){
             //fluxo de hashstag
             responseBot=searchByHashatg(msgSent);
@@ -590,42 +642,38 @@ function activateBot(msgSent){
                 $chatBotDialog.innerHTML += BOTLABEL + responseBot[0];
             }
         }else{
-            // if (counterWords(msgSent) <= 3){
-                debugger;
-                responseBot = hasGreetings(msgSent); //Verifica se encontrou cumprimento. Se true, obtém uma das mensagens de resposta
-                if (responseBot){
-                    botResponseSuccess=true;
-                    toggleSpinner();
-                    $chatBotDialog.innerHTML += responseBot + "</div>";
-                }
                 responseBot = hasThanks(msgSent); //Verifica se encontrou agradecimento. Se true, obtém uma das mensagens de resposta
                 if (responseBot){
-                    botResponseSuccess=true;
-                    toggleSpinner();
-                    $chatBotDialog.innerHTML += responseBot + "</div>";
+                    finishBotBehaviourResponse(responseBot);
+                    return;
                 }
                 responseBot = hasFarewell(msgSent); //Verifica se encontrou despedida. Se true, obtém uma das mensagens de resposta
                 if (responseBot){
-                    botResponseSuccess=true;
-                    toggleSpinner();
-                    $chatBotDialog.innerHTML += responseBot + "</div>";
+                    finishBotBehaviourResponse(responseBot);
+                    return;
                 }
                 responseBot = hasMissUnderstand(msgSent); //Verifica se encontrou despedida. Se true, obtém uma das mensagens de resposta
                 if (responseBot){
-                    botResponseSuccess=true;
-                    toggleSpinner();
-                    $chatBotDialog.innerHTML += responseBot + "</div>";
-                }
-
-                if (botResponseSuccess == true){
-                    $chatBotDialog.scroll(0,scrollPos);
+                    finishBotBehaviourResponse(responseBot);
                     return;
                 }
+                responseBot = hasGreetings(msgSent); //Verifica se encontrou cumprimento. Se true, obtém uma das mensagens de resposta
+                if (responseBot){
+                    finishBotBehaviourResponse(responseBot);
+                    return;
+                }
+
+                // if (botResponseSuccess == true){
+                //     $chatBotDialog.scroll(0,scrollPos);
+                //     return;
+                // }
 
             // } else { //Não é cumprimento, agradecimento ou despedida (ações de comportamento). Inicia busca de conteúdo.
                 responseBot=startSearching(sanitizeMsgFull(msgSent));
                 botResponseSuccess=true;
                 if (responseBot[0]<=1){ //exibe mensagens singulares, vindas como retorno (se for encontrado 0 ou 1 itens)
+                    debugger;
+                    if (responseBot[0]==0){botResponseSuccess=false};
                     toggleSpinner();
                     $chatBotDialog.innerHTML += BOTLABEL + responseBot[1] + "</div>";
                 }else{ //exibe itens encontrados, se quantidade maior que 1
@@ -637,12 +685,21 @@ function activateBot(msgSent){
             // }
         }
     }else if (botCurrentStatus == botStatus.get("await")){
-        $chatBotDialog.innerHTML += BOTLABEL + "Estou em estado de espera.</div>"
+        botResponseSuccess=true;
+        // $chatBotDialog.innerHTML += BOTLABEL + "Estou em estado de espera.</div>"
+        toggleSpinner();
+        currentAwaitDemandItem.checkResponse(msgSent);
     }
 
     if (botResponseSuccess==false){
-        toggleSpinner();
-        $chatBotDialog.innerHTML += BOTLABEL + "Desculpa, não entendi.</div>";
+        // toggleSpinner();
+        // $chatBotDialog.innerHTML += BOTLABEL + "Desculpa, não entendi.</div>";
+        if (SETALLEATORY==true){
+            debugger;
+            currentAwaitDemandItem = getDemandElement("startAlleatoryChat");
+            $chatBotDialog.innerHTML += BOTLABEL + currentAwaitDemandItem.botsentRequest + "</div>";
+            setAwaitMode();
+        }
     }
 
     $chatBotDialog.scroll(0,scrollPos);
@@ -685,7 +742,7 @@ function appendTableResultToBotLabel(tablesToAppend){
 
     for(i=0;i<=$titles.length-1;i++){
         $titles[i].addEventListener("click",function(evt){
-            debugger;
+            // debugger;
             resultOnClick=document.createElement("div");
             resultOnClick.classList.add("resultOnClick");
             resultOnClick.innerHTML=buildAnswerResult(wikiContents[parseInt(evt.currentTarget.id)]) + "<hr>";
@@ -693,4 +750,11 @@ function appendTableResultToBotLabel(tablesToAppend){
             $chatBotDialog.scroll(0,scrollPos);
         })
     }
+}
+
+function finishBotBehaviourResponse(response){
+    botResponseSuccess=true;
+    toggleSpinner();
+    $chatBotDialog.innerHTML += response + "</div>";
+    $chatBotDialog.scroll(0,scrollPos);
 }

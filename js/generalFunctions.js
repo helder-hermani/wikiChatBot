@@ -282,7 +282,7 @@ function searchContentFromMsg(userMsg, objeto){ //Varre o objeto procurando conj
     var maxScore=0;
     const MACTHVALUE = 25;
 
-    debugger;
+    // debugger;
 
     for (i=0;i<=objeto.length-1;i++){   //seleciona o objeto
         itemScore=0;
@@ -357,4 +357,14 @@ function formatBodyContent(bodyInput){
     var bodyOutput = bodyInput.replace("<div>","<p>");
     bodyOutput = bodyInput.replace("</div>","</p>");
     return bodyOutput;
+}
+
+function isHabContrato(valor){
+    var hasHifen = false;
+    var hasRightSize = false;
+
+    valor.valueOf("-")>0 ? hasHifen=true : hasHifen=false;
+    valor.length == 14 ? hasRightSize=true : hasRightSize=false;
+
+    if (hasHifen && hasRightSize){return true}else{return false};
 }

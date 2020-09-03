@@ -8,196 +8,152 @@
     <link rel="stylesheet" href="css/wikiContent.css">
     <link rel="stylesheet" href="css/chatbotcss.css">
     <link rel="stylesheet" href="css/wikieditorcss.css">
-    <link rel="stylesheet" href="css/maincss.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="css/maincss.css"> -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"> -->
 </head>
 <body>
-    <menu class="menu-top-tools">
-        <!-- <img src="assets/icons/home-solid.svg" class="menu-tools-icons">
-        <img src="assets/icons/laptop-house-solid.svg" class="menu-tools-icons">
-        <img src="assets/icons/whatsapp-brands.svg" class="menu-tools-icons">
-        <img src="assets/icons/user-edit-solid.svg" class="menu-tools-icons">
-        <img src="assets/icons/calendar-alt-regular.svg" class="menu-tools-icons"> -->
-        <p>Ferramentas Comuns</p>
-    </menu>
-
-    <main>
-        <div>
-            <menu class="main-menu">
-                <img src="assets/icons/home-solid.svg" class="menu-tools-icons">
-                <img src="assets/icons/link-solid.svg" class="menu-tools-icons">
-                <img src="assets/icons/tools-solid.svg" class="menu-tools-icons">
-                <img src="assets/icons/file-pdf-solid.svg" class="menu-tools-icons">
-                <img src="assets/icons/headset-solid.svg" class="menu-tools-icons">
-                <img src="assets/icons/book-reader-solid.svg" class="menu-tools-icons">
-            </menu> 
-        </div>
-        <section>
-            <div class="main-content-screen">
+    <img src="/assets/img/cef.png" class="company-logo logo-left">
+    <img src="/assets/img/cef-logo.png" class="company-logo logo-right">
+    <main id="main">
+        <header class="chatbot-header">
+            <div class="chatbot-header-avatar">
+                <div class="robot-avatar-pic"></div>
             </div>
-            <div class="main-content-menu">
-                <div class="main-content-menu-botton">
-                    <img src="assets/icons/book-open-solid.svg" class="menu-tools-icons">
-                    <!-- <p>Adicionar Nota Wiki</p> -->
+            <div class="chatbot-header-botStatus">
+                <div class="robot-name">
+                    <p class="chatbot-Name">Helper</p>
+                    <p class="chatbot-Especialidade">(Especialidade)</p>
                 </div>
-                <div class="main-content-menu-botton">
-                    <img src="assets/icons/file-alt-regular.svg" class="menu-tools-icons">
-                    <!-- <p>Informar Arquivos</p> -->
-                </div>
-                <div class="main-content-menu-botton">
-                    <img src="assets/icons/phone-volume-solid.svg" class="menu-tools-icons">
-                    <!-- <p>Informar Arquivos</p> -->
-                </div>
-                <div class="main-content-menu-botton">
-                    <img src="assets/icons/link-solid.svg" class="menu-tools-icons">
-                    <!-- <p>Incluir Link no Menu</p> -->
+                <div class="robot-activeStatus"><p>Disponível...</p></div>
+            </div>
+            <div class="chatbot-header-botSettingsHelp" id="iconSettings">
+                <svg width="96px" height="96px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" class="chatbot-icon-botSettingsHelp">
+                    <path id="chatbot-icon-botSettings" d="M610.5 373.3c2.6-14.1 2.6-28.5 0-42.6l25.8-14.9c3-1.7 4.3-5.2 3.3-8.5-6.7-21.6-18.2-41.2-33.2-57.4-2.3-2.5-6-3.1-9-1.4l-25.8 14.9c-10.9-9.3-23.4-16.5-36.9-21.3v-29.8c0-3.4-2.4-6.4-5.7-7.1-22.3-5-45-4.8-66.2 0-3.3.7-5.7 3.7-5.7 7.1v29.8c-13.5 4.8-26 12-36.9 21.3l-25.8-14.9c-2.9-1.7-6.7-1.1-9 1.4-15 16.2-26.5 35.8-33.2 57.4-1 3.3.4 6.8 3.3 8.5l25.8 14.9c-2.6 14.1-2.6 28.5 0 42.6l-25.8 14.9c-3 1.7-4.3 5.2-3.3 8.5 6.7 21.6 18.2 41.1 33.2 57.4 2.3 2.5 6 3.1 9 1.4l25.8-14.9c10.9 9.3 23.4 16.5 36.9 21.3v29.8c0 3.4 2.4 6.4 5.7 7.1 22.3 5 45 4.8 66.2 0 3.3-.7 5.7-3.7 5.7-7.1v-29.8c13.5-4.8 26-12 36.9-21.3l25.8 14.9c2.9 1.7 6.7 1.1 9-1.4 15-16.2 26.5-35.8 33.2-57.4 1-3.3-.4-6.8-3.3-8.5l-25.8-14.9zM496 400.5c-26.8 0-48.5-21.8-48.5-48.5s21.8-48.5 48.5-48.5 48.5 21.8 48.5 48.5-21.7 48.5-48.5 48.5zM224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm201.2 226.5c-2.3-1.2-4.6-2.6-6.8-3.9l-7.9 4.6c-6 3.4-12.8 5.3-19.6 5.3-10.9 0-21.4-4.6-28.9-12.6-18.3-19.8-32.3-43.9-40.2-69.6-5.5-17.7 1.9-36.4 17.9-45.7l7.9-4.6c-.1-2.6-.1-5.2 0-7.8l-7.9-4.6c-16-9.2-23.4-28-17.9-45.7.9-2.9 2.2-5.8 3.2-8.7-3.8-.3-7.5-1.2-11.4-1.2h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c10.1 0 19.5-3.2 27.2-8.5-1.2-3.8-2-7.7-2-11.8v-9.2z"/>
+                </svg>
+            </div>
+            <div class="chatbot-header-botSettingsHelp" id="iconTools">
+                <svg width="96px" height="96px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" class="chatbot-icon-botSettingsHelp">
+                    <path id="chatbot-icon-botSettings" d="M501.1 395.7L384 278.6c-23.1-23.1-57.6-27.6-85.4-13.9L192 158.1V96L64 0 0 64l96 128h62.1l106.6 106.6c-13.6 27.8-9.2 62.3 13.9 85.4l117.1 117.1c14.6 14.6 38.2 14.6 52.7 0l52.7-52.7c14.5-14.6 14.5-38.2 0-52.7zM331.7 225c28.3 0 54.9 11 74.9 31l19.4 19.4c15.8-6.9 30.8-16.5 43.8-29.5 37.1-37.1 49.7-89.3 37.9-136.7-2.2-9-13.5-12.1-20.1-5.5l-74.4 74.4-67.9-11.3L334 98.9l74.4-74.4c6.6-6.6 3.4-17.9-5.7-20.2-47.4-11.7-99.6.9-136.6 37.9-28.5 28.5-41.9 66.1-41.2 103.6l82.1 82.1c8.1-1.9 16.5-2.9 24.7-2.9zm-103.9 82l-56.7-56.7L18.7 402.8c-25 25-25 65.5 0 90.5s65.5 25 90.5 0l123.6-123.6c-7.6-19.9-9.9-41.6-5-62.7zM64 472c-13.2 0-24-10.8-24-24 0-13.3 10.7-24 24-24s24 10.7 24 24c0 13.2-10.7 24-24 24z"/>
+                </svg>
+            </div>
+            <div class="chatbot-header-botSettingsHelp" id="iconHelp">
+                <svg width="96px" height="96px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" class="chatbot-icon-botSettingsHelp">
+                    <path id="chatbot-icon-botSettings" d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm107.244-255.2c0 67.052-72.421 68.084-72.421 92.863V300c0 6.627-5.373 12-12 12h-45.647c-6.627 0-12-5.373-12-12v-8.659c0-35.745 27.1-50.034 47.579-61.516 17.561-9.845 28.324-16.541 28.324-29.579 0-17.246-21.999-28.693-39.784-28.693-23.189 0-33.894 10.977-48.942 29.969-4.057 5.12-11.46 6.071-16.666 2.124l-27.824-21.098c-5.107-3.872-6.251-11.066-2.644-16.363C184.846 131.491 214.94 112 261.794 112c49.071 0 101.45 38.304 101.45 88.8zM298 368c0 23.159-18.841 42-42 42s-42-18.841-42-42 18.841-42 42-42 42 18.841 42 42z"/>
+                </svg>
+            </div>
+        </header>
+        <section id="chatbot-frame">
+            <div class="chatbot-dialog" id="chatbot-dialog">
+                <div style='border: solid 1px rgba(0,0,0,.2); width:75%; height: auto; margin: 3% auto 0 0;border-radius: 10px; padding: 1% 2%;'><p style='font-weight: bold; color: #040242; margin: 3% 0 0 0; padding:0;'>Helper:</p>Olá, em que possoa ajudar? Caso deseje um suporte mais especializado, selecione o atendente clicando no avatar.</div>
+                <div id="spinner-container">
+                    <div class="lds-ellipsis lds-ellipsis-hide"><div></div><div></div><div></div><div></div></div>
                 </div>
             </div>
-        </section>
-        <aside>
-            <section id="chatbot-frame">
-                <div class="chatbot-header">
-                    <div class="chatbot-header-avatar">
-                        <div class="robot-avatar-pic"></div>
-                    </div>
-                    <div class="chatbot-header-botStatus">
-                        <div class="robot-name">
-                            <p class="chatbot-Name">Helper</p>
-                            <p class="chatbot-Especialidade">(Especialidade)</p>
+            <div class="chatbot-prompt">
+                <div id="chatbot-dialog-typing"><textarea id="textChatbotPrompt" placeholder="Digite aqui sua mensagem..."></textarea></div>
+                <div id="chatbot-dialog-img">
+                    <svg width="96px" height="96px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" class="chatbot-icon-sendMsg">
+                        <path id="chatbot-icon-sendMsg" d="M440 6.5L24 246.4c-34.4 19.9-31.1 70.8 5.7 85.9L144 379.6V464c0 46.4 59.2 65.5 86.6 28.6l43.8-59.1 111.9 46.2c5.9 2.4 12.1 3.6 18.3 3.6 8.2 0 16.3-2.1 23.6-6.2 12.8-7.2 21.6-20 23.9-34.5l59.4-387.2c6.1-40.1-36.9-68.8-71.5-48.9zM192 464v-64.6l36.6 15.1L192 464zm212.6-28.7l-153.8-63.5L391 169.5c10.7-15.5-9.5-33.5-23.7-21.2L155.8 332.6 48 288 464 48l-59.4 387.3z"/>
+                    </svg>
+                    <!-- <img src="/assets/img/icon-help-me.png"> -->
+                </div>
+            </div>
+            <div id="frame-changeAvatar" class="frame-float"></div>
+            <div id="frame-help" class="frame-float frame-help"></div>
+            <div id="frame-tools" class="frame-float frame-tools">oi</div>
+            <div id="frame-settings" class="frame-float frame-settings">
+                <div id="settings-div-actions">
+                    <span>Ação:</span>
+                    <select id="settingsAction" class="select-action"></select>
+                </div>
+                <div id="setting-div-form-content" class="setting-div-form-content">
+                    <p id="contentNotFound" class="contentNotFound">Nenhum conteúdo localizado com a ID </p>
+                    <div class="gridSettingsContent">
+                        <div class="gridContentItem"><span>ID:</span></div>
+                        <div class="gridContentItem">
+                            <input type="text" id="txtId" class="txtContent txtReduced" required>
+                            <svg width="96px" height="96px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" class="icon-content-search">
+                                <path id="icon-content-search" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/>
+                            </svg>
                         </div>
-                        <div class="robot-activeStatus"><p>Disponível...</p></div>
-                    </div>
-                    <div class="chatbot-header-botSettingsHelp" id="iconSettings">
-                        <svg width="96px" height="96px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" class="chatbot-icon-botSettingsHelp">
-                            <path id="chatbot-icon-botSettings" d="M610.5 373.3c2.6-14.1 2.6-28.5 0-42.6l25.8-14.9c3-1.7 4.3-5.2 3.3-8.5-6.7-21.6-18.2-41.2-33.2-57.4-2.3-2.5-6-3.1-9-1.4l-25.8 14.9c-10.9-9.3-23.4-16.5-36.9-21.3v-29.8c0-3.4-2.4-6.4-5.7-7.1-22.3-5-45-4.8-66.2 0-3.3.7-5.7 3.7-5.7 7.1v29.8c-13.5 4.8-26 12-36.9 21.3l-25.8-14.9c-2.9-1.7-6.7-1.1-9 1.4-15 16.2-26.5 35.8-33.2 57.4-1 3.3.4 6.8 3.3 8.5l25.8 14.9c-2.6 14.1-2.6 28.5 0 42.6l-25.8 14.9c-3 1.7-4.3 5.2-3.3 8.5 6.7 21.6 18.2 41.1 33.2 57.4 2.3 2.5 6 3.1 9 1.4l25.8-14.9c10.9 9.3 23.4 16.5 36.9 21.3v29.8c0 3.4 2.4 6.4 5.7 7.1 22.3 5 45 4.8 66.2 0 3.3-.7 5.7-3.7 5.7-7.1v-29.8c13.5-4.8 26-12 36.9-21.3l25.8 14.9c2.9 1.7 6.7 1.1 9-1.4 15-16.2 26.5-35.8 33.2-57.4 1-3.3-.4-6.8-3.3-8.5l-25.8-14.9zM496 400.5c-26.8 0-48.5-21.8-48.5-48.5s21.8-48.5 48.5-48.5 48.5 21.8 48.5 48.5-21.7 48.5-48.5 48.5zM224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm201.2 226.5c-2.3-1.2-4.6-2.6-6.8-3.9l-7.9 4.6c-6 3.4-12.8 5.3-19.6 5.3-10.9 0-21.4-4.6-28.9-12.6-18.3-19.8-32.3-43.9-40.2-69.6-5.5-17.7 1.9-36.4 17.9-45.7l7.9-4.6c-.1-2.6-.1-5.2 0-7.8l-7.9-4.6c-16-9.2-23.4-28-17.9-45.7.9-2.9 2.2-5.8 3.2-8.7-3.8-.3-7.5-1.2-11.4-1.2h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c10.1 0 19.5-3.2 27.2-8.5-1.2-3.8-2-7.7-2-11.8v-9.2z"/>
-                        </svg>
-                    </div>
-                    <div class="chatbot-header-botSettingsHelp" id="iconTools">
-                        <svg width="96px" height="96px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" class="chatbot-icon-botSettingsHelp">
-                            <path id="chatbot-icon-botSettings" d="M501.1 395.7L384 278.6c-23.1-23.1-57.6-27.6-85.4-13.9L192 158.1V96L64 0 0 64l96 128h62.1l106.6 106.6c-13.6 27.8-9.2 62.3 13.9 85.4l117.1 117.1c14.6 14.6 38.2 14.6 52.7 0l52.7-52.7c14.5-14.6 14.5-38.2 0-52.7zM331.7 225c28.3 0 54.9 11 74.9 31l19.4 19.4c15.8-6.9 30.8-16.5 43.8-29.5 37.1-37.1 49.7-89.3 37.9-136.7-2.2-9-13.5-12.1-20.1-5.5l-74.4 74.4-67.9-11.3L334 98.9l74.4-74.4c6.6-6.6 3.4-17.9-5.7-20.2-47.4-11.7-99.6.9-136.6 37.9-28.5 28.5-41.9 66.1-41.2 103.6l82.1 82.1c8.1-1.9 16.5-2.9 24.7-2.9zm-103.9 82l-56.7-56.7L18.7 402.8c-25 25-25 65.5 0 90.5s65.5 25 90.5 0l123.6-123.6c-7.6-19.9-9.9-41.6-5-62.7zM64 472c-13.2 0-24-10.8-24-24 0-13.3 10.7-24 24-24s24 10.7 24 24c0 13.2-10.7 24-24 24z"/>
-                        </svg>
-                    </div>
-                    <div class="chatbot-header-botSettingsHelp" id="iconHelp">
-                        <svg width="96px" height="96px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" class="chatbot-icon-botSettingsHelp">
-                            <path id="chatbot-icon-botSettings" d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm107.244-255.2c0 67.052-72.421 68.084-72.421 92.863V300c0 6.627-5.373 12-12 12h-45.647c-6.627 0-12-5.373-12-12v-8.659c0-35.745 27.1-50.034 47.579-61.516 17.561-9.845 28.324-16.541 28.324-29.579 0-17.246-21.999-28.693-39.784-28.693-23.189 0-33.894 10.977-48.942 29.969-4.057 5.12-11.46 6.071-16.666 2.124l-27.824-21.098c-5.107-3.872-6.251-11.066-2.644-16.363C184.846 131.491 214.94 112 261.794 112c49.071 0 101.45 38.304 101.45 88.8zM298 368c0 23.159-18.841 42-42 42s-42-18.841-42-42 18.841-42 42-42 42 18.841 42 42z"/>
-                        </svg>
-                    </div>
-                </div>
-                <div class="chatbot-dialog" id="chatbot-dialog">
-                    <div style='border: solid 1px rgba(0,0,0,.2); width:75%; height: auto; margin: 3% auto 0 0;border-radius: 10px; padding: 1% 2%;'><p style='font-weight: bold; color: #040242; margin: 3% 0 0 0; padding:0;'>Helper:</p>Olá, em que possoa ajudar? Caso deseje um suporte mais especializado, selecione o atendente clicando no avatar.</div>
-                    <div id="spinner-container">
-                        <div class="lds-ellipsis lds-ellipsis-hide"><div></div><div></div><div></div><div></div></div>
-                    </div>
-                </div>
-                <div class="chatbot-prompt">
-                    <div id="chatbot-dialog-typing"><textarea id="textChatbotPrompt" placeholder="Digite aqui sua mensagem..."></textarea></div>
-                    <div id="chatbot-dialog-img">
-                        <svg width="96px" height="96px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" class="chatbot-icon-sendMsg">
-                            <path id="chatbot-icon-sendMsg" d="M440 6.5L24 246.4c-34.4 19.9-31.1 70.8 5.7 85.9L144 379.6V464c0 46.4 59.2 65.5 86.6 28.6l43.8-59.1 111.9 46.2c5.9 2.4 12.1 3.6 18.3 3.6 8.2 0 16.3-2.1 23.6-6.2 12.8-7.2 21.6-20 23.9-34.5l59.4-387.2c6.1-40.1-36.9-68.8-71.5-48.9zM192 464v-64.6l36.6 15.1L192 464zm212.6-28.7l-153.8-63.5L391 169.5c10.7-15.5-9.5-33.5-23.7-21.2L155.8 332.6 48 288 464 48l-59.4 387.3z"/>
-                        </svg>
-                        <!-- <img src="/assets/img/icon-help-me.png"> -->
-                    </div>
-                </div>
-                <div id="frame-changeAvatar" class="frame-float"></div>
-                <div id="frame-help" class="frame-float frame-help"></div>
-                <div id="frame-settings" class="frame-float frame-settings">
-                    <div id="settings-div-actions">
-                        <span>Ação:</span>
-                        <select id="settingsAction" class="select-action"></select>
-                    </div>
-                    <div id="setting-div-form-content" class="setting-div-form-content">
-                        <p id="contentNotFound" class="contentNotFound">Nenhum conteúdo localizado com a ID </p>
-                        <div class="gridSettingsContent">
-                            <div class="gridContentItem"><span>ID:</span></div>
-                            <div class="gridContentItem">
-                                <input type="text" id="txtId" class="txtContent txtReduced" required>
-                                <svg width="96px" height="96px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" class="icon-content-search">
-                                    <path id="icon-content-search" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/>
-                                </svg>
-                            </div>
-                            <div class="gridContentItem"><span>Índice:</span></div>
-                            <div class="gridContentItem"><input type="text" id="txtIndex" class="txtContent" required></div>
-                            <div class="gridContentItem"><span>Segmento<span class="obligataoryField">*</span>:</span></div>
-                            <div class="gridContentItem">
-                                <select class="txtContent" id="selSegment"></select>
-                            </div>
-                            <div class="gridContentItem"><span>Título<span class="obligataoryField">*</span>:</span></div>
-                            <div class="gridContentItem"><input type="text" id="txtTitle" class="txtContent" required></div>
-                            <div class="gridContentItem"><span>Descrição<span class="obligataoryField">*</span>:</span></div>
-                            <div class="gridContentItem"><input type="text" id="txtDescription" class="txtContent" required></div>
-                            <!-- <div class="gridContentItem"><span>Palavras Chave:</span></div>
-                            <div class="gridContentItem"><input type="text" id="txtkeywords" class="txtContent"></div> -->
-                            <div class="gridContentItem"><span>Links:</span></div>
-                            <div class="gridContentItem"><input type="text" id="txtLinks" class="txtContent" placeholder="Separados por espaços"></div>
-                            <div class="gridContentItem"><span>Hashtags<span class="obligataoryField">*</span>:</span></div>
-                            <div class="gridContentItem"><input type="text" id="txtHashtags" class="txtContent" placeholder="Separadas por espaços" required></div>
-                            <div class="gridContentItem"><span>Item Ativo:</span></div>
-                            <div class="gridContentItem"><input type="checkbox" id="chkActive" class="txtContent chkContent" checked></div>
-                            <div class="gridContentItem"><span>Atualização:</span></div>
-                            <div class="gridContentItem"><input type="text" id="txtDateUpdate" class="txtContent" placeholder="DD/MM/AAAA"></div>
-                            <!-- <div class="gridContentItem"><span>É conteúdo?</div>
-                            <div class="gridContentItem"><input type="text" id="txtIsContent" class="txtContent"></div> -->
-                            <div class="gridContentItem"><span>Autor:</span></div>
-                            <div class="gridContentItem"><input type="text" id="txtAuthor" class="txtContent"></div>
+                        <div class="gridContentItem"><span>Índice:</span></div>
+                        <div class="gridContentItem"><input type="text" id="txtIndex" class="txtContent" required></div>
+                        <div class="gridContentItem"><span>Segmento<span class="obligataoryField">*</span>:</span></div>
+                        <div class="gridContentItem">
+                            <select class="txtContent" id="selSegment"></select>
                         </div>
+                        <div class="gridContentItem"><span>Título<span class="obligataoryField">*</span>:</span></div>
+                        <div class="gridContentItem"><input type="text" id="txtTitle" class="txtContent" required></div>
+                        <div class="gridContentItem"><span>Descrição<span class="obligataoryField">*</span>:</span></div>
+                        <div class="gridContentItem"><input type="text" id="txtDescription" class="txtContent" required></div>
+                        <!-- <div class="gridContentItem"><span>Palavras Chave:</span></div>
+                        <div class="gridContentItem"><input type="text" id="txtkeywords" class="txtContent"></div> -->
+                        <div class="gridContentItem"><span>Links:</span></div>
+                        <div class="gridContentItem"><input type="text" id="txtLinks" class="txtContent" placeholder="Separados por espaços"></div>
+                        <div class="gridContentItem"><span>Hashtags<span class="obligataoryField">*</span>:</span></div>
+                        <div class="gridContentItem"><input type="text" id="txtHashtags" class="txtContent" placeholder="Separadas por espaços" required></div>
+                        <div class="gridContentItem"><span>Item Ativo:</span></div>
+                        <div class="gridContentItem"><input type="checkbox" id="chkActive" class="txtContent chkContent" checked></div>
+                        <div class="gridContentItem"><span>Atualização:</span></div>
+                        <div class="gridContentItem"><input type="text" id="txtDateUpdate" class="txtContent" placeholder="DD/MM/AAAA"></div>
+                        <!-- <div class="gridContentItem"><span>É conteúdo?</div>
+                        <div class="gridContentItem"><input type="text" id="txtIsContent" class="txtContent"></div> -->
+                        <div class="gridContentItem"><span>Autor:</span></div>
+                        <div class="gridContentItem"><input type="text" id="txtAuthor" class="txtContent"></div>
+                    </div>
 
-                        <div class="content-body-fields">
-                            <span>Conteúdo<span class="obligataoryField">*</span>:</span>
-                            <!-- <div></div><span>Conteúdo<span class="obligataoryField">*</span>:</span></div> -->
-                            <div class="content-editor">
-                                <div id="div-editor">
-                                    <div class="sample-toolbar">
-                                        <a href="javascript:void(0)" onclick="format('bold')"><img src="/assets/icons/bold-solid.svg" class="editor-tool"></a>
-                                        <a href="javascript:void(0)" onclick="format('italic')"><img src="/assets/icons/italic-solid.svg" class="editor-tool"></a>
-                                        <a href="javascript:void(0)" onclick="format('insertunorderedlist')"><img src="/assets/icons/list-ul-solid.svg" class="editor-tool"></a>
-                                        <!-- <a href="javascript:void(0)" onclick="format('fontSize','5')"><img src="/assets/icons/text-height-solid.svg" class="editor-tool"></a> -->
-                                        <a href="javascript:void(0)" onclick="format('foreColor','#0000FF')"><img src="/assets/icons/edit-solid-blue.svg" class="editor-tool"></a>
-                                        <a href="javascript:void(0)" onclick="format('foreColor','#FF0000')"><img src="/assets/icons/edit-solid-red.svg" class="editor-tool"></a>
-                                        <a href="javascript:void(0)" onclick="format('foreColor','#000000')"><img src="/assets/icons/edit-solid-black.svg" class="editor-tool"></a>
-                                        
-                                        <!-- <a href="javascript:void(0)" onclick="setUrl()"><span class="fa fa-link fa-fw"></span></a>
-                                        <span><input id="txtFormatUrl" placeholder="url" class="form-control"></span> -->
-                                    </div>
-                                
-                                    <div class="txtContent editor" id="sampleeditor">
-                                    </div>
+                    <div class="content-body-fields">
+                        <span>Conteúdo<span class="obligataoryField">*</span>:</span>
+                        <!-- <div></div><span>Conteúdo<span class="obligataoryField">*</span>:</span></div> -->
+                        <div class="content-editor">
+                            <div id="div-editor">
+                                <div class="sample-toolbar">
+                                    <a href="javascript:void(0)" onclick="format('bold')"><img src="/assets/icons/bold-solid.svg" class="editor-tool"></a>
+                                    <a href="javascript:void(0)" onclick="format('italic')"><img src="/assets/icons/italic-solid.svg" class="editor-tool"></a>
+                                    <a href="javascript:void(0)" onclick="format('insertunorderedlist')"><img src="/assets/icons/list-ul-solid.svg" class="editor-tool"></a>
+                                    <!-- <a href="javascript:void(0)" onclick="format('fontSize','5')"><img src="/assets/icons/text-height-solid.svg" class="editor-tool"></a> -->
+                                    <a href="javascript:void(0)" onclick="format('foreColor','#0000FF')"><img src="/assets/icons/edit-solid-blue.svg" class="editor-tool"></a>
+                                    <a href="javascript:void(0)" onclick="format('foreColor','#FF0000')"><img src="/assets/icons/edit-solid-red.svg" class="editor-tool"></a>
+                                    <a href="javascript:void(0)" onclick="format('foreColor','#000000')"><img src="/assets/icons/edit-solid-black.svg" class="editor-tool"></a>
+                                    
+                                    <!-- <a href="javascript:void(0)" onclick="setUrl()"><span class="fa fa-link fa-fw"></span></a>
+                                    <span><input id="txtFormatUrl" placeholder="url" class="form-control"></span> -->
+                                </div>
+                            
+                                <div class="txtContent editor" id="sampleeditor">
                                 </div>
                             </div>
                         </div>
-
-                        <div class="div-salvar">
-                            <button id="btnSalvarContent" class="txtContent">Salvar</button>
-                            <button id="btnExportContent" class="txtContent">Armazenar Banco</button>
-                        </div>
-                        <div class="msgScreen" id="msgScreen">
-                            <p id="confirmationMsg" class="confirmationMsg"></p>
-                            <svg width="96px" height="96px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" class="icon-content-search iconOkClose" id="iconOkClose">
-                                <path d="M104 224H24c-13.255 0-24 10.745-24 24v240c0 13.255 10.745 24 24 24h80c13.255 0 24-10.745 24-24V248c0-13.255-10.745-24-24-24zM64 472c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zM384 81.452c0 42.416-25.97 66.208-33.277 94.548h101.723c33.397 0 59.397 27.746 59.553 58.098.084 17.938-7.546 37.249-19.439 49.197l-.11.11c9.836 23.337 8.237 56.037-9.308 79.469 8.681 25.895-.069 57.704-16.382 74.757 4.298 17.598 2.244 32.575-6.148 44.632C440.202 511.587 389.616 512 346.839 512l-2.845-.001c-48.287-.017-87.806-17.598-119.56-31.725-15.957-7.099-36.821-15.887-52.651-16.178-6.54-.12-11.783-5.457-11.783-11.998v-213.77c0-3.2 1.282-6.271 3.558-8.521 39.614-39.144 56.648-80.587 89.117-113.111 14.804-14.832 20.188-37.236 25.393-58.902C282.515 39.293 291.817 0 312 0c24 0 72 8 72 81.452z"/>
-                            </svg>
-                            <p>Entendi</p>
-                        </div>
-                        <div class="div-preSavedContent"></div>
                     </div>
+
+                    <div class="div-salvar">
+                        <button id="btnSalvarContent" class="txtContent">Salvar</button>
+                        <button id="btnExportContent" class="txtContent">Armazenar Banco</button>
+                    </div>
+                    <div class="msgScreen" id="msgScreen">
+                        <p id="confirmationMsg" class="confirmationMsg"></p>
+                        <svg width="96px" height="96px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" class="icon-content-search iconOkClose" id="iconOkClose">
+                            <path d="M104 224H24c-13.255 0-24 10.745-24 24v240c0 13.255 10.745 24 24 24h80c13.255 0 24-10.745 24-24V248c0-13.255-10.745-24-24-24zM64 472c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zM384 81.452c0 42.416-25.97 66.208-33.277 94.548h101.723c33.397 0 59.397 27.746 59.553 58.098.084 17.938-7.546 37.249-19.439 49.197l-.11.11c9.836 23.337 8.237 56.037-9.308 79.469 8.681 25.895-.069 57.704-16.382 74.757 4.298 17.598 2.244 32.575-6.148 44.632C440.202 511.587 389.616 512 346.839 512l-2.845-.001c-48.287-.017-87.806-17.598-119.56-31.725-15.957-7.099-36.821-15.887-52.651-16.178-6.54-.12-11.783-5.457-11.783-11.998v-213.77c0-3.2 1.282-6.271 3.558-8.521 39.614-39.144 56.648-80.587 89.117-113.111 14.804-14.832 20.188-37.236 25.393-58.902C282.515 39.293 291.817 0 312 0c24 0 72 8 72 81.452z"/>
+                        </svg>
+                        <p>Entendi</p>
+                    </div>
+                    <div class="div-preSavedContent"></div>
                 </div>
-            </section>
-        </aside>
+            </div>
+        </section>
     </main>
-
-    <footer>
-
-    </footer>
-
     
 
-    <script src="/js/preload.js"></script>
-    <script src="/js/FileSaver.min.js"></script>
-    <script src="/js/tables.js"></script>
-    <script src="/js/generalFunctions.js"></script>
-    <script src="/js/conteudowiki.js"></script>
-    <script src="/js/wikieditor.js"></script>
-    <script src="/js/chatbotInterface.js"></script>
-    <script src="/js/chatbotObject.js"></script>
-    <script src="/js/functionsApp.js"></script>
-    <script src="/js/mainscript.js"></script>
+    <script src="js/preload.js"></script>
+    <script src="js/FileSaver.min.js"></script>
+    <script src="js/report.js"></script>
+    <script src="js/tables.js"></script>
+    <script src="js/generalFunctions.js"></script>
+    <script src="js/conteudowiki.js"></script>
+    <script src="js/wikieditor.js"></script>
+    <script src="js/chatbotInterface.js"></script>
+    <script src="js/chatbotObject.js"></script>
+    <script src="js/functionsApp.js"></script>
+    <!-- <script src="js/mainscript.js"></script> -->
 </body>
 </html>

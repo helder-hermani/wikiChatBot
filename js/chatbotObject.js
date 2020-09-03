@@ -30,7 +30,7 @@ var botBehaviour = [
         "description":"Objeto com interações de cumprimento",
         "nameBehaviour":"cumprimento",
         "userRequest":["oi", "ola", "boa noite", "bom dia", "boa tarde"],
-        "botResponses":["Olá, " +currentShift + "! Que bom ter você aqui. Em quê posso ajudar?", "Oi, " + currentShift + "! Que bom você confiar em mim! O que desejas saber?"],
+        "botResponses":["Olá, " +currentShift + "! Que bom ter você aqui. Em que posso ajudar?", "Oi, " + currentShift + "! Que bom você confiar em mim! O que desejas saber?"],
         "action" : ""
     },
     {
@@ -151,6 +151,22 @@ var botCommands = [
                             $chatBotDialog.scroll(0,scrollPos)
                         }
         }
+    },
+    {
+        "index":4,
+        "description":"comando",
+        "nameBehaviour":"Gerar exclusão de lançamento futuro de habitação",
+        "instructions" : "Digite: <i>exlc hab</i> ou <i>excluir lançamento futuro habitação</i>",
+        "sample": "excl hab",
+        "userRequest":["excl hab", "excluir lançamento futuro habitação"],
+        "botResponses":"success",
+        "enabled" : true,
+        "action" : function(){
+                    $chatBotDialog.innerHTML += BOTLABEL +"Informe o número do contrato, com o dígito:";
+                    $chatBotDialog.scroll(0,scrollPos);
+                    setAwaitMode();
+                    currentAwaitDemandItem = getDemandElement("rptExclLctoFuturoHabNumContrato");
+        }
     }
 ];
 
@@ -167,12 +183,93 @@ var botDemands = [
         "positiveResponses":["sim", "nao", "talvez", "depende", "claro que sim", "agora"],
         "negativeResponses":["nao", "claro que nao", "absolutamente", "de jeito nenhum"],
         "unsureResponses": ["talvez", "depende", "quem sabe", "pode ser", "vou ver", "vou pensar", "Vou decidir"],
+        "checkResponse" : function(userAnswer){},
         "positiveAction":function (){},
         "negativeAction":function (){},
         "unsureAction":function (){},
         "defaultAction":function(){}
-    }
+    },
+    {
+        "index":1,
+        "nameAction":"startAlleatoryChat",
+        "description": "Espera o usuário responder se deseja iniciar conversa aleatória",
+        "botsentRequest": ["Em todo caso, tenho assuntos pra conversar. Está a fim de bater um papo?"],
+        "positiveResponses":["sim", "claro que sim", "agora", "obviamente"],
+        "negativeResponses":["nao", "claro que nao", "absolutamente", "de jeito nenhum"],
+        "unsureResponses": ["talvez", "depende", "quem sabe", "pode ser", "vou ver", "vou pensar", "Vou decidir", "o que voce sabe", "sobre o que", "que quer conversar"],
+        "checkResponse" : function(userAnswer){
+            // console.log(this.nameAction);
+            var isDefault = true;
+            userAnswer = sanitizeMsgFull(userAnswer);
+
+            var isPositive = this.positiveResponses.filter(function(el){
+                return sanitizeMsgFull(el) == userAnswer;
+            });
+            isPositive = isPositive.length;
+
+            var isNegative = this.negativeResponses.filter(function(el){
+                return sanitizeMsgFull(el) == userAnswer;
+            });
+            isNegative = isNegative.length;
+
+            var isUnsure = this.unsureResponses.filter(function(el){
+                return sanitizeMsgFull(el) == userAnswer;
+            });
+            isUnsure = isUnsure.length;
+
+            if (isPositive){
+                this.positiveAction();
+            }else if(isNegative){
+                this.negativeAction();
+            }else if (isUnsure){
+                this.unsureAction();
+            }else{
+                this.defaultAction();
+            }
+        },
+        "positiveAction":function (){
+            $chatBotDialog.innerHTML += BOTLABEL + "Ah, muleque!</div>"
+            setIdleMode();
+        },
+        "negativeAction":function (){
+            console.log("Não quer conversa?");
+        },
+        "unsureAction":function (){
+            console.log("Ô caba indeciso!");
+        },
+        "defaultAction":function(){
+            console.log("Ação default a decidir!");
+        }
+    },
+    {
+        "index":2,
+        "nameAction":"rptExclLctoFuturoHabNumContrato",
+        "description": "Espera que o usuário responda o número do contrato para gerar guia de exclusão do lançamento futuro.",
+        "botsentRequest": ["Informe o número do contrato, com o dígito:"],
+        "positiveResponses":[],
+        "negativeResponses":[],
+        "unsureResponses": [],
+        "checkResponse" : function(userAnswer){
+            debugger;
+            if (isHabContrato(userAnswer)==false){
+                alert("oi");
+            }
+        },
+        "positiveAction":function (){},
+        "negativeAction":function (){},
+        "unsureAction":function (){},
+        "defaultAction":function(){}
+    },
 ];
+
+// ================================FUNÇÕES DE CHMADAS QUANDO O STATUS FOR AWAIT=================================
+function getDemandElement(nameAction){   //retorna o elemento botDemands demandado (objeto)
+    var elementReturn = botDemands.filter(function(el){
+        return el.nameAction == nameAction;
+    })
+
+    return elementReturn[0];
+}
 
 // ================================IMPLEMENTAÇÃO DOS COMANDOS NA TELA DE AJUDA=================================
 buildHelpScreen();
@@ -372,7 +469,7 @@ function hasMissUnderstand(msgReq){ //Verifica se há cumprimento e retorna uma 
     var i=0;
     var processBotResponse="";
 
-    debugger;
+    // debugger;
 
     isValidRequest = searchValuesInMsg(msgReq, botBehaviour,"userRequest", "nameBehaviour", "erro na compreensão", true);
 
@@ -398,7 +495,7 @@ function startSearching(msgReq){    //retorna um array. Elemento 0 = quantidade 
     
     processBotResponse[0]= resultSearch.length;
 
-    debugger;
+    // debugger;
     
     if (resultSearch.length<=0){ //Se não encontrou nenhum elemento
         processBotResponse[1]="Desculpa, não consegui encontrar nada a respeito. Tente ser um pouco mais preciso ou mencionar palavras mais relevantes sobre o assunto que deseja tratar. Talvez em uma busca por hashtag eu consiga encontrar algo mais exato. Verifique também se minha especialidade está adequada ao assunto em questão."
@@ -461,6 +558,14 @@ function buildAnswerResult(itemObjeto){
     answer += "ID: " + itemObjeto.Id + "</br>";
 
     return answer;
+}
 
+function setIdleMode(){
+    botCurrentStatus = botStatus.get("idle");
+    $chatBotAvatarStatus.textContent="Disponível...";
+}
 
+function setAwaitMode(){
+    botCurrentStatus = botStatus.get("await");
+    $chatBotAvatarStatus.textContent="Esperando...";
 }
