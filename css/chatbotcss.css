@@ -28,6 +28,14 @@ body{
   align-items: center;
 }
 
+
+/* ------------------------------------------------------ */
+/* Configurações */
+#iconHelp{
+  display: none;
+}
+/* ------------------------------------------------------ */
+
 @media screen and (max-width: 600px){
   .company-logo{
     display: none;
@@ -565,6 +573,7 @@ body{
       width: 30px;
       height: 30px;
       border-radius: 5px;
+      cursor: pointer;
   }
 
   .divAtendente-Name{
@@ -1014,11 +1023,31 @@ body{
 
 /* ============================================================================================= */
 
-.abc{
-  background-image: url(../assets/img/avatar-robot.jpg);
+/* FORMATAÇÃO DAS LINHAS NA TELA TOOLS */
+#pTitle-frame-tools{
+  font-family: Roboto;
+  width: 100%;
+  text-align: center;
+  color: blue;
 }
 
-.xyz{
-  height: 100px;
-  background-color: white;
+.div-tools-line{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  margin: 1% 0;
+  padding: 0 1%;
+  transition: all 1s;
+}
+
+.div-tools-line:hover{
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.p-tools-label{
+  display: inline-block;
+  font-size: .8em;
+  font-family: Roboto;
+  margin-left: 3%;
 }

@@ -359,12 +359,136 @@ function formatBodyContent(bodyInput){
     return bodyOutput;
 }
 
-function isHabContrato(valor){
-    var hasHifen = false;
-    var hasRightSize = false;
+function formatAccountNumber(value){
+    var posIni=0;
+    var posFim=0;
+    var conta="";
+    var DV="";
 
-    valor.valueOf("-")>0 ? hasHifen=true : hasHifen=false;
-    valor.length == 14 ? hasRightSize=true : hasRightSize=false;
+    value = value.replace(" ","");
+    value = value.trim();
 
-    if (hasHifen && hasRightSize){return true}else{return false};
+    //Captura conta
+    conta = value.slice(0,value.length-1);
+    DV = value.slice(value.length-1, value.length);
+
+    return conta + "-" + DV;
+}
+
+function getCaixaTemScreenFields(screen){
+    var str = "";
+    var CPF = "";
+    var Nome = "";
+    var Fone="";
+    var CEP="";
+    var Email="";
+    var i=0;   
+    var DataAtu = new Date();
+    var mesExtenso = "";
+    var objReturn = {
+        "CPF" : "",
+        "Nome" : "",
+        "Fone" : "",
+        "CEP" : "",
+        "Email" : "",
+        "Dia" : "",
+        "Mes" : "",
+        "Ano" : "",
+    }
+
+    msgSent = msgSent.toLowerCase();
+
+    //Capturar CPF
+    str = msgSent.slice(msgSent.indexOf("cpf:"),msgSent.indexOf("cpf:")+20);
+    for(i=0;i<=str.length-1;i++){
+        if (!isNaN(str.slice(i,i+1))) {CPF += str.slice(i,i+1)};
+    }
+
+    CPF = CPF.trim();
+
+    for (i=CPF.length;i<11;i++){
+        CPF = "0" + CPF;
+    }
+
+    CPF  = CPF.slice(0,3) + "." + CPF.slice(3,6) + "." + CPF.slice(6,9) + "-" + CPF.slice(9,11);
+
+    //Capturar Nome
+    str = msgSent.slice(msgSent.indexOf("nome: "),msgSent.indexOf("número "));
+    str = str.slice(5, str.length);
+    Nome = str.trim();
+
+    //Capturar Telefone
+    debugger;
+    str = msgSent.slice(msgSent.indexOf("número do telefone: "),msgSent.indexOf("data de nascimento: ")+15);
+    for(i=0;i<=str.length-1;i++){
+        if (!isNaN(str.slice(i,i+1))) {Fone += str.slice(i,i+1)};
+    }
+
+    Fone = Fone.trim();
+    Fone = "(" + Fone.slice(0,2) +")" + Fone.slice(2,Fone.length);
+
+    //Capturar CEP
+    str = msgSent.slice(msgSent.indexOf("cep:"),msgSent.indexOf("cep:")+20);
+    for(i=0;i<=str.length-1;i++){
+        if (!isNaN(str.slice(i,i+1))) {CEP += str.slice(i,i+1)};
+    }
+
+    CEP = CEP.trim();
+    CEP = CEP.slice(0,5) +"-" + CEP.slice(5,8);
+
+    //Capturar Email
+    str = msgSent.slice(msgSent.indexOf("e-mail: "),msgSent.indexOf("e-mail verificado:"));
+    str = str.slice(8, str.length);
+    Email = str.trim();
+
+    //Verificar o mês atual
+    switch (DataAtu.getMonth()){
+        case 0:
+            mesExtenso = "janeiro";
+            break;
+        case 1:
+            mesExtenso = "fevereiro";
+            break;
+        case 2:
+            mesExtenso = "março";
+            break;
+        case 3:
+            mesExtenso = "abril";
+            break;
+        case 4:
+            mesExtenso = "maio";
+            break;
+        case 5:
+            mesExtenso = "junho";
+            break;
+        case 6:
+            mesExtenso = "julho";
+            break;
+        case 7:
+            mesExtenso = "agosto";
+            break;
+        case 8:
+            mesExtenso = "setembro";
+            break;
+        case 9:
+            mesExtenso = "outubro";
+            break;
+        case 10:
+            mesExtenso = "novembro";
+            break;
+        case 11:
+            mesExtenso = "dezembro";
+            break;
+    }
+
+    objReturn.CPF = CPF;
+    objReturn.Nome = Nome.toUpperCase();
+    objReturn.Fone = Fone;
+    objReturn.CEP = CEP.toUpperCase();
+    objReturn.Email = Email;
+    objReturn.Dia = DataAtu.getDate();
+    objReturn.Mes = mesExtenso.toUpperCase();
+    objReturn.Ano = DataAtu.getFullYear();
+
+    return objReturn;
 }

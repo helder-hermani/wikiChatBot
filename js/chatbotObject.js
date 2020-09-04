@@ -73,11 +73,15 @@ var botCommands = [
         "index":0,
         "description":"comando",
         "nameBehaviour":"LimpaTela",
+        "label" : "Limpar a tela",
         "instructions" : "Digite: <i>limpe a tela</i>.",
         "sample" : "limpe a tela",
         "userRequest":["limpe a tela", "limpar tela", "cls", "clear", "limpar a tela"],
         "botResponses":"success",
         "enabled" : true,
+        "iconUrl" : "",
+        "isTool" : false,
+        "selfexec": function(){},
         "action" : function(){
             $chatBotDialog.innerHTML="<div style='border: solid 1px rgba(0,0,0,.2); width:75%; height: auto; margin: 3% auto 0 0;border-radius: 10px; padding: 1% 2%;'><p style='font-weight: bold; color: #040242; margin: 3% 0 0 0; padding:0;'>Helper:</p>Olá, em que possoa ajudar? Caso deseje um suporte mais especializado, selecione o atendente clicando no avatar.</div>" +
                                         "<div id='spinner-container'><div class='lds-ellipsis lds-ellipsis-hide'><div></div><div></div><div></div><div></div></div></div>";
@@ -88,11 +92,15 @@ var botCommands = [
         "index":1,
         "description":"comando",
         "nameBehaviour":"PesquisaGoogle",
+        "label" : "Pesquisar no Google",
         "instructions" : "Digite: <i>pesquise no google \"termo da busca\"</i> . Observação: use as aspas.",
         "sample" : "pesquise no google \"Helder Hermani\".",
         "userRequest":["pesquise no google", "pesquisar no google", "googleit", "consulte no google", "consultar no google", "consulta no google"],
         "botResponses":"success",
         "enabled" : true,
+        "iconUrl" : "",
+        "isTool" : false,
+        "selfexec": function(){},
         "action" : function(msgQuery){
                         var quote = getQuoteInStr(msgQuery);
                         if (quote==null){
@@ -109,11 +117,15 @@ var botCommands = [
         "index":2,
         "description":"comando",
         "nameBehaviour":"PesquisaYoutube",
+        "label" : "Abrir no YouTube",
         "instructions" : "Digite: <i>youtube \"nome da banda ou música\"</i>.  Observação: use as aspas.",
         "sample":"youtube \"Pink Floyd\"",
         "userRequest":["youtube", "abra no youtube", "consulte no youtube", "toque no youtube", "play no youtube", "tocar no youtube", "procure no youtube", "veja no youtube"],
         "botResponses":"success",
         "enabled" : true,
+        "iconUrl" : "",
+        "isTool" : false,
+        "selfexec": function(){},
         "action" : function(msgQuery){
                         var quote = getQuoteInStr(msgQuery);
                         if (quote==null){
@@ -131,11 +143,15 @@ var botCommands = [
         "index":3,
         "description":"comando",
         "nameBehaviour":"Tocar Playlist no Youtube",
+        "label" : "Tocar playlist no YouTube",
         "instructions" : "Digite: <i>playlist \"estilo musical\"</i>.  Observação: use as aspas.",
         "sample": "playlist \"rock\"",
         "userRequest":["playlist"],
         "botResponses":"success",
         "enabled" : true,
+        "iconUrl" : "",
+        "isTool" : false,
+        "selfexec": function(){},
         "action" : function(msgQuery){
                         var quote = getQuoteInStr(msgQuery);
                         var linkMusicAddress=""
@@ -156,16 +172,44 @@ var botCommands = [
         "index":4,
         "description":"comando",
         "nameBehaviour":"Gerar exclusão de lançamento futuro de habitação",
+        "label" : "Exclusão lçto futuro Habitação",
         "instructions" : "Digite: <i>exlc hab</i> ou <i>excluir lançamento futuro habitação</i>",
         "sample": "excl hab",
         "userRequest":["excl hab", "excluir lançamento futuro habitação"],
         "botResponses":"success",
         "enabled" : true,
+        "iconUrl" : "../assets/icons/file-excel-regular.svg",
+        "isTool" : true,
+        "selfexec": function(){
+            $chatBotPrompt.value = this.userRequest[0]
+            $chatBotPrompt.focus();
+        },
         "action" : function(){
                     $chatBotDialog.innerHTML += BOTLABEL +"Informe o número do contrato, com o dígito:";
                     $chatBotDialog.scroll(0,scrollPos);
-                    setAwaitMode();
-                    currentAwaitDemandItem = getDemandElement("rptExclLctoFuturoHabNumContrato");
+                    currentAwaitDemandItem = setAwaitMode("rptExclLctoFuturoHabNumContrato");
+        }
+    },
+    {
+        "index":5,
+        "description":"comando",
+        "nameBehaviour":"Gerar formulário de alteração de dados do usuário CaixaTem.",
+        "label" : "CaixaTem - Form. atualização",
+        "instructions" : "Digite: <i>usr caixatem</i> ou <i>gerar formulario caixatem</i>",
+        "sample": "usr caixatem",
+        "userRequest":["usr caixatem", "gerar formulario caixatem", "emitir formulario caixatem"],
+        "botResponses":"success",
+        "enabled" : true,
+        "iconUrl" : "../assets/img/caixatem.jpg",
+        "isTool" : true,
+        "selfexec": function(){
+            $chatBotPrompt.value = this.userRequest[0]
+            $chatBotPrompt.focus();
+        },
+        "action" : function(){
+                    $chatBotDialog.innerHTML += BOTLABEL +"Informe o número da conta, com dígito, no formato XXXXXXXXXXXXX-X (não informar agência ou produto):";
+                    $chatBotDialog.scroll(0,scrollPos);
+                    currentAwaitDemandItem = setAwaitMode("caixaTemForm-getAccount");
         }
     }
 ];
@@ -198,34 +242,11 @@ var botDemands = [
         "negativeResponses":["nao", "claro que nao", "absolutamente", "de jeito nenhum"],
         "unsureResponses": ["talvez", "depende", "quem sabe", "pode ser", "vou ver", "vou pensar", "Vou decidir", "o que voce sabe", "sobre o que", "que quer conversar"],
         "checkResponse" : function(userAnswer){
-            // console.log(this.nameAction);
-            var isDefault = true;
-            userAnswer = sanitizeMsgFull(userAnswer);
-
-            var isPositive = this.positiveResponses.filter(function(el){
-                return sanitizeMsgFull(el) == userAnswer;
-            });
-            isPositive = isPositive.length;
-
-            var isNegative = this.negativeResponses.filter(function(el){
-                return sanitizeMsgFull(el) == userAnswer;
-            });
-            isNegative = isNegative.length;
-
-            var isUnsure = this.unsureResponses.filter(function(el){
-                return sanitizeMsgFull(el) == userAnswer;
-            });
-            isUnsure = isUnsure.length;
-
-            if (isPositive){
-                this.positiveAction();
-            }else if(isNegative){
-                this.negativeAction();
-            }else if (isUnsure){
-                this.unsureAction();
-            }else{
-                this.defaultAction();
+            if (isCancel(userAnswer)){
+                quitAwaitMode();
+                return;
             }
+            botComandsCheckAnswer(userAnswer,this);
         },
         "positiveAction":function (){
             $chatBotDialog.innerHTML += BOTLABEL + "Ah, muleque!</div>"
@@ -250,9 +271,19 @@ var botDemands = [
         "negativeResponses":[],
         "unsureResponses": [],
         "checkResponse" : function(userAnswer){
-            debugger;
-            if (isHabContrato(userAnswer)==false){
-                alert("oi");
+            if (isCancel(userAnswer)){
+                quitAwaitMode();
+                return;
+            }
+            var numContrato;
+            if (userAnswer.length!=13 || isNaN(userAnswer)){
+                $chatBotDialog.innerHTML += BOTLABEL +"O valor informado não corresponde a um número válido. O contrato deve ter doze números e o dígito verificador, no formato XXXXXXXXXX-X. Caso deseje continuar, repita o comando.";
+                setIdleMode();
+            }else{
+                currentAwaitDemandItem = setAwaitMode("rptExclLctoFuturoHabNumContrato");
+                numContrato = formatAccountNumber(userAnswer);
+                $chatBotDialog.innerHTML += BOTLABEL + "Deseja capturar os lançamentos do Rede Caixa? Caso não deseje, será solicitado os dados do lançamento manualmente. Deseja capturar?";
+                currentAwaitDemandItem = setAwaitMode("choiceRedeCaixaExclLctoFutCapture");
             }
         },
         "positiveAction":function (){},
@@ -260,16 +291,244 @@ var botDemands = [
         "unsureAction":function (){},
         "defaultAction":function(){}
     },
+    {
+        "index":3,
+        "nameAction":"choiceRedeCaixaExclLctoFutCapture",
+        "description": "Verifica se deseja capturar do rede caixa os lançamentos futuro habitacionais para exclusão.",
+        "botsentRequest": ["Deseja capturar as telas do Rede Caixa?"],
+        "positiveResponses":["sim", "ok", "claro"],
+        "negativeResponses":["nao", "de jeito nenhum"],
+        "unsureResponses": ["talvez", "nao sei", "pode ser"],
+        "checkResponse" : function(userAnswer){
+            if (isCancel(userAnswer)){
+                quitAwaitMode();
+                return;
+            }
+            botComandsCheckAnswer(userAnswer,this);
+        },
+        "positiveAction":function (){
+            $chatBotDialog.innerHTML += BOTLABEL + "Ok, vamos capturar os dados.</div>"
+        },
+        "negativeAction":function (){
+            $chatBotDialog.innerHTML += BOTLABEL + "Ok, por favor me informe os dados.</div>"
+        },
+        "unsureAction":function (){
+            $chatBotDialog.innerHTML += BOTLABEL + "Bom, como você não tem certeza, voltarei para meu estado inicial.</div>"
+            setIdleMode();
+        },
+        "defaultAction":function(){
+            $chatBotDialog.innerHTML += BOTLABEL + "Bom, como você não tem certeza, voltarei para meu estado inicial.</div>"
+            setIdleMode();
+        }
+    },
+    {
+        "index":4,
+        "nameAction":"caixaTemForm-getAccount",
+        "description": "Recebe número da conta NSGD para gerar formulário de alteração de cadastro no CaixaTem.",
+        "botsentRequest": [],
+        "positiveResponses":[],
+        "negativeResponses":[],
+        "unsureResponses": [],
+        "checkResponse" : function(userAnswer){
+                    if (isCancel(userAnswer)){
+                        quitAwaitMode();
+                        return;
+                    }
+                    localStorage.setItem("unidMov","3880"); 
+                    localStorage.setItem("operProd","1288"); 
+                    localStorage.setItem("conta",formatAccountNumber(userAnswer)); 
+                    $chatBotDialog.innerHTML += BOTLABEL +"Informe o tipo de documento de identificação:";
+                    $chatBotDialog.scroll(0,scrollPos);
+                    currentAwaitDemandItem = setAwaitMode("caixaTemForm-getRGType");
+        },
+        "positiveAction":function (){
+        },
+        "negativeAction":function (){
+        },
+        "unsureAction":function (){
+        },
+        "defaultAction":function(){
+        }
+    },
+    {
+        "index":5,
+        "nameAction":"caixaTemForm-getRGType",
+        "description": "Recebe tipo de RG para gerar formulário de alteração de cadastro no CaixaTem.",
+        "botsentRequest": [],
+        "positiveResponses":[],
+        "negativeResponses":[],
+        "unsureResponses": [],
+        "checkResponse" : function(userAnswer){
+                    if (isCancel(userAnswer)){
+                        quitAwaitMode();
+                        return;
+                    }
+                    localStorage.setItem("RGTipo", userAnswer.toUpperCase()); 
+                    $chatBotDialog.innerHTML += BOTLABEL +"Informe o número do documento de identidade:";
+                    $chatBotDialog.scroll(0,scrollPos);
+                    currentAwaitDemandItem = setAwaitMode("caixaTemForm-getRGNumber");
+        },
+        "positiveAction":function (){
+        },
+        "negativeAction":function (){
+        },
+        "unsureAction":function (){
+        },
+        "defaultAction":function(){
+        }
+    },
+    {
+        "index":6,
+        "nameAction":"caixaTemForm-getRGNumber",
+        "description": "Recebe o número do RG para gerar formulário de alteração de cadastro no CaixaTem.",
+        "botsentRequest": [],
+        "positiveResponses":[],
+        "negativeResponses":[],
+        "unsureResponses": [],
+        "checkResponse" : function(userAnswer){
+                    if (isCancel(userAnswer)){
+                        quitAwaitMode();
+                        return;
+                    }
+                    localStorage.setItem("RGNumero", userAnswer.toUpperCase()); 
+                    $chatBotDialog.innerHTML += BOTLABEL +"Informe o órgão emissor do documento de identidade:";
+                    $chatBotDialog.scroll(0,scrollPos);
+                    currentAwaitDemandItem = setAwaitMode("caixaTemForm-getRGIssuer");
+        },
+        "positiveAction":function (){
+        },
+        "negativeAction":function (){
+        },
+        "unsureAction":function (){
+        },
+        "defaultAction":function(){
+        }
+    },
+    {
+        "index":7,
+        "nameAction":"caixaTemForm-getRGIssuer",
+        "description": "Recebe o órgão emissor do RG para gerar formulário de alteração de cadastro no CaixaTem.",
+        "botsentRequest": [],
+        "positiveResponses":[],
+        "negativeResponses":[],
+        "unsureResponses": [],
+        "checkResponse" : function(userAnswer){
+                    if (isCancel(userAnswer)){
+                        quitAwaitMode();
+                        return;
+                    }
+                    localStorage.setItem("RGEmissor", userAnswer.toUpperCase()); 
+                    $chatBotDialog.innerHTML += BOTLABEL +"Informe a data de emissão do documento de identidade:";
+                    $chatBotDialog.scroll(0,scrollPos);
+                    currentAwaitDemandItem = setAwaitMode("caixaTemForm-getRGDateIssue");
+        },
+        "positiveAction":function (){
+        },
+        "negativeAction":function (){
+        },
+        "unsureAction":function (){
+        },
+        "defaultAction":function(){
+        }
+    },
+    {
+        "index":8,
+        "nameAction":"caixaTemForm-getRGDateIssue",
+        "description": "Recebe a data de emissão do RG para gerar formulário de alteração de cadastro no CaixaTem.",
+        "botsentRequest": [],
+        "positiveResponses":[],
+        "negativeResponses":[],
+        "unsureResponses": [],
+        "checkResponse" : function(userAnswer){
+                    if (isCancel(userAnswer)){
+                        quitAwaitMode();
+                        return;
+                    }
+                    localStorage.setItem("RGDataEmissao", userAnswer); 
+                    $chatBotDialog.innerHTML += BOTLABEL +"Informe a cidade de assinatura:";
+                    $chatBotPrompt.value = "João Pessoa";
+                    $chatBotDialog.scroll(0,scrollPos);
+                    currentAwaitDemandItem = setAwaitMode("caixaTemForm-getCity");
+        },
+        "positiveAction":function (){
+        },
+        "negativeAction":function (){
+        },
+        "unsureAction":function (){
+        },
+        "defaultAction":function(){
+        }
+    },
+    {
+        "index":9,
+        "nameAction":"caixaTemForm-getCity",
+        "description": "Recebe a cidade de assinatura do formulário na geraração do formulário de alteração de cadastro no CaixaTem.",
+        "botsentRequest": [],
+        "positiveResponses":[],
+        "negativeResponses":[],
+        "unsureResponses": [],
+        "checkResponse" : function(userAnswer){
+                    if (isCancel(userAnswer)){
+                        quitAwaitMode();
+                        return;
+                    }
+                    localStorage.setItem("local", userAnswer.toUpperCase() + ", "); 
+                    $chatBotDialog.innerHTML += BOTLABEL +"Agora cole aqui a tela do cadastro de usuário no CaixaTem (na tela do cadastro, pressione CTRL + A para selecionar tudo, CTRL + C para copiar, e cole aqui, na nossa caixa de diálogo).";
+                    $chatBotDialog.scroll(0,scrollPos);
+                    currentAwaitDemandItem = setAwaitMode("caixaTemForm-getFormScreen");
+        },
+        "positiveAction":function (){
+        },
+        "negativeAction":function (){
+        },
+        "unsureAction":function (){
+        },
+        "defaultAction":function(){
+        }
+    },
+    {
+        "index":10,
+        "nameAction":"caixaTemForm-getFormScreen",
+        "description": "Captura os dados da tela de usuários do CaixaTem para gerar o formulário de alteração de usuários do CaixaTem.",
+        "botsentRequest": [],
+        "positiveResponses":[],
+        "negativeResponses":[],
+        "unsureResponses": [],
+        "checkResponse" : function(userAnswer){
+                    if (isCancel(userAnswer)){
+                        quitAwaitMode();
+                        return;
+                    }
+                    var resultScreen = getCaixaTemScreenFields(userAnswer);
+                    
+                    localStorage.setItem("CPF",resultScreen.CPF);
+                    localStorage.setItem("titular",resultScreen.Nome);
+                    localStorage.setItem("fone",resultScreen.Fone);
+                    localStorage.setItem("CEP",resultScreen.CEP);
+                    localStorage.setItem("email",resultScreen.Email);
+                    localStorage.setItem("dia",resultScreen.Dia);
+                    localStorage.setItem("mes",resultScreen.Mes);
+                    localStorage.setItem("ano",resultScreen.Ano);
+
+                    localStorage.setItem("rptName","rptFormCaixaTem");
+                    window.open("../reports/report.html","_blank");
+
+
+                    $chatBotDialog.innerHTML += BOTLABEL +"Abri o formulário em outra janela. Caso necessário, os campos preenchidos podem ser editados no próprio formulário.";
+                    $chatBotDialog.scroll(0,scrollPos);
+                    setIdleMode();
+        },
+        "positiveAction":function (){
+        },
+        "negativeAction":function (){
+        },
+        "unsureAction":function (){
+        },
+        "defaultAction":function(){
+        }
+    }
 ];
 
-// ================================FUNÇÕES DE CHMADAS QUANDO O STATUS FOR AWAIT=================================
-function getDemandElement(nameAction){   //retorna o elemento botDemands demandado (objeto)
-    var elementReturn = botDemands.filter(function(el){
-        return el.nameAction == nameAction;
-    })
-
-    return elementReturn[0];
-}
 
 // ================================IMPLEMENTAÇÃO DOS COMANDOS NA TELA DE AJUDA=================================
 buildHelpScreen();
@@ -303,6 +562,42 @@ function buildHelpScreen(){
     }
 
     $frameHelp.appendChild(divCommandsContainer);
+}
+
+
+// ================================IMPLEMENTAÇÃO DOS COMANDOS NA TELA DE FERRAMENTAS=================================
+buildToolsScreen();
+function buildToolsScreen(){
+    var i =0;
+    var commandItens = botCommands.filter(function(el){
+        return el.enabled == true &&  el.isTool == true;
+    })
+
+    for(i=0;i<=commandItens.length-1;i++){
+        var $lineTool = document.createElement("div");
+        var $img = document.createElement("img");
+        var $toolLabel = document.createElement("p"); 
+
+        $img.classList.add("divAtendente-ColorPattern");
+        $toolLabel.classList.add("p-tools-label");
+        $lineTool.classList.add("div-tools-line");
+        $lineTool.id = commandItens[i].index;
+        
+        $img.setAttribute("src",commandItens[i].iconUrl);
+        $toolLabel.innerHTML = commandItens[i].label;
+
+        $lineTool.appendChild($img);
+        $lineTool.appendChild($toolLabel);
+
+        $lineTool.addEventListener("click", (evt)=>{
+            debugger;
+            botCommands[parseInt(evt.currentTarget.id)].selfexec();
+            closeAllFloatingFrames();
+        })
+    
+        $frameTools.appendChild($lineTool);
+    }
+    
 }
 
 // ================================VALIDAÇÃO DE CAMPOS PARA INCLUSÃO/ALTERAÇÃO DE CONTEUDO=================================
@@ -565,7 +860,56 @@ function setIdleMode(){
     $chatBotAvatarStatus.textContent="Disponível...";
 }
 
-function setAwaitMode(){
+function setAwaitMode(nameAction){
     botCurrentStatus = botStatus.get("await");
     $chatBotAvatarStatus.textContent="Esperando...";
+
+    var elementReturn = botDemands.filter(function(el){
+        return el.nameAction == nameAction;
+    })
+
+    return elementReturn[0];
+}
+
+function botComandsCheckAnswer(userAnswer, comandObj){
+var isDefault = true;
+    userAnswer = sanitizeMsgFull(userAnswer);
+
+    var isPositive = comandObj.positiveResponses.filter(function(el){
+        return sanitizeMsgFull(el) == userAnswer;
+    });
+    isPositive = isPositive.length;
+
+    var isNegative = comandObj.negativeResponses.filter(function(el){
+        return sanitizeMsgFull(el) == userAnswer;
+    });
+    isNegative = isNegative.length;
+
+    var isUnsure = comandObj.unsureResponses.filter(function(el){
+        return sanitizeMsgFull(el) == userAnswer;
+    });
+    isUnsure = isUnsure.length;
+
+    if (isPositive){
+        comandObj.positiveAction();
+    }else if(isNegative){
+        comandObj.negativeAction();
+    }else if (isUnsure){
+        comandObj.unsureAction();
+    }else{
+        comandObj.defaultAction();
+    }
+}
+
+function isCancel(msg){
+    if (msg == "cancelar" || msg == "cancel" || msg == "cancela" || msg == "cancele" || msg == "desistir" || msg == "desista" || msg == "desisti" || msg == "desiste" || msg == "abortar" || msg == "aborta" || msg == "aborte" || msg == "sair" || msg == "saia"){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function quitAwaitMode(){
+    $chatBotDialog.innerHTML += BOTLABEL + "Ok, cancelando o processamento. Voltado ao estado \"disponível\".</div>"
+    setIdleMode();
 }

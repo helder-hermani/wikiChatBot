@@ -7,7 +7,7 @@ botStatus.set("edit","Aguardando exportação da base editada");
 
 var currentAwaitDemandItem;
 var responseBot="";
-const SETALLEATORY = true;
+const SETALLEATORY = false;
 
 var botSex = "m";
 var botNameSection = "Helper";
@@ -414,7 +414,7 @@ function closeAllFloatingFrames(exception){
     var i=0;
     var $allFloatFrames = document.querySelectorAll(".frame-float");
 
-    debugger;
+    // debugger;
 
     for(i=0;i<=$allFloatFrames.length-1;i++){
         if ($allFloatFrames[i].id != exception){$allFloatFrames[i].classList.remove("frame-float-show")};
@@ -541,7 +541,7 @@ function changeBotStatus(newStatus){
 }
 
 function clearLocalStorage(){
-    localStorage.setItem("name", "reportName");
+    localStorage.setItem("rptName", "reportName");
     localStorage.setItem("description", "descrição do relatório");
     localStorage.setItem("unidMov","");
     localStorage.setItem("agConta","");
@@ -559,8 +559,20 @@ function clearLocalStorage(){
     localStorage.setItem("TP-SIACI","");
     localStorage.setItem("valorQtd","");
     localStorage.setItem("dataVenc","");
+    localStorage.setItem("CPF","");
+    localStorage.setItem("RGTipo","");
+    localStorage.setItem("RGNumero","");
+    localStorage.setItem("RGEmissor","");
+    localStorage.setItem("RGDataEmissao","");
+    localStorage.setItem("fone","");
+    localStorage.setItem("CEP","");
+    localStorage.setItem("email","");
     localStorage.setItem("titular","");
     localStorage.setItem("texto","");
+    localStorage.setItem("local","");
+    localStorage.setItem("dia","");
+    localStorage.setItem("mes","");
+    localStorage.setItem("ano","");
     localStorage.setItem("dataPgto","");
 }
 
@@ -583,7 +595,7 @@ $chatBotPrompt.addEventListener("keyup", function(evt){
 });
 
 $chatbotSendMsgIcon.addEventListener("click", function(evt){
-    debugger;
+    // debugger;
         startInteraction();
 });
 
@@ -611,7 +623,7 @@ function activateBot(msgSent){
     botResponseSuccess=false;
     responseBot="";
 
-    debugger;
+    // debugger;
 
     
     if (hasCommand(msgSent)){
@@ -672,7 +684,7 @@ function activateBot(msgSent){
                 responseBot=startSearching(sanitizeMsgFull(msgSent));
                 botResponseSuccess=true;
                 if (responseBot[0]<=1){ //exibe mensagens singulares, vindas como retorno (se for encontrado 0 ou 1 itens)
-                    debugger;
+                    // debugger;
                     if (responseBot[0]==0){botResponseSuccess=false};
                     toggleSpinner();
                     $chatBotDialog.innerHTML += BOTLABEL + responseBot[1] + "</div>";
@@ -695,10 +707,9 @@ function activateBot(msgSent){
         // toggleSpinner();
         // $chatBotDialog.innerHTML += BOTLABEL + "Desculpa, não entendi.</div>";
         if (SETALLEATORY==true){
-            debugger;
-            currentAwaitDemandItem = getDemandElement("startAlleatoryChat");
+            // debugger;
+            currentAwaitDemandItem = setAwaitMode("startAlleatoryChat");
             $chatBotDialog.innerHTML += BOTLABEL + currentAwaitDemandItem.botsentRequest + "</div>";
-            setAwaitMode();
         }
     }
 
